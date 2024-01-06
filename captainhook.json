@@ -22,7 +22,9 @@
             },
             {
                 "action": "vendor/bin/psalm --alter --issues=InvalidReturnType,UnusedVariable"
-
+            },
+            {
+                "action": "vendor/bin/rector"
             }
         ]
     },
