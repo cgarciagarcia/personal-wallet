@@ -15,6 +15,7 @@
         "barryvdh/laravel-ide-helper": "^2.13",
         "captainhook/captainhook": "^5.19",
         "fakerphp/faker": "^1.9.1",
+        "larastan/larastan": "^2.0",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
@@ -24,7 +25,8 @@
         "ramsey/conventional-commits": "^1.5",
         "rector/rector": "^0.18.13",
         "spatie/laravel-ignition": "^2.0",
-        "vimeo/psalm": "^5.18"
+        "vimeo/psalm": "^5.18",
+        "worksome/coding-style": "^2.7"
     },
     "autoload": {
         "psr-4": {
@@ -58,7 +60,7 @@
             "cp hooks/* .git/hooks/"
         ],
         "model-helper": [
-            "vendor/bin/sail php artisan ide-helper:models -R -M -W"
+            "vendor/bin/sail php artisan ide-helper:models -R -W"
         ]
     },
     "extra": {
@@ -74,7 +76,9 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "worksome/coding-style": true
         }
     },
     "minimum-stability": "stable",

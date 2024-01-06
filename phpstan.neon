@@ -1,0 +1,15 @@
+includes:
+    - vendor/worksome/coding-style/larastan.neon
+parameters:
+    level: 9
+    paths:
+    - src
+    - tests
+    - database
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#^PHPUnit tests are not allowed. Please use Pest PHP instead\. If this is a TestCase, make it abstract to pass validation\.$#'
+        - '#^Illuminate\\Support\\Facades\\[a-zA-Z0-9\\_]+ facade should not be used\.$#'
+        -
+            message: '#Undefined variable: \$this$#'
+            path: tests/*
