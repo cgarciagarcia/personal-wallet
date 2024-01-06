@@ -21,11 +21,13 @@
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.1",
         "ramsey/conventional-commits": "^1.5",
-        "spatie/laravel-ignition": "^2.0"
+        "spatie/laravel-ignition": "^2.0",
+        "vimeo/psalm": "^5.18"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
+            "App\\": "src/App",
+            "Wallet\\": "src/Wallet",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

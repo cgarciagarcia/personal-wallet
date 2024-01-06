@@ -18,7 +18,11 @@
                 "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting"
             },
             {
-                "action": "vendor/bin/phpstan analyse app tests --memory-limit 3G"
+                "action": "vendor/bin/phpstan analyse src tests --memory-limit 3G"
+            },
+            {
+                "action": "vendor/bin/psalm --alter --issues=InvalidReturnType,UnusedVariable"
+
             }
         ]
     },
