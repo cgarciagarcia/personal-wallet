@@ -8,8 +8,12 @@
         ]
     },
     "pre-push": {
-        "enabled": false,
-        "actions": []
+        "enabled": true,
+        "actions": [
+            {
+                "action": "vendor/bin/sail php artisan test"
+            }
+        ]
     },
     "pre-commit": {
         "enabled": true,
