@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# installed by CaptainHook 5.19.2
+
+INTERACTIVE="--no-interaction"
+
+vendor/bin/captainhook $INTERACTIVE --configuration=captainhook.json --bootstrap=vendor/autoload.php hook:pre-push "$@" <&0
+
+git status --porcelain | grep '^??'
+
+rc=$?
+
+#grep exits with 0 when a match is found.
+if [ $rc = 0 ] ; then
+	echo "Untracked files present. Aborting push.";
+	exit 1;
+fi
+
+exit 0;
