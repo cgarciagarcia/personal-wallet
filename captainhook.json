@@ -25,9 +25,6 @@
                 "action": "vendor/bin/phpstan analyse --memory-limit 3G"
             },
             {
-                "action": "vendor/bin/psalm --alter --no-cache --issues=all"
-            },
-            {
                 "action": "vendor/bin/rector process --ansi"
             }
         ]
