@@ -70,7 +70,13 @@
         "ecs:fix": "vendor/bin/ecs --fix",
         "phpstan": "vendor/bin/phpstan analyse",
         "rector": "vendor/bin/rector process --dry-run --ansi",
-        "rector:fix": "vendor/bin/rector process --ansi"
+        "rector:fix": "vendor/bin/rector process --ansi",
+        "install-app": [
+            "@php artisan key:generate --ansi",
+            "@php artisan migrate:install",
+            "@php artisan migrate --seed ",
+            "cp hooks/* .git/hooks/"
+        ]
     },
     "extra": {
         "laravel": {
