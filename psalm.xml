@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<psalm
+        errorLevel="1"
+        resolveFromConfigFile="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        findUnusedBaselineEntry="true"
+        findUnusedCode="true"
+>
+    <projectFiles>
+        <directory name="src"/>
+        <directory name="tests"/>
+        <directory name="database/factories"/>
+        <directory name="database/seeders"/>
+        <ignoreFiles>
+            <directory name="vendor"/>
+            <file name="src/App/Http/Middleware/RedirectIfAuthenticated.php"/>
+            <file name="src/App/Providers/RouteServiceProvider.php"/>
+            <file name="src/App/Providers/EventServiceProvider.php"/>
+            <file name="src/App/Providers/BroadcastServiceProvider.php"/>
+            <file name="src/App/Providers/AppServiceProvider.php"/>
+            <file name="src/App/Providers/AuthServiceProvider.php"/>
+            <file name="src/App/Http/Middleware/TrustHosts.php"/>
+            <file name="src/App/Http/Kernel.php"/>
+            <file name="src/App/Exceptions/Handler.php"/>
+            <file name="src/App/Console/Kernel.php"/>
+            <file name="database/seeders/DatabaseSeeder.php"/>
+            <file name="src/App/Http/Middleware/VerifyCsrfToken.php"/>
+            <file name="src/App/Http/Middleware/ValidateSignature.php"/>
+            <file name="src/App/Http/Middleware/TrustProxies.php"/>
+            <file name="src/App/Http/Middleware/TrimStrings.php"/>
+            <file name="src/App/Http/Middleware/PreventRequestsDuringMaintenance.php"/>
+            <file name="src/App/Http/Middleware/EncryptCookies.php"/>
+            <file name="src/App/Http/Middleware/Authenticate.php"/>
+            <file name="src/App/Http/Controllers/Controller.php"/>
+        </ignoreFiles>
+    </projectFiles>
+    <plugins>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
+    </plugins>
+</psalm>

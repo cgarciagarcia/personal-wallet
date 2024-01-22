@@ -1,0 +1,11 @@
+<?php
+
+namespace {{ namespace }};
+
+/**
+ * @psalm-api
+ */
+class {{ class }}
+{
+    //
+}

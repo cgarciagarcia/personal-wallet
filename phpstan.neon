@@ -8,7 +8,9 @@ parameters:
     - database
     reportUnmatchedIgnoredErrors: false
     ignoreErrors:
-        - '#^PHPUnit tests are not allowed. Please use Pest PHP instead\. If this is a TestCase, make it abstract to pass validation\.$#'
+        -
+            message: '#^Call to an undefined method Pest\\Expectation.*::.*\(.*\).$#'
+            path: tests/
         - '#^Illuminate\\Support\\Facades\\[a-zA-Z0-9\\_]+ facade should not be used\.$#'
         -
             message: '#Undefined variable: \$this$#'

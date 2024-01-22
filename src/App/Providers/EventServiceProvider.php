@@ -24,6 +24,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * Register any events for your application.
      */
+    #[\Override]
     public function boot(): void
     {
         //
@@ -34,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return false
      */
+    #[\Override]
     public function shouldDiscoverEvents(): bool
     {
         return false;

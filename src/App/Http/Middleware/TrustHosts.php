@@ -15,6 +15,7 @@ class TrustHosts extends Middleware
      *
      * @psalm-return list{null|string}
      */
+    #[\Override]
     public function hosts(): array
     {
         return [

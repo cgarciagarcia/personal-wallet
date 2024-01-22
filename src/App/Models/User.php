@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,8 +15,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
-
-
 
 /**
  * App\Models\User
@@ -49,22 +48,46 @@ use Laravel\Sanctum\PersonalAccessToken;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens;
+    use Notifiable;
 
+    /**
+     * @var string[]
+     *
+     * @psalm-var list{'name', 'email', 'password', 'last_login'}
+     */
     protected $fillable = [
         'name',
         'email',
         'password',
-        'last_login'
+        'last_login',
     ];
 
+    /**
+     * @var string[]
+     *
+     * @psalm-var list{'password', 'remember_token'}
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * @var string[]
+     *
+     * @psalm-var array{email_verified_at: 'datetime', password: 'hashed'}
+     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * @psalm-api
+     */
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 }

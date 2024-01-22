@@ -22,6 +22,12 @@
                 "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting"
             },
             {
+                "action": "vendor/bin/ecs --fix"
+            },
+            {
+                "action": "vendor/bin/psalm --alter --no-cache --issues=all"
+            },
+            {
                 "action": "vendor/bin/phpstan analyse --memory-limit 3G"
             },
             {

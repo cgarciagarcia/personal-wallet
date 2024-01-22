@@ -1,0 +1,32 @@
+<?php
+
+namespace {{ factoryNamespace }};
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @template TModel of {{ namespacedModel }}
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\{{ namespacedModel }}>
+ * @psalm-api
+ */
+class {{ factory }}Factory extends Factory
+{
+    /**
+         * @var class-string<TModel>
+         * @psalm-var mixed
+         * @phpstan-var class-string<TModel>
+     */
+    protected $model = {{ factory }}::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            //
+        ];
+    }
+}
