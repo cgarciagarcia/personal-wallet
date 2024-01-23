@@ -12,19 +12,29 @@
 
 * [Docker](https://www.docker.com/products/docker-desktop/)
 
-## How to set up the application
+## How to set up the application?
+
+1. Copy the `.env.example` to `.env`, then replace the following env vars
+
+```dotenv
+APP_NAME=YOUR_NEW_APP_NAME
+
+DB_DATABASE=YOUR_FAVORITE_DATABASE_NAME
+DB_USERNAME=YOUR_FAVORITE_USERNAME
+DB_PASSWORD=YOUR_FAVORITE_PASS
+```
 
 ### Installing dependencies
 
-1. Access to the container
+2. Access to the container
 
 <code>docker-compose exec -it [$containerName](#getContainerName) bash</code>
 
-2. Downloading the dependencies
+3. Downloading the dependencies
 
 <code>composer install</code>
 
-3. Configuring the application
+4. Configuring the application
 
 <code>composer run-script install-app</code>
 
