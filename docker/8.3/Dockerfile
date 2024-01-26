@@ -59,7 +59,6 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.3/cli/conf.d/99-sail.ini
 
 RUN chmod +x /usr/local/bin/start-container
-RUN docker-php-ext-enable xdebug
 
 EXPOSE 8000
 
