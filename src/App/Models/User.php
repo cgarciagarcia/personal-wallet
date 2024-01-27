@@ -73,7 +73,6 @@ class User extends Authenticatable
         'remember_token',
     ];
     
-
     /**
      * @var string[]
      *
