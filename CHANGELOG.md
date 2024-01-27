@@ -2,7 +2,20 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
 <!--- END HEADER -->
+## v0.0.3 - 2024-01-27
+
+### What's Changed
+
+* ci: add workflows for github by [@cgarciagarcia](https://github.com/cgarciagarcia) in https://github.com/cgarciagarcia/backend-template/pull/1
+* Test by [@cgarciagarcia](https://github.com/cgarciagarcia) in https://github.com/cgarciagarcia/backend-template/pull/2
+
+### New Contributors
+
+* [@cgarciagarcia](https://github.com/cgarciagarcia) made their first contribution in https://github.com/cgarciagarcia/backend-template/pull/1
+
+**Full Changelog**: https://github.com/cgarciagarcia/backend-template/compare/v0.0.2...v0.0.3
 
 ## [0.0.2](https://github.com/cgarciagarcia/backend-template/compare/v0.0.1...v0.0.2) (2024-01-26)
 
@@ -18,5 +31,3 @@ All notable changes to this project will be documented in this file.
 ---
 
 ## [0.0.1](https://github.com/cgarciagarcia/backend-template/compare/0.0.0...v0.0.1) (2024-01-23)
-
-
