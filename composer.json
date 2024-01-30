@@ -13,6 +13,7 @@
         "laravel/framework": "^v10.40.0",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "sentry/sentry-laravel": "^4.2",
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {
