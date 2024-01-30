@@ -34,6 +34,7 @@
             <file name="src/App/Http/Middleware/EncryptCookies.php"/>
             <file name="src/App/Http/Middleware/Authenticate.php"/>
             <file name="src/App/Http/Controllers/Controller.php"/>
+            <file name="database/migrations/2024_01_30_001116_create_permission_tables.php"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
