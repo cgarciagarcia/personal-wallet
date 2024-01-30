@@ -32,6 +32,12 @@
             },
             {
                 "action": "vendor/bin/rector process --ansi"
+            },
+            {
+                "action": "npm run format:check"
+            },
+            {
+                "action": "npm run lint"
             }
         ]
     },
