@@ -1,0 +1,113 @@
+{
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.2",
+        "laravel/framework": "^v10.40.0",
+        "laravel/sanctum": "^3.3",
+        "laravel/tinker": "^2.8",
+        "sentry/sentry-laravel": "^4.2",
+        "spatie/laravel-permission": "^6.3"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.13",
+        "captainhook/captainhook": "^5.19",
+        "defstudio/pest-plugin-laravel-expectations": "^2.1",
+        "fakerphp/faker": "^1.9.1",
+        "larastan/larastan": "^2.0",
+        "laravel/pint": "^1.0",
+        "laravel/sail": "^1.18",
+        "marcocesarato/php-conventional-changelog": "^1.17",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^7.0",
+        "pestphp/pest": "^2.31",
+        "pestphp/pest-plugin-laravel": "^2.2",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10.1",
+        "psalm/plugin-laravel": "^2.8",
+        "ramsey/conventional-commits": "^1.5",
+        "spatie/laravel-ignition": "^2.0",
+        "vimeo/psalm": "^5.19",
+        "worksome/coding-style": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/App",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "cp hooks/* .git/hooks/"
+        ],
+        "model-helper": [
+            "vendor/bin/sail php artisan ide-helper:models -R -W"
+        ],
+        "ecs": "vendor/bin/ecs",
+        "ecs:fix": "vendor/bin/ecs --fix",
+        "phpstan": "vendor/bin/phpstan analyse",
+        "rector": "vendor/bin/rector process --dry-run --ansi",
+        "rector:fix": "vendor/bin/rector process --ansi",
+        "install-app": [
+            "@php artisan key:generate --ansi",
+            "@php artisan migrate:install",
+            "@php artisan migrate --seed ",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "cp hooks/* .git/hooks/"
+        ],
+        "changelog": "conventional-changelog",
+        "release": "conventional-changelog --commit",
+        "release:patch": "conventional-changelog --patch --commit",
+        "release:minor": "conventional-changelog --minor --commit",
+        "release:major": "conventional-changelog --major --commit"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "barryvdh/laravel-ide-helper"
+            ]
+        },
+        "branch-alias": {
+            "dev-master": "main"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "worksome/coding-style": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "version": "0.0.1"
+}

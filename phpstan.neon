@@ -1,0 +1,19 @@
+includes:
+    - vendor/worksome/coding-style/larastan.neon
+parameters:
+    level: 9
+    paths:
+    - src
+    - tests
+    - database
+    reportUnmatchedIgnoredErrors: false
+    excludePaths:
+    		- database/migrations/2024_01_30_001116_create_permission_tables.php
+    ignoreErrors:
+        -
+            message: '#^Call to an undefined method Pest\\Expectation.*::.*\(.*\).$#'
+            path: tests/
+        - '#^Illuminate\\Support\\Facades\\[a-zA-Z0-9\\_]+ facade should not be used\.$#'
+        -
+            message: '#Undefined variable: \$this$#'
+            path: tests/*

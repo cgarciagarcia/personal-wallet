@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# installed by CaptainHook 5.19.2
+
+INTERACTIVE="--no-interaction"
+if [ -t 1 ]; then
+    # If we're in a terminal, redirect stdout and stderr to /dev/tty and
+    # read stdin from /dev/tty. Allow interactive mode for CaptainHook.
+    exec >/dev/tty 2>/dev/tty </dev/tty
+    INTERACTIVE=""
+fi
+
+vendor/bin/captainhook $INTERACTIVE --configuration=captainhook.json --bootstrap=vendor/autoload.php hook:prepare-commit-msg "$@"
