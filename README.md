@@ -54,6 +54,18 @@ DB_PASSWORD=YOUR_FAVORITE_PASS
 
 <p>You can use the CONTAINER ID or the container's NAME</p>
 
+---
+
+## Sentry
+
+Sentry is a developer-first error tracking and performance monitoring platform. Errors are logged both from the frontend
+and backend. In order to get it up and running, you need to follow these steps:
+
+1. Create an account [here](https://sentry.io)
+2. Create a project within an organization
+3. Copy the DSN provided below "Configure SDK" and paste it in your `.env`'s `SENTRY_LARAVEL_DSN`
+4. You can test your configuration using `sail artisan sentry:test`
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
