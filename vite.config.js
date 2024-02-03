@@ -1,4 +1,3 @@
-import { sentryVitePlugin } from "@sentry/vite-plugin";
 /* eslint-disable import/no-extraneous-dependencies */
 import react from "@vitejs/plugin-react";
 import laravel from "laravel-vite-plugin";

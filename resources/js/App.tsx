@@ -7,13 +7,17 @@ import "./bootstrap";
 import "../css/app.css";
 
 import { StrictMode } from "react";
+import { ToastContainer } from "react-toastify";
+
+import { Router } from "@/Router";
 
 const queryClient = new QueryClient();
 
 export const App = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <h1 className="text-4xl font-bold text-red-500">saraza</h1>
+      <Router />
+      <ToastContainer />
       {env.VITE_APP_ENV === "local" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}

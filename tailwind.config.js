@@ -2,7 +2,12 @@
 export default {
   content: ["./resources/**/*.{js,ts,jsx,tsx}", "./resources/**/*.blade.php"],
   theme: {
-    extend: {},
+    extend: {
+      spacing: {
+        "limit-x": "1920px",
+        "limit-nav": "1024px",
+      },
+    },
   },
   plugins: [],
 };
