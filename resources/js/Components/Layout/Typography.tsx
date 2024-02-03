@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import  { type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type HeadersType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
