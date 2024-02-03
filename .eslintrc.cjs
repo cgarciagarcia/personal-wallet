@@ -18,7 +18,7 @@ const config = {
   parserOptions: {
     project: true,
   },
-  plugins: ["@typescript-eslint", "import"],
+  plugins: ["@typescript-eslint", "import", "unused-imports"],
   rules: {
     // "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
@@ -30,6 +30,11 @@ const config = {
         varsIgnorePattern: "^_",
       },
     ],
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       { prefer: "type-imports", fixStyle: "separate-type-imports" },
@@ -38,7 +43,7 @@ const config = {
       2,
       { checksVoidReturn: { attributes: false } },
     ],
-    "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
+    "import/consistent-type-specifier-style": ["error", "prefer-inline"],
   },
   ignorePatterns: ["**/.eslintrc.cjs", "**/*.config.js", "**/*.config.cjs"],
   reportUnusedDisableDirectives: true,

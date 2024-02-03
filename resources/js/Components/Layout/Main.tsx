@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import { Footer } from "@/Components/Layout/Footer";
 import { Menu } from "./Menu";

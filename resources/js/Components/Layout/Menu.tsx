@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { Link, NavLink, type NavLinkProps } from "react-router-dom";
