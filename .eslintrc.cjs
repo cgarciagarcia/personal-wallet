@@ -45,7 +45,7 @@ const config = {
     ],
     "import/consistent-type-specifier-style": ["error", "prefer-inline"],
   },
-  ignorePatterns: ["**/.eslintrc.cjs", "**/*.config.js", "**/*.config.cjs"],
+  ignorePatterns: ["**/.eslintrc.cjs", "**/*.config.js", "**/*.config.cjs", "**/*.config.ts"],
   reportUnusedDisableDirectives: true,
   globals: {
     React: "writable",

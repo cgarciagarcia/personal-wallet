@@ -9,7 +9,7 @@ export const Router = () => {
       <Main>
         <Routes>
           {routes.map((route, index) => (
-            <Route path={route.path} key={index} element={route.element} />
+            <Route path={route.path} element={route.element} key={index} />
           ))}
         </Routes>
       </Main>

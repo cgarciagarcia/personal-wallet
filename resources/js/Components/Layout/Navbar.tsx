@@ -2,45 +2,55 @@ import * as React from "react";
 import { type ReactNode } from "react";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import { Link, NavLink, type NavLinkProps } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  useLocation,
+  type NavLinkProps,
+} from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 import { Typography } from "@/Components/Layout/Typography";
+import { ROUTES } from "@/Router/routes";
 
 const navLinks = [
   {
-    path: "/",
-    label: "Home",
+    path: ROUTES.home.path,
+    label: ROUTES.home.label,
   },
   {
-    path: "/404",
-    label: "Not found",
+    path: ROUTES.notFound.path,
+    label: ROUTES.notFound.label,
   },
 ];
+
 const NavbarLink = ({
+  active,
   children,
   ...props
-}: NavLinkProps & React.RefAttributes<HTMLAnchorElement>) => {
-  const [active, setActive] = useState(false);
-
+}: NavLinkProps &
+  React.RefAttributes<HTMLAnchorElement> & {
+    active?: boolean;
+  }) => {
   return (
     <li
       className={twMerge(
-        "w-full p-4 md:p-0",
-        active && "md:p0 w-auto rounded bg-violet-200 p-4 md:bg-transparent",
+        "mt-8 w-full p-4 md:mt-0 md:p-0",
+        active &&
+          "w-auto rounded bg-gray-200 p-4 md:rounded-none md:border-b-2 md:border-solid md:border-b-black md:bg-transparent md:p-0",
       )}
     >
       <NavLink
         {...props}
-        className={({ isActive }) => {
-          setActive(isActive);
-
-          return isActive
-            ? "sm:border-rounded w-full rounded border-solid border-gray-200 font-bold md:bg-none"
-            : "w-full";
-        }}
+        className={twMerge(
+          "",
+          active && "border-b-black md:border-b-4 md:border-solid",
+        )}
       >
-        <Typography className="text-nowrap" as="span">
+        <Typography
+          className={twMerge("text-nowrap", active && "font-bold")}
+          as="p"
+        >
           {children as ReactNode}
         </Typography>
       </NavLink>
@@ -48,7 +58,13 @@ const NavbarLink = ({
   );
 };
 
-const MobileNavbar = ({ className }: { className?: string }) => {
+const MobileNavbar = ({
+  className,
+  location,
+}: {
+  className?: string;
+  location: string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={twMerge("block h-full w-screen md:hidden", className)}>
@@ -69,12 +85,16 @@ const MobileNavbar = ({ className }: { className?: string }) => {
       </div>
       <ul
         className={twMerge(
-          "flex h-[300px] w-auto flex-col gap-6 bg-white px-8 py-8 shadow-lg",
-          !isOpen && "hidden",
+          "flex h-0 w-auto flex-col overflow-y-hidden bg-white px-8 shadow-lg transition-all duration-500",
+          isOpen && "h-[300px]",
         )}
       >
         {navLinks.map((link) => (
-          <NavbarLink to={link.path} key={link.label}>
+          <NavbarLink
+            to={link.path}
+            key={link.label}
+            active={location === link.path}
+          >
             {link.label}
           </NavbarLink>
         ))}
@@ -82,7 +102,13 @@ const MobileNavbar = ({ className }: { className?: string }) => {
     </div>
   );
 };
-const DesktopNavbar = ({ className }: { className?: string }) => {
+const DesktopNavbar = ({
+  className,
+  location,
+}: {
+  className?: string;
+  location: string;
+}) => {
   return (
     <div
       className={twMerge(
@@ -104,7 +130,11 @@ const DesktopNavbar = ({ className }: { className?: string }) => {
         )}
       >
         {navLinks.map((link) => (
-          <NavbarLink to={link.path} key={link.label}>
+          <NavbarLink
+            to={link.path}
+            key={link.label}
+            active={location === link.path}
+          >
             {link.label}
           </NavbarLink>
         ))}
@@ -116,12 +146,14 @@ const DesktopNavbar = ({ className }: { className?: string }) => {
   );
 };
 
-export const Menu = () => {
+export const Navbar = () => {
+  const location = useLocation();
+
   return (
     <nav className="absolute h-14 w-full bg-gray-50 shadow-lg lg:h-16 xl:h-20">
       <div className="mx-auto my-0 flex max-w-limit-nav">
-        <DesktopNavbar />
-        <MobileNavbar />
+        <DesktopNavbar location={location.pathname} />
+        <MobileNavbar location={location.pathname} />
       </div>
     </nav>
   );

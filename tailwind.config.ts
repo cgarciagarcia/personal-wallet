@@ -1,3 +1,5 @@
+import { Config } from "tailwindcss/types/config";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./resources/**/*.{js,ts,jsx,tsx}", "./resources/**/*.blade.php"],
@@ -10,4 +12,4 @@ export default {
     },
   },
   plugins: [],
-};
+} satisfies Config;

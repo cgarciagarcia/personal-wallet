@@ -1,19 +1,28 @@
-import  { type RouteObject } from "react-router-dom";
+import { type RouteObject } from "react-router-dom";
 
 import { Home } from "@/Pages/Home";
 import { NotFound } from "@/Pages/NotFound";
 
+export const ROUTES = {
+  home: {
+    path: "/",
+    component: <Home />,
+    label: "Home",
+  },
+  notFound: {
+    path: "/404",
+    component: <NotFound />,
+    label: "Not found",
+  },
+};
+
 export const routes: RouteObject[] = [
   {
-    path: "/",
-    element: <Home />,
+    path: ROUTES.home.path,
+    element: ROUTES.home.component,
   },
   {
-    path: "/404",
-    element: <NotFound />,
-  },
-  {
-    path: "*",
-    element: <NotFound />,
+    path: ROUTES.notFound.path,
+    element: ROUTES.notFound.component,
   },
 ];
