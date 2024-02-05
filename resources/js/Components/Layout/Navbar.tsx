@@ -94,6 +94,7 @@ const MobileNavbar = ({
             to={link.path}
             key={link.label}
             active={location === link.path}
+            onClick={() => setIsOpen(false)}
           >
             {link.label}
           </NavbarLink>
@@ -150,7 +151,7 @@ export const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="absolute h-14 w-full bg-gray-50 shadow-lg lg:h-16 xl:h-20">
+    <nav className="absolute z-10 h-14 w-full bg-gray-50 shadow-lg lg:h-16 xl:h-20">
       <div className="mx-auto my-0 flex max-w-limit-nav">
         <DesktopNavbar location={location.pathname} />
         <MobileNavbar location={location.pathname} />
