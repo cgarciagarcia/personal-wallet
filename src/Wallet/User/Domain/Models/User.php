@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Wallet\User\Domain\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
@@ -18,7 +18,7 @@ use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * App\Models\User
+ * Wallet\User\Domain\Models\User
  *
  * @property int $id
  * @property string $name

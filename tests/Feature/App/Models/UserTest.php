@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 
-use App\Models\User;
 use Database\Factories\UserFactory;
+use Wallet\User\Domain\Models\User;
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
