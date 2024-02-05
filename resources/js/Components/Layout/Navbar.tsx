@@ -18,10 +18,6 @@ const navLinks = [
     path: ROUTES.home.path,
     label: ROUTES.home.label,
   },
-  {
-    path: ROUTES.notFound.path,
-    label: ROUTES.notFound.label,
-  },
 ];
 
 const NavbarLink = ({
@@ -85,7 +81,7 @@ const MobileNavbar = ({
       </div>
       <ul
         className={twMerge(
-          "flex h-0 w-auto flex-col overflow-y-hidden bg-white px-8 shadow-lg transition-all duration-500",
+          "flex h-0 w-auto flex-col overflow-y-hidden bg-white px-8 shadow-lg duration-500",
           isOpen && "h-[300px]",
         )}
       >
