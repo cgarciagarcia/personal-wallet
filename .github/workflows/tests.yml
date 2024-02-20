@@ -54,7 +54,6 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
 
-
       - name: Install npm dependencies and build app
         run: |
            npm install 
