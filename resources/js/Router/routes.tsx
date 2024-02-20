@@ -1,6 +1,7 @@
-import { type RouteObject } from "react-router-dom";
+import { type RouteObject } from "react-router/dist/lib/context";
 
 import { Home } from "@/Pages/Home";
+import { Login } from "@/Pages/Login";
 import { NotFound } from "@/Pages/NotFound";
 
 export const ROUTES = {
@@ -9,6 +10,11 @@ export const ROUTES = {
     component: <Home />,
     label: "Home",
   },
+  login: {
+    path: "/login",
+    component: <Login />,
+    label: "login",
+  },
   notFound: {
     path: "/404",
     component: <NotFound />,
@@ -16,7 +22,15 @@ export const ROUTES = {
   },
 };
 
-export const routes: RouteObject[] = [
+export interface AppRoute {
+  useNavbar?: boolean;
+}
+
+export type AppRouteType<T> = {
+  [K in keyof T]: T[K];
+};
+
+export const routes: AppRouteType<RouteObject & AppRoute>[] = [
   {
     path: ROUTES.home.path,
     element: ROUTES.home.component,
@@ -24,5 +38,10 @@ export const routes: RouteObject[] = [
   {
     path: ROUTES.notFound.path,
     element: ROUTES.notFound.component,
+  },
+  {
+    path: ROUTES.login.path,
+    element: ROUTES.login.component,
+    useNavbar: false,
   },
 ];

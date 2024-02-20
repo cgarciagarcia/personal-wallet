@@ -8,19 +8,24 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Wallet\Budget\Infrastructure\Events\CreatedBudgetEvent;
+use Wallet\Transaction\Infrastructure\Events\CreatedTransactionEvent;
+use Wallet\Transaction\Infrastructure\MakeLogOnCreatedTransactionListener;
 
 class EventServiceProvider extends ServiceProvider
 {
     /**
      * The event to listener mappings for the application.
      *
-     * @var array<class-string, array<int, class-string>>
+     * @var array<string, array<int, string>>
      */
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
         CreatedBudgetEvent::class => [
+        ],
+        CreatedTransactionEvent::class => [
+            MakeLogOnCreatedTransactionListener::class,
         ],
     ];
 
@@ -30,7 +35,6 @@ class EventServiceProvider extends ServiceProvider
     #[\Override]
     public function boot(): void
     {
-        //
     }
 
     /**

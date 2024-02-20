@@ -6,6 +6,7 @@ namespace Wallet\Budget\Infrastructure\Events;
 
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Wallet\Budget\Domain\Models\Budget;
@@ -13,9 +14,11 @@ use Wallet\Budget\Domain\Models\Budget;
 /**
  * @psalm-api
  */
-class CreatedBudgetEvent
+class CreatedBudgetEvent implements ShouldDispatchAfterCommit
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * Create a new event instance.

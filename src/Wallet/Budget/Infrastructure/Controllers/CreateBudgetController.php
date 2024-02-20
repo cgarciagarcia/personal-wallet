@@ -12,7 +12,6 @@ use Wallet\User\Domain\Models\User;
 
 final class CreateBudgetController
 {
-
     /**
      * @throws Throwable
      */

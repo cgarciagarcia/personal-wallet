@@ -33,7 +33,7 @@ const NavbarLink = ({
       className={twMerge(
         "mt-8 w-full p-4 md:mt-0 md:p-0",
         active &&
-          "w-auto rounded bg-gray-200 p-4 md:rounded-none md:border-b-2 md:border-solid md:border-b-black md:bg-transparent md:p-0",
+          "w-auto rounded bg-primary-50 p-4 md:rounded-none md:border-b-2 md:border-solid md:border-b-white md:bg-transparent md:p-0",
       )}
     >
       <NavLink
@@ -44,7 +44,7 @@ const NavbarLink = ({
         )}
       >
         <Typography
-          className={twMerge("text-nowrap", active && "font-bold")}
+          className={twMerge("text-nowrap text-white", active && "font-bold")}
           as="p"
         >
           {children as ReactNode}
@@ -69,19 +69,19 @@ const MobileNavbar = ({
           <img
             src="/img/logo-cg.png"
             alt="logo"
-            className="h-14 w-14 lg:h-16 lg:w-16 xl:h-20 xl:w-20"
+            className="h-14 w-14 opacity-0"
           />
         </Link>
         <div className="pr-4">
           <Bars3Icon
-            className="block h-6 w-6 md:hidden"
+            className="mr-4 block h-6 w-6 text-white md:hidden"
             onClick={() => setIsOpen((prevState) => !prevState)}
           />
         </div>
       </div>
       <ul
         className={twMerge(
-          "flex h-0 w-auto flex-col overflow-y-hidden bg-white px-8 shadow-lg duration-500",
+          "flex h-0 w-auto flex-col overflow-y-hidden bg-gray-50 px-8 shadow-lg duration-500",
           isOpen && "h-[300px]",
         )}
       >
@@ -109,7 +109,7 @@ const DesktopNavbar = ({
   return (
     <div
       className={twMerge(
-        "hidden w-full md:flex md:flex-row md:items-center md:justify-between lg:px-6",
+        "hidden w-full bg-primary md:flex md:flex-row md:items-center md:justify-between lg:px-6",
         className,
       )}
     >
@@ -117,7 +117,7 @@ const DesktopNavbar = ({
         <img
           src="/img/logo-cg.png"
           alt="logo"
-          className="h-14 w-14 lg:h-16 lg:w-16 xl:h-20 xl:w-20"
+          className="h-14 w-14 opacity-0 lg:h-16 lg:w-16 xl:h-20 xl:w-20"
         />
       </Link>
 
@@ -137,7 +137,11 @@ const DesktopNavbar = ({
         ))}
       </ul>
       <div className="pr-4">
-        <button type="button">Login</button>
+        <Link to="/login">
+          <Typography as="span" className="text-white">
+            Login
+          </Typography>
+        </Link>
       </div>
     </div>
   );
@@ -147,8 +151,8 @@ export const Navbar = () => {
   const location = useLocation();
 
   return (
-    <nav className="absolute z-10 h-14 w-full bg-gray-50 shadow-lg lg:h-16 xl:h-20">
-      <div className="mx-auto my-0 flex max-w-limit-nav">
+    <nav className="absolute h-14 w-full bg-primary shadow-lg lg:h-16 xl:h-20">
+      <div className="mx-auto flex max-w-limit-nav ">
         <DesktopNavbar location={location.pathname} />
         <MobileNavbar location={location.pathname} />
       </div>

@@ -1,23 +1,34 @@
-import { type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, type Location } from "react-router-dom";
 
-import { Footer } from "@/Components/Layout/Footer";
+import { Footer } from "@/Components/Footer";
 import { Navbar } from "@/Components/Layout/Navbar";
+import { routes } from "@/Router/routes";
 
 export interface MainProps {
-  routes: (location: Location) => ReactNode;
+  renderRoutes: (location: Location) => ReactNode;
 }
 
-export const Main = ({ routes }: MainProps) => {
+export const Main = ({ renderRoutes }: MainProps) => {
   const location = useLocation();
+
+  const [useNavbar, setUseNavbar] = useState(false);
+
+  useEffect(() => {
+    routes.map((route) => {
+      if (route.path === location.pathname) {
+        setUseNavbar(route.useNavbar === undefined || route.useNavbar);
+      }
+    });
+  }, [location]);
 
   return (
     <main className="relative h-screen w-screen overflow-hidden">
-      <Navbar />
-      <div className="h-full w-full overflow-auto bg-gray-300 pt-20 lg:pt-24 xl:pt-28">
+      {useNavbar && <Navbar />}
+      <div className="h-full w-full overflow-auto pt-14 lg:pt-16 xl:pt-20 ">
         <div className="mx-auto h-full w-full max-w-limit-x">
-          <AnimatePresence>{routes(location)}</AnimatePresence>
+          <AnimatePresence>{renderRoutes(location)}</AnimatePresence>
         </div>
       </div>
       <Footer />

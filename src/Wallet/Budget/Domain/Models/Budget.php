@@ -7,16 +7,19 @@ namespace Wallet\Budget\Domain\Models;
 use Akaunting\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 use Wallet\User\Domain\Models\BudgetFields;
+use Wallet\User\Domain\Models\User;
 
 /**
  * Wallet\Budget\Domain\Models\Budget
  *
- * @property int $id
- * @property int $user_id
- * @property string $name
- * @property Money $amount
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $name
+ * @property Money                           $amount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Budget newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Budget newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Budget query()
@@ -26,11 +29,11 @@ use Wallet\User\Domain\Models\BudgetFields;
  * @method static \Illuminate\Database\Eloquent\Builder|Budget whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Budget whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Budget whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Budget extends Model
 {
-
     /**
      * @var string
      */

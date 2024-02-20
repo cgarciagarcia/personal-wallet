@@ -10,7 +10,6 @@ use Wallet\User\Domain\Models\BudgetFields;
 
 final class CreateBudgetRequest extends FormRequest
 {
-
     public function toDto(): CreateBudgetDto
     {
         return new CreateBudgetDto(

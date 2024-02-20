@@ -8,7 +8,7 @@ export const Router = () => {
   return (
     <BrowserRouter>
       <Main
-        routes={(location) => (
+        renderRoutes={(location) => (
           <Routes location={location} key={location.pathname}>
             {routes.map((route, index) => (
               <Route
@@ -17,6 +17,7 @@ export const Router = () => {
                 key={index}
               />
             ))}
+            )
           </Routes>
         )}
       />
