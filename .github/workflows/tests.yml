@@ -53,6 +53,13 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
+
+
+      - name: Install npm dependencies and build app
+        run: |
+           npm install 
+           npm run build
+
       - name: Execute tests
         run: php artisan test
         env:

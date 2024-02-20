@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
 
     /*
@@ -11,7 +13,7 @@ return [
     |
     */
 
-    'filename'  => '_ide_helper.php',
+    'filename' => '_ide_helper.php',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,7 +142,7 @@ return [
 
     'model_locations' => [
         'src/App/Models/',
-        'src/*/Domain/Models'
+        'src/*/*/Domain/Models',
     ],
 
     /*

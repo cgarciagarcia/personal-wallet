@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Models;
+namespace Wallet\User\Domain\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -16,18 +17,22 @@ use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Traits\HasRoles;
+use Wallet\Budget\Domain\Models\Budget;
+use Wallet\Transaction\Domain\Models\Transaction;
 
 /**
- * App\Models\User
+ * Wallet\User\Domain\Models\User
  *
- * @property int $id
- * @property string $name
- * @property string $email
+ * @property int         $id
+ * @property string      $name
+ * @property string      $email
  * @property Carbon|null $email_verified_at
- * @property mixed $password
+ * @property mixed       $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property-read Collection<int, Budget> $budgets
+ * @property-read int|null $budgets_count
  * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read Collection<int, \Spatie\Permission\Models\Permission> $permissions
@@ -36,6 +41,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $roles_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ *
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
  * @method static Builder|User permission($permissions, $without = false)
@@ -51,6 +57,7 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static Builder|User whereUpdatedAt($value)
  * @method static Builder|User withoutPermission($permissions)
  * @method static Builder|User withoutRole($roles, $guard = null)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -97,5 +104,21 @@ class User extends Authenticatable
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
+    }
+
+    /**
+     * @psalm-return HasMany<Budget>
+     */
+    public function budgets(): HasMany
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    /**
+     * @psalm-return HasMany<Transaction>
+     */
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

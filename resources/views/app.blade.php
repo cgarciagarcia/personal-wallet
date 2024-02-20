@@ -15,12 +15,12 @@
   />
 
   <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@100;300;400;500;700&display=swap');
   </style>
 
 </head>
 <body class="antialiased">
-  <div id="app"></div>
-  @viteReactRefresh @vite('resources/js/index.tsx')
+<div id="app"></div>
+@viteReactRefresh @vite('resources/js/index.tsx')
 </body>
 </html>
