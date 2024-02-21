@@ -16,7 +16,7 @@ final class RegisterUserRequest extends FormRequest
      *
      * @api
      *
-     * @psalm-return array{name: list{'required', 'string', 'max:255'}, email: list{'required', 'email', 'unique:users'}, password: list{Password}}
+     * @psalm-return array{name: list{'required', 'string', 'max:255'}, email: list{'required', 'email', 'unique:users'}, password: list{'required', Password}}
      */
     public function rules(): array
     {
@@ -24,6 +24,7 @@ final class RegisterUserRequest extends FormRequest
             RegisterUserFields::NAME => ['required', 'string', 'max:255'],
             RegisterUserFields::EMAIL => ['required', 'email', 'unique:users'],
             RegisterUserFields::PASSWORD => [
+                'required',
                 Password::min(8)
                     ->mixedCase()
                     ->numbers()

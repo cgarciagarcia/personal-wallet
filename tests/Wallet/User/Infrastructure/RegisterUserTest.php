@@ -25,7 +25,6 @@ describe('user registration', function () {
         ]);
     });
 
-
     it('should not create a new user when email already exists', function () {
         $prevUser = UserFactory::new()->makeOne();
         $prevUser->save();
@@ -43,6 +42,27 @@ describe('user registration', function () {
             "errors" => [
                 "email" => [
                     "The email has already been taken.",
+                ],
+            ],
+        ]);
+    });
+
+    it('should not create a new user when all fields are empty.', function () {
+        $response = $this->postJson('/api/v1/users', []);
+
+        $response->assertStatus(422);
+
+        $response->assertJson([
+            "message" => "The name field is required. (and 2 more errors)",
+            "errors" => [
+                "name" => [
+                    "The name field is required.",
+                ],
+                "email" => [
+                    "The email field is required.",
+                ],
+                "password" => [
+                    "The password field is required.",
                 ],
             ],
         ]);
