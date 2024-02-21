@@ -11,10 +11,10 @@ use Wallet\User\Domain\Models\User;
 /**
  * Wallet\Budget\Domain\Models\Budget
  *
- * @property int $id
- * @property int $user_id
- * @property string $name
- * @property Money $amount
+ * @property int                             $id
+ * @property int                             $user_id
+ * @property string                          $name
+ * @property Money                           $amount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read User $user

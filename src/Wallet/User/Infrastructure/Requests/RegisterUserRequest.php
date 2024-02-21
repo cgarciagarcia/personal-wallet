@@ -11,10 +11,12 @@ use Wallet\User\Domain\Models\RegisterUserFields;
 
 final class RegisterUserRequest extends FormRequest
 {
-
     /**
-     * @return array
+     * @return (Password|string)[][]
+     *
      * @api
+     *
+     * @psalm-return array{name: list{'required', 'string', 'max:255'}, email: list{'required', 'email', 'unique:users'}, password: list{Password}}
      */
     public function rules(): array
     {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Wallet\User\Application;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -24,14 +23,13 @@ final readonly class RegisterUserCase
     }
 
     /**
-     * @param  RegisterUserDto  $toDto
-     * @return User
+     *
+     *
      * @throws Throwable
      */
     public function __invoke(RegisterUserDto $toDto): User
     {
         return DB::transaction(function () use ($toDto) {
-
             $userCreated = new User();
             $userCreated->name = $toDto->name;
             $userCreated->email = $toDto->email;

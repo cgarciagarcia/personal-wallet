@@ -24,11 +24,11 @@ use Wallet\Transaction\Domain\Models\Transaction;
 /**
  * Wallet\User\Domain\Models\User
  *
- * @property int $id
- * @property string $name
- * @property string $email
+ * @property int         $id
+ * @property string      $name
+ * @property string      $email
  * @property Carbon|null $email_verified_at
- * @property mixed $password
+ * @property mixed       $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
