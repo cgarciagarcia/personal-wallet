@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use Wallet\User\Domain\Models\User;
 
 return [
 

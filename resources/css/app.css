@@ -1,3 +1,84 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+    root * {
+        @apply transition-colors duration-200;
+    }
+
+    :root[data-theme="light"], :root * {
+        --primary-color-90: 42 91 219;
+        --primary-color-80: 66 109 223;
+        --primary-color-70: 89 127 227;
+        --primary-color-60: 113 145 231;
+        --primary-color-50: 137 164 235;
+        --primary-color-40: 160 182 239;
+        --primary-color-30: 184 200 243;
+        --primary-color-20: 207 218 247;
+        --primary-color-10: 231 236 251;
+        --primary-color: 22 82 240;
+        --primary-color-200: 19 73 216;
+        --primary-color-300: 15 58 172;
+        --primary-color-400: 13 51 151;
+        --primary-color-500: 11 43 129;
+        --primary-color-600: 9 36 108;
+        --primary-color-700: 7 29 86;
+        --primary-color-800: 5 21 64;
+        --primary-color-900: 3 14 43;
+        --primary-color-1000: 1 7 21;
+
+        --complementary-color-90: 241 180 22;
+        --complementary-color-80: 241 187 45;
+        --complementary-color-70: 243 195 68;
+        --complementary-color-60: 244 202 91;
+        --complementary-color-50: 246 210 115;
+        --complementary-color-40: 247 217 138;
+        --complementary-color-30: 249 225 161;
+        --complementary-color-20: 250 232 185;
+        --complementary-color-10: 252 240 208;
+        --complementary-color: 240 180 22;
+        --complementary-color-200: 216 162 19;
+        --complementary-color-300: 192 144 17;
+        --complementary-color-400: 168 125 15;
+        --complementary-color-500: 144 108 13;
+        --complementary-color-600: 120 90 11;
+        --complementary-color-700: 96 72 8;
+        --complementary-color-800: 72 54 6;
+        --complementary-color-900: 48 36 4;
+        --complementary-color-1000: 24 18 2;
+
+        --tertiary-color-color-90: 99 241 45;
+        --tertiary-color-color-80: 116 243 68;
+        --tertiary-color-color-70: 133 244 91;
+        --tertiary-color-color-60: 151 246 115;
+        --tertiary-color-color-50: 168 247 138;
+        --tertiary-color-color-40: 185 249 161;
+        --tertiary-color-color-30: 203 250 185;
+        --tertiary-color-color-20: 220 252 208;
+        --tertiary-color-color-10: 237 253 231;
+        --tertiary-color: 82 240 22;
+        --tertiary-color-200: 73 216 19;
+        --tertiary-color-300: 65 192 17;
+        --tertiary-color-400: 57 168 15;
+        --tertiary-color-500: 49 144 13;
+        --tertiary-color-600: 41 120 11;
+        --tertiary-color-700: 32 96 8;
+        --tertiary-color-800: 24 72 6;
+        --tertiary-color-900: 16 48 4;
+        --tertiary-color-1000: 8 24 2;
+    }
+
+    /** using system preference
+    @media (prefers-color-scheme: dark) {
+        :root * {
+
+        }
+    }*/
+    /** using app preference
+    :root[data-theme="dark"] {
+
+    }*/
+
+}

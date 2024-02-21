@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "akaunting/laravel-money": "^5.1",
+        "flugger/laravel-responder": "^3.3",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^v10.45.0",
         "laravel/sanctum": "^3.3",
@@ -40,6 +42,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/App",
+            "Wallet\\": "src/Wallet",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
