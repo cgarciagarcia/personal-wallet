@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Wallet\User\Domain\Models;
+namespace Wallet\Budget\Domain\Models;
 
 abstract class BudgetFields
 {

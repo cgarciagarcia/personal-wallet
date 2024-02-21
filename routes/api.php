@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Wallet\Budget\Infrastructure\Controllers\CreateBudgetController;
 use Wallet\Transaction\Infrastructure\Controllers\CreateTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserController;
+use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,12 @@ use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserControlle
 
 
 Route::group([ /*'middleware' => 'auth:sanctum',*/ 'prefix' => '/v1'], function () {
+
+    Route::post('/users', UserRegisterController::class)->name('user.register');
+
+
     Route::group(['prefix' => '/users/{user}'], function () {
+
         Route::group(['prefix' => '/budget'], function () {
             Route::post('/', CreateBudgetController::class)->name('user.create.budget');
         });

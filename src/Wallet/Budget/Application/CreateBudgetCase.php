@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 use Wallet\Budget\Domain\Dtos\CreateBudgetDto;
 use Wallet\Budget\Domain\Models\Budget;
+use Wallet\Budget\Domain\Models\BudgetFields;
 use Wallet\Budget\Infrastructure\Events\CreatedBudgetEvent;
-use Wallet\User\Domain\Models\BudgetFields;
 use Wallet\User\Domain\Models\User;
 
 final readonly class CreateBudgetCase

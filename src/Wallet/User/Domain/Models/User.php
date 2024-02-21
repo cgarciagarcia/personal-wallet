@@ -6,6 +6,7 @@ namespace Wallet\User\Domain\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,11 +24,11 @@ use Wallet\Transaction\Domain\Models\Transaction;
 /**
  * Wallet\User\Domain\Models\User
  *
- * @property int         $id
- * @property string      $name
- * @property string      $email
+ * @property int $id
+ * @property string $name
+ * @property string $email
  * @property Carbon|null $email_verified_at
- * @property mixed       $password
+ * @property mixed $password
  * @property string|null $remember_token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -60,7 +61,7 @@ use Wallet\Transaction\Domain\Models\Transaction;
  *
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use Notifiable;
@@ -69,14 +70,9 @@ class User extends Authenticatable
     /**
      * @var string[]
      *
-     * @psalm-var list{'name', 'email', 'password', 'last_login'}
+     * @psalm-var list{'name', 'email', 'password'}
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'last_login',
-    ];
+    protected $fillable = RegisterUserFields::FIELDS;
 
     /**
      * @var string[]

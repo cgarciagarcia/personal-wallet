@@ -6,7 +6,7 @@ namespace Wallet\Budget\Infrastructure\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Wallet\Budget\Domain\Dtos\CreateBudgetDto;
-use Wallet\User\Domain\Models\BudgetFields;
+use Wallet\Budget\Domain\Models\BudgetFields;
 
 final class CreateBudgetRequest extends FormRequest
 {
