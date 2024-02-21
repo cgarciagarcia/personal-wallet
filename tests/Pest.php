@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -12,10 +13,13 @@ declare(strict_types=1);
 |
 */
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+
 uses(
     Tests\TestCase::class,
+    DatabaseMigrations::class,
     // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+)->in('Wallet');
 
 /*
 |--------------------------------------------------------------------------
