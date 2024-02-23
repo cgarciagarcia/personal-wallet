@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-LABEL maintainer="Taylor Otwell"
+LABEL maintainer="Charly Garcia"
 
 ARG WWWGROUP
 ARG NODE_VERSION=20
@@ -45,6 +45,7 @@ RUN apt-get update \
     && apt-get install -y yarn \
     && apt-get install -y mysql-client \
     && apt-get install -y postgresql-client-$POSTGRES_VERSION \
+    && apt-get install -y vim apache2 php-fpm net-tools \
     && apt-get -y autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -54,11 +55,16 @@ RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.3
 RUN groupadd --force -g $WWWGROUP sail
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 sail
 
+RUN echo "ServerName wallet-server" >> /etc/apache2/apache2.conf
+
+COPY app.conf /etc/apache2/sites-available/app.conf
 COPY start-container /usr/local/bin/start-container
+COPY init-server.sh /usr/local/bin/init-server.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY php.ini /etc/php/8.3/cli/conf.d/99-sail.ini
 
 RUN chmod +x /usr/local/bin/start-container
+RUN chmod +x /usr/local/bin/init-server.sh
 
 EXPOSE 8000
 
