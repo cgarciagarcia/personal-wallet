@@ -14,11 +14,12 @@ final readonly class UserLoginCase
     public function __invoke(UserLoginDto $dto,): ?NewAccessToken
     {
         $user = User::whereEmail($dto->email)->first();
-        return Auth::validate([
-            'email' => $dto->email,
-            'password' => $dto->password,
-        ]) && $user ?
-            $user->createToken('session', ['*'], now()->addHours(3)) :
-            null;
+        if (Auth::validate(['email' => $dto->email, 'password' => $dto->password,]) && $user) {
+            // Revoke all previous tokens
+            $user->tokens()->delete();
+            return $user->createToken('session', ['*'], now()->addHours(3));
+        } else {
+            return null;
+        }
     }
 }
