@@ -64,14 +64,17 @@
             "@php artisan key:generate --ansi",
             "cp hooks/* .git/hooks/"
         ],
-        "model-helper": [
-            "vendor/bin/sail php artisan ide-helper:models -R -W"
+        "ide-helper": [
+            "vendor/bin/sail php artisan ide-helper:models -R -W",
+            "vendor/bin/sail php artisan ide-helper:generate",
+            "vendor/bin/sail php artisan ide-helper:meta"
         ],
         "ecs": "vendor/bin/ecs",
         "ecs:fix": "vendor/bin/ecs --fix",
         "phpstan": "vendor/bin/phpstan analyse",
         "rector": "vendor/bin/rector process --dry-run --ansi",
         "rector:fix": "vendor/bin/rector process --ansi",
+        "style:fix": "vendor/bin/ecs --fix && vendor/bin/psalm --alter --no-cache --issues=all --config=psalm.xml && vendor/bin/rector process --ansi",
         "install-app": [
             "@php artisan key:generate --ansi",
             "@php artisan migrate:install",
