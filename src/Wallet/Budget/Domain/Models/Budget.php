@@ -6,7 +6,6 @@ namespace Wallet\Budget\Domain\Models;
 
 use Akaunting\Money\Money;
 use Illuminate\Database\Eloquent\Model;
-use Wallet\User\Domain\Models\User;
 
 /**
  * Wallet\Budget\Domain\Models\Budget
@@ -17,7 +16,6 @@ use Wallet\User\Domain\Models\User;
  * @property Money                           $amount
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Budget newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Budget newQuery()

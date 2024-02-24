@@ -14,6 +14,8 @@ final class CreateBudgetController
 {
     /**
      * @throws Throwable
+     *
+     * @api
      */
     public function __invoke(
         CreateBudgetRequest $request,

@@ -8,16 +8,18 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Wallet\Transaction\Application\GetTransactionsByUserCase;
 use Wallet\Transaction\Domain\Transformers\TransactionTransformer;
-use Wallet\User\Domain\Models\User;
 
 class GetTransactionsByUserController
 {
     public function __invoke(
         Request $request,
         GetTransactionsByUserCase $case,
-        User $user,
     ): JsonResponse {
-        return responder()->success($case->__invoke($request, $user), TransactionTransformer::class)
+        return responder()
+            ->success(
+                $case->__invoke($request),
+                TransactionTransformer::class
+            )
             ->respond();
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Queue\SerializesModels;
 use Wallet\Budget\Domain\Models\Budget;
 
 /**
- * @psalm-api
+ * @api
  */
 class CreatedBudgetEvent implements ShouldDispatchAfterCommit
 {

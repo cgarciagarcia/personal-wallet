@@ -42,6 +42,8 @@ use Wallet\Transaction\Domain\Models\Transaction;
  * @property-read int|null $roles_count
  * @property-read Collection<int, PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ * @property-read Collection<int, Transaction> $transactions
+ * @property-read int|null $transactions_count
  *
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()

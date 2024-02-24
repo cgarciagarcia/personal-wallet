@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Wallet\Budget\Infrastructure\Controllers\CreateBudgetController;
 use Wallet\Transaction\Infrastructure\Controllers\CreateTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserController;
+use Wallet\User\Infrastructure\Controllers\UserLoginController;
 use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 
 /*
@@ -20,16 +21,19 @@ use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 */
 
 
-Route::group([ /*'middleware' => 'auth:sanctum',*/ 'prefix' => '/v1'], function () {
+Route::group(['prefix' => '/v1'], function () {
 
     Route::post('/users', UserRegisterController::class)->name('user.register');
+    Route::post('login', UserLoginController::class)->name('user.login');
 
+    Route::group(['middleware' => 'auth:sanctum',], function () {
+        Route::group(['prefix' => '/users/{user}'], function () {
 
-    Route::group(['prefix' => '/users/{user}'], function () {
-
-        Route::group(['prefix' => '/budget'], function () {
-            Route::post('/', CreateBudgetController::class)->name('user.create.budget');
+            Route::group(['prefix' => '/budget'], function () {
+                Route::post('/', CreateBudgetController::class)->name('user.create.budget');
+            });
         });
+
         Route::get('/transactions', GetTransactionsByUserController::class)->name('user.get.transactions');
         Route::post('/transactions', CreateTransactionController::class)->name('user.create.transaction');
     });
