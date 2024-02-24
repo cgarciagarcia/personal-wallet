@@ -16,7 +16,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Traits\HasRoles;
 use Wallet\Budget\Domain\Models\Budget;
 use Wallet\Transaction\Domain\Models\Transaction;
@@ -40,7 +39,7 @@ use Wallet\Transaction\Domain\Models\Transaction;
  * @property-read int|null $permissions_count
  * @property-read Collection<int, \Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
- * @property-read Collection<int, PersonalAccessToken> $tokens
+ * @property-read Collection<int, \Wallet\User\Domain\Models\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
  * @property-read Collection<int, Transaction> $transactions
  * @property-read int|null $transactions_count
