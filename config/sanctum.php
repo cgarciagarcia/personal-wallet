@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'expiration' => env('SESSION_LIFETIME'),
+    'expiration' => env('SESSION_LIFETIME', 60 * 3),
 
     /*
     |--------------------------------------------------------------------------

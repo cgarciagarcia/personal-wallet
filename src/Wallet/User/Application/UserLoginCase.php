@@ -19,9 +19,15 @@ final readonly class UserLoginCase
         if (Auth::validate(['email' => $dto->email, 'password' => $dto->password, ]) && $user) {
             // Revoke all previous tokens
             /** @var Collection<int, PersonalAccessToken> $previousTokens */
-            $previousTokens = $user->tokens()->get();
+            $previousTokens = $user->tokens()
+                ->where('expires_at', '>=', now())
+                ->orwhereNull('expires_at')
+                ->get();
             $previousTokens->map(fn(PersonalAccessToken $token) => $token->revoke());
-            return $user->createToken('session', ['*']);
+
+            /** @var int $hours */
+            $hours = config('sanctum.expiration');
+            return $user->createToken('session', ['*'], now()->addHours($hours));
         } else {
             return null;
         }
