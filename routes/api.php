@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Wallet\Budget\Infrastructure\Controllers\CreateBudgetController;
 use Wallet\Transaction\Infrastructure\Controllers\CreateTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserController;
+use Wallet\User\Domain\Models\AccessTokenAbilityEnum;
 use Wallet\User\Infrastructure\Controllers\UserLoginController;
 use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 
@@ -26,7 +27,10 @@ Route::group(['prefix' => '/v1'], function () {
     Route::post('/users', UserRegisterController::class)->name('user.register');
     Route::post('login', UserLoginController::class)->name('user.login');
 
-    Route::group(['middleware' => 'auth:sanctum',], function () {
+    Route::middleware([
+        'auth:sanctum',
+        'ability:'.AccessTokenAbilityEnum::AccessApi->value,
+    ])->group(function () {
         Route::group(['prefix' => '/users/{user}'], function () {
 
             Route::group(['prefix' => '/budget'], function () {

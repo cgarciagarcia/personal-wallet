@@ -20,7 +20,8 @@ describe('Login test', function () {
             'status',
             'success',
             'data' => [
-                'plainTextToken',
+                'access_token',
+                'refresh_token',
             ],
         ]);
     });
@@ -34,7 +35,7 @@ describe('Login test', function () {
             'password' => 'WrongPassword!',
         ]);
 
-        $response->assertUnauthorized();
+        $response->assertUnprocessable();
         $response->assertJsonStructure([
             'status',
             'success',
@@ -64,6 +65,6 @@ describe('Login test', function () {
         $response2->assertOk();
 
 
-        $this->assertEquals(1, $user->tokens()->count());
+        $this->assertEquals(2, $user->tokens()->count());
     });
 });

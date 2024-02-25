@@ -30,29 +30,48 @@ export const ROUTES = {
 
 export interface AppRoute {
   useNavbar?: boolean;
+  visibility?: "public" | "private";
 }
 
 export type AppRouteType<T> = {
   [K in keyof T]: T[K];
 };
 
-export const routes: AppRouteType<RouteObject & AppRoute>[] = [
-  {
-    path: ROUTES.home.path,
-    element: ROUTES.home.component,
-  },
-  {
-    path: ROUTES.notFound.path,
-    element: ROUTES.notFound.component,
-  },
-  {
-    path: ROUTES.login.path,
-    element: ROUTES.login.component,
-    useNavbar: false,
-  },
-  {
-    path: ROUTES.register.path,
-    element: ROUTES.register.component,
-    useNavbar: false,
-  },
-];
+export type AppRoutesType = AppRouteType<RouteObject & AppRoute>;
+
+export const routes: {
+  public: AppRoutesType[];
+  private: AppRoutesType[];
+} = {
+  public: [
+    {
+      path: "/*",
+      element: ROUTES.notFound.component,
+      visibility: "public",
+    },
+    {
+      path: ROUTES.notFound.path,
+      element: ROUTES.notFound.component,
+      visibility: "public",
+    },
+    {
+      path: ROUTES.login.path,
+      element: ROUTES.login.component,
+      useNavbar: false,
+      visibility: "public",
+    },
+    {
+      path: ROUTES.register.path,
+      element: ROUTES.register.component,
+      useNavbar: false,
+      visibility: "public",
+    },
+  ],
+  private: [
+    {
+      path: ROUTES.home.path,
+      element: ROUTES.home.component,
+      visibility: "private",
+    },
+  ],
+};

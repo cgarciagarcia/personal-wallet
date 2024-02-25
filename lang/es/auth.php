@@ -16,5 +16,6 @@ return [
     'failed' => 'Las credenciales introducidas son incorrectas.',
     'password' => 'La contraseña es incorrecta.',
     'throttle' => 'Demasiados intentos de acceso. Inténtelo de nuevo en :seconds segundos.',
-
+    'missing_ability' => 'No tienes los permisos necesarios para realizar esta acción.',
+    'unauthenticated' => 'No has iniciado sesión.',
 ];

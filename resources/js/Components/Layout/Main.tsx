@@ -6,18 +6,21 @@ import { twMerge } from "tailwind-merge";
 import { Footer } from "@/Components/Footer";
 import { Navbar } from "@/Components/Layout/Navbar";
 import { routes } from "@/Router/routes";
+import { useSessionStore } from "@/Stores/useSessionStore";
 
 export interface MainProps {
-  renderRoutes: (location: Location) => ReactNode;
+  renderRoutes: (location: Location, hasSession: boolean) => ReactNode;
 }
 
 export const Main = ({ renderRoutes }: MainProps) => {
   const location = useLocation();
 
+  const { session } = useSessionStore();
+
   const [useNavbar, setUseNavbar] = useState(false);
 
   useEffect(() => {
-    routes.map((route) => {
+    [routes.private, routes.public].flat().map((route) => {
       if (route.path === location.pathname) {
         setUseNavbar(route.useNavbar === undefined || route.useNavbar);
       }
@@ -34,7 +37,9 @@ export const Main = ({ renderRoutes }: MainProps) => {
         )}
       >
         <div className="mx-auto h-full w-full max-w-limit-x">
-          <AnimatePresence>{renderRoutes(location)}</AnimatePresence>
+          <AnimatePresence>
+            {renderRoutes(location, !!session.plainTextToken)}
+          </AnimatePresence>
         </div>
       </div>
       <Footer />

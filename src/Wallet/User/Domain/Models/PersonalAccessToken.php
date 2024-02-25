@@ -47,6 +47,10 @@ class PersonalAccessToken extends SanctumPersonalAccessToken
 {
     use SoftDeletes;
 
+    public const SESSION_TOKEN_NAME = 'session_token';
+
+    public const REFRESH_TOKEN_NAME = 'refresh_token';
+
     /**
      * @var string[]
      *

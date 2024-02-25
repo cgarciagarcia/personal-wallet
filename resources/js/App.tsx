@@ -9,6 +9,8 @@ import "../css/app.css";
 import { StrictMode } from "react";
 import { ToastContainer } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
+
 import { Router } from "@/Router";
 
 const queryClient = new QueryClient();
@@ -17,10 +19,10 @@ export const App = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <Router />
-      <ToastContainer />
       {env.VITE_APP_ENV === "local" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
+      <ToastContainer />
     </QueryClientProvider>
   </StrictMode>
 );

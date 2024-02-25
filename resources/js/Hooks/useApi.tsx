@@ -27,6 +27,15 @@ export interface Credentials {
   plainTextToken: string;
 }
 
+export interface User {
+  id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+}
+
 const emptyCredentials = {
   accessToken: {
     expires_at: "",
@@ -59,7 +68,14 @@ export const useApi = () => {
 
     return !!session.plainTextToken;
   };
-
+  const signUp = (data: {
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+  }) => {
+    return apiV1.post<BaseApiAnswer<User>>("/users", data);
+  };
   const getTransactions = () =>
     apiV1.get<BaseApiAnswer<Transactions[]>>("/transactions", {
       headers: {
@@ -67,5 +83,9 @@ export const useApi = () => {
       },
     });
 
-  return { sigIn, getTransactions };
+  const clearSession = () => {
+    setSession(emptyCredentials);
+  };
+
+  return { sigIn, signUp, getTransactions, clearSession };
 };
