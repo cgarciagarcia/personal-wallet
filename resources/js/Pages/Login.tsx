@@ -1,8 +1,37 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import * as z from "zod";
+
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import { Header, Typography } from "@/Components/Layout/Typography";
+import { useApi } from "@/Hooks/useApi";
+import { ROUTES } from "@/Router/routes";
+
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "The email is required." })
+    .email("Invalid email."),
+  password: z.string().min(1, { message: "The password is required." }),
+});
+
+type schemaType = z.infer<typeof schema>;
 
 export const Login = () => {
+  const { sigIn } = useApi();
+
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<schemaType>({
+    resolver: zodResolver(schema),
+  });
+
   return (
     <section className="flex h-full flex-col items-center justify-center">
       <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-[400px]">
@@ -10,26 +39,43 @@ export const Login = () => {
           Welcome!
         </Header>
 
-        <Typography as="p" className="mt-12">
-          Please Sign in{" "}
-        </Typography>
-
-        <form>
+        <form
+          className="mt-8 w-full"
+          onSubmit={handleSubmit(async (form) => {
+            if (await sigIn(form)) {
+              navigate(ROUTES.home.path);
+            }
+          })}
+        >
           <Input
             label="Email"
             type="email"
             id="email"
             placeholder="example@domain.com"
-            containerClassName="mt-4"
+            {...register("email")}
+            error={errors.email?.message}
           />
           <Input
             label="Password"
             type="password"
             id="password"
-            containerClassName="mt-4"
+            {...register("password")}
+            error={errors.password?.message}
           />
+          <Link to="/forgot-password">
+            <Typography className="float-left !text-sm text-primary hover:text-primary-500">
+              Forgot Password?
+            </Typography>
+          </Link>
+          <Link to="/registration">
+            <Typography className="float-right !text-sm text-primary hover:text-primary-500">
+              Create account
+            </Typography>
+          </Link>
+          <Button type="submit" className="mt-8 w-full">
+            Submit
+          </Button>
         </form>
-        <Button type="submit">Submit</Button>
       </div>
     </section>
   );

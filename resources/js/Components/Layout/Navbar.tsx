@@ -137,9 +137,9 @@ const DesktopNavbar = ({
         ))}
       </ul>
       <div className="pr-4">
-        <Link to="/login">
+        <Link to="/logout">
           <Typography as="span" className="text-white">
-            Login
+            Logout
           </Typography>
         </Link>
       </div>

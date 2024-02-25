@@ -15,7 +15,7 @@ type FontWeightType =
   | "black";
 
 export interface TypographyProps {
-  as: HeadersType | TextType;
+  as?: HeadersType | TextType;
   children: ReactNode;
   className?: string;
   weight?: FontWeightType;

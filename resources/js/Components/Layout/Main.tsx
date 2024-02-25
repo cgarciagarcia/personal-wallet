@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useLocation, type Location } from "react-router-dom";
+import { twMerge } from "tailwind-merge";
 
 import { Footer } from "@/Components/Footer";
 import { Navbar } from "@/Components/Layout/Navbar";
@@ -26,7 +27,12 @@ export const Main = ({ renderRoutes }: MainProps) => {
   return (
     <main className="relative h-screen w-screen overflow-hidden">
       {useNavbar && <Navbar />}
-      <div className="h-full w-full overflow-auto pt-14 lg:pt-16 xl:pt-20 ">
+      <div
+        className={twMerge(
+          "h-full w-full overflow-auto pt-14 lg:pt-16 xl:pt-20",
+          !useNavbar && "!pt-0",
+        )}
+      >
         <div className="mx-auto h-full w-full max-w-limit-x">
           <AnimatePresence>{renderRoutes(location)}</AnimatePresence>
         </div>
