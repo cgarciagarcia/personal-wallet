@@ -9,6 +9,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Exceptions\MissingAbilityException;
 use Sentry\Laravel\Integration;
 use Symfony\Component\HttpFoundation\Response as ResponseSymfony;
@@ -53,6 +54,12 @@ class Handler extends ExceptionHandler
 
         if ($e instanceof FailedLoginException) {
             return responder()->error(422, __('auth.failed'))->respond(422);
+        }
+
+        if ($e instanceof ValidationException) {
+            return responder()->error($e->status, $e->getMessage())->data([
+                'detail' => $e->errors(),
+            ])->respond(422);
         }
 
         return parent::render($request, $e);

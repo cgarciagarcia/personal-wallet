@@ -14,7 +14,7 @@ import { twMerge } from "tailwind-merge";
 import { Message, type FormErrorType } from "@/Components/Forms/Message";
 import { IconWrapper } from "@/Components/IconWrapper";
 import { Typography } from "@/Components/Layout/Typography";
-import { forwardRef } from "@/helpers/forwardRef";
+import { forwardRef } from "@/Helpers/forwardRef";
 
 export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   compact?: boolean;

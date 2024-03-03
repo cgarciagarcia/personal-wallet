@@ -40,7 +40,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Fluent helpers
+    | Fluent Helpers
     |--------------------------------------------------------------------------
     |
     | Set to true to generate commonly used Fluent methods
@@ -117,14 +117,14 @@ return [
     |--------------------------------------------------------------------------
     |
     | Include helper files. By default not included, but can be toggled with the
-    | -- helpers (-H) option. Extra helper files can be included.
+    | -- Helpers (-H) option. Extra helper files can be included.
     |
     */
 
     'include_helpers' => false,
 
     'helper_files' => [
-        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/helpers.php',
+        base_path() . '/vendor/laravel/framework/src/Illuminate/Support/Helpers.php',
     ],
 
     /*
@@ -195,7 +195,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | These interfaces will be replaced with the implementing class. Some interfaces
-    | are detected by the helpers, others can be listed below.
+    | are detected by the Helpers, others can be listed below.
     |
     */
 
@@ -333,7 +333,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Run artisan commands after migrations to generate model helpers
+    | Run artisan commands after migrations to generate model Helpers
     |--------------------------------------------------------------------------
     |
     | The specified commands should run after migrations are finished running.

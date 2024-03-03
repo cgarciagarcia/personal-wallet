@@ -35,7 +35,7 @@ export const Login = () => {
     resolver: zodResolver(schema),
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: signIn,
     onSuccess: ({ data }) => {
       setAuth(data.data);
@@ -82,7 +82,7 @@ export const Login = () => {
               Create account
             </Typography>
           </Link>
-          <Button type="submit" className="mt-8 w-full">
+          <Button type="submit" className="mt-8 w-full" isLoading={isPending}>
             Submit
           </Button>
         </form>

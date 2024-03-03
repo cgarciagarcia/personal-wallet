@@ -40,10 +40,15 @@ describe('user registration', function () {
         $response->assertStatus(422);
 
         $response->assertJson([
-            "message" => "The email has already been taken.",
-            "errors" => [
-                "email" => [
-                    "The email has already been taken.",
+            "success" => false,
+            "status" => 422,
+            "error" => [
+                "code" => 422,
+                "message" => "The email has already been taken.",
+                "detail" => [
+                    "email" => [
+                        "The email has already been taken.",
+                    ],
                 ],
             ],
         ]);
@@ -55,19 +60,24 @@ describe('user registration', function () {
         $response->assertStatus(422);
 
         $response->assertJson([
-            "message" => "The name field is required. (and 3 more errors)",
-            "errors" => [
-                "name" => [
-                    "The name field is required.",
-                ],
-                "email" => [
-                    "The email field is required.",
-                ],
-                "password" => [
-                    "The password field is required.",
-                ],
-                "confirmation_password" => [
-                    "The confirmation password field is required.",
+            "success" => false,
+            "status" => 422,
+            "error" => [
+                "code" => 422,
+                "message" => "The name field is required. (and 3 more errors)",
+                "detail" => [
+                    "name" => [
+                        "The name field is required.",
+                    ],
+                    "email" => [
+                        "The email field is required.",
+                    ],
+                    "password" => [
+                        "The password field is required.",
+                    ],
+                    "confirmation_password" => [
+                        "The confirmation password field is required.",
+                    ],
                 ],
             ],
         ]);

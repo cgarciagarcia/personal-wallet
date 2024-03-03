@@ -11,6 +11,8 @@ import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
+import { BrowserRouter } from "react-router-dom";
+
 import { Router } from "@/Router";
 
 const queryClient = new QueryClient();
@@ -18,11 +20,13 @@ const queryClient = new QueryClient();
 export const App = () => (
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
       {env.VITE_APP_ENV === "local" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
-      <ToastContainer />
+      <ToastContainer stacked={true} />
     </QueryClientProvider>
   </StrictMode>
 );

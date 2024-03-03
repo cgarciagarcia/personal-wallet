@@ -27,8 +27,9 @@ final class RefreshAccessTokenCase
         $apiToken = $dto->user->createToken(
             PersonalAccessToken::SESSION_TOKEN_NAME,
             [AccessTokenAbilityEnum::AccessApi->value],
-            now()->addHours($expiration)
+            now()->addMinutes($expiration)
         );
+
         return [
             'access_token' => $apiToken->plainTextToken,
         ];

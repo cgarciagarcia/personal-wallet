@@ -94,7 +94,8 @@
         "release": "conventional-changelog --commit",
         "release:patch": "conventional-changelog --patch --commit",
         "release:minor": "conventional-changelog --minor --commit",
-        "release:major": "conventional-changelog --major --commit"
+        "release:major": "conventional-changelog --major --commit",
+        "test": "./vendor/bin/sail php artisan test"
     },
     "extra": {
         "laravel": {
