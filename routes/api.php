@@ -7,6 +7,7 @@ use Wallet\Budget\Infrastructure\Controllers\CreateBudgetController;
 use Wallet\Transaction\Infrastructure\Controllers\CreateTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserController;
 use Wallet\User\Domain\Models\AccessTokenAbilityEnum;
+use Wallet\User\Infrastructure\Controllers\RefreshAccessTokenController;
 use Wallet\User\Infrastructure\Controllers\UserLoginController;
 use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 
@@ -22,23 +23,32 @@ use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 */
 
 
-Route::group(['prefix' => '/v1'], function () {
+/*
+ * --------------------------------------------------------------------------
+ * UNPROTECTED ROUTES
+ * --------------------------------------------------------------------------
+ */
+Route::post('/users', UserRegisterController::class)->name('user.register');
+Route::post('/login', UserLoginController::class)->name('user.login');
 
-    Route::post('/users', UserRegisterController::class)->name('user.register');
-    Route::post('login', UserLoginController::class)->name('user.login');
-
-    Route::middleware([
+/*
+ * --------------------------------------------------------------------------
+ * REFRESH ROUTES
+ * --------------------------------------------------------------------------
+ */
+Route::post('/refresh-access-token', RefreshAccessTokenController::class)
+    ->middleware([
         'auth:sanctum',
-        'ability:'.AccessTokenAbilityEnum::AccessApi->value,
-    ])->group(function () {
-        Route::group(['prefix' => '/users/{user}'], function () {
+        'ability:'.AccessTokenAbilityEnum::IssueAccessToken->value,
+    ])->name('user.token.refresh');
 
-            Route::group(['prefix' => '/budget'], function () {
-                Route::post('/', CreateBudgetController::class)->name('user.create.budget');
-            });
-        });
-
-        Route::get('/transactions', GetTransactionsByUserController::class)->name('user.get.transactions');
-        Route::post('/transactions', CreateTransactionController::class)->name('user.create.transaction');
-    });
+/*
+ * --------------------------------------------------------------------------
+ * PROTECTED ROUTES VIA TOKEN
+ * --------------------------------------------------------------------------
+ */
+Route::group(['middleware' => ['auth:sanctum', 'ability:'.AccessTokenAbilityEnum::AccessApi->value,]], function () {
+    Route::post('/users/{user}/budget', CreateBudgetController::class)->name('user.create.budget');
+    Route::get('/transactions', GetTransactionsByUserController::class)->name('user.transactions.get');
+    Route::post('/transactions', CreateTransactionController::class)->name('user.transaction.create');
 });

@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import * as z from "zod";
@@ -6,8 +7,9 @@ import * as z from "zod";
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import { Header, Typography } from "@/Components/Layout/Typography";
-import { useApi } from "@/Hooks/useApi";
+import { useApi } from "@/Hooks/Api/useApi";
 import { ROUTES } from "@/Router/routes";
+import { useAuthStore } from "@/Stores/useAuthStore";
 
 const schema = z.object({
   email: z
@@ -20,7 +22,8 @@ const schema = z.object({
 type schemaType = z.infer<typeof schema>;
 
 export const Login = () => {
-  const { sigIn } = useApi();
+  const { signIn } = useApi();
+  const { setAuth } = useAuthStore();
 
   const navigate = useNavigate();
 
@@ -32,6 +35,15 @@ export const Login = () => {
     resolver: zodResolver(schema),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: signIn,
+    onSuccess: ({ data }) => {
+      setAuth(data.data);
+      navigate(ROUTES.home.path);
+    },
+    mutationKey: ["sigIn"],
+  });
+
   return (
     <section className="flex h-full flex-col items-center justify-center">
       <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-[400px]">
@@ -41,10 +53,8 @@ export const Login = () => {
 
         <form
           className="mt-8 w-full"
-          onSubmit={handleSubmit(async (form) => {
-            if (await sigIn(form)) {
-              navigate(ROUTES.home.path);
-            }
+          onSubmit={handleSubmit((form) => {
+            mutate(form);
           })}
         >
           <Input

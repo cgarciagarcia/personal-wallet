@@ -10,13 +10,13 @@ use Wallet\User\Domain\Models\User;
 
 final readonly class InvalidateTokensByUser
 {
-    public static function execute(User $user): void
+    public static function execute(User $user, array $tokensNames): void
     {
         // Revoke all previous tokens
         /** @var Collection<int, PersonalAccessToken> $previousTokens */
         $previousTokens = $user->tokens()
             ->where('expires_at', '>=', now())
-            ->whereIn('name', [PersonalAccessToken::SESSION_TOKEN_NAME, PersonalAccessToken::REFRESH_TOKEN_NAME])
+            ->whereIn('name', $tokensNames)
             ->orwhereNull('expires_at')
             ->get();
         $previousTokens->map(fn(PersonalAccessToken $token) => $token->revoke());

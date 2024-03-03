@@ -10,6 +10,7 @@ describe('user registration', function () {
             'name' => 'Mike',
             'email' => 'my.email@domain.com',
             'password' => 'Password123!',
+            'confirmation_password' => 'Password123!',
         ]);
 
         $response->assertStatus(200);
@@ -33,6 +34,7 @@ describe('user registration', function () {
             'name' => 'Mike',
             'email' => $prevUser->email,
             'password' => 'Password123!',
+            'confirmation_password' => 'Password123!',
         ]);
 
         $response->assertStatus(422);
@@ -53,7 +55,7 @@ describe('user registration', function () {
         $response->assertStatus(422);
 
         $response->assertJson([
-            "message" => "The name field is required. (and 2 more errors)",
+            "message" => "The name field is required. (and 3 more errors)",
             "errors" => [
                 "name" => [
                     "The name field is required.",
@@ -63,6 +65,9 @@ describe('user registration', function () {
                 ],
                 "password" => [
                     "The password field is required.",
+                ],
+                "confirmation_password" => [
+                    "The confirmation password field is required.",
                 ],
             ],
         ]);

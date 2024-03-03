@@ -46,6 +46,7 @@
         "psr-4": {
             "App\\": "src/App",
             "Wallet\\": "src/Wallet",
+            "Support\\": "src/Support",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }

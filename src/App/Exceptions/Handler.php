@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($e instanceof AuthenticationException) {
-            return responder()->error(401, __('auth.unauthenticated'))->respond(403);
+            return responder()->error(401, __('auth.unauthenticated'))->respond(401);
         }
 
         if ($e instanceof FailedLoginException) {

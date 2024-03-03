@@ -1,41 +1,33 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Main } from "@/Components/Layout/Main";
 import { Animation } from "@/Router/Animation";
-import { ROUTES, routes } from "@/Router/routes";
+import { PrivateRoute } from "@/Router/PrivateRoute";
+import { routes } from "@/Router/routes";
 
 export const Router = () => {
   return (
     <BrowserRouter>
-      <Main
-        renderRoutes={(location, hasSession) => (
-          <Routes location={location} key={location.pathname}>
-            {routes.public.map((route, index) => (
+      <Routes>
+        <Route element={<Main />}>
+          {routes.public.map((route) => (
+            <Route
+              path={route.path}
+              element={<Animation>{route.element}</Animation>}
+              key={route.path}
+            />
+          ))}
+          <Route element={<PrivateRoute />}>
+            {routes.private.map((route) => (
               <Route
                 path={route.path}
                 element={<Animation>{route.element}</Animation>}
-                key={index}
+                key={route.path}
               />
             ))}
-            {routes.private.map((route, index) => (
-              <Route
-                path={route.path}
-                element={
-                  <Animation>
-                    {hasSession ? (
-                      route.element
-                    ) : (
-                      <Navigate to={ROUTES.login.path} replace />
-                    )}
-                  </Animation>
-                }
-                key={index}
-              />
-            ))}
-            )
-          </Routes>
-        )}
-      />
+          </Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
   );
 };

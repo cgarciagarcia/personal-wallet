@@ -14,36 +14,40 @@ use Wallet\User\Domain\Models\User;
 final readonly class UserLoginCase
 {
     /**
+     * @return string[]
+     *
      * @throws \Throwable
      *
      * @psalm-return array{access_token: string, refresh_token: string}
-     * @return string[]
      */
     public function __invoke(UserLoginDto $dto, ): array|null
     {
         throw_if(
-            ! Auth::attempt(['email' => $dto->email, 'password' => $dto->password, ]),
+            ! Auth::validate(['email' => $dto->email, 'password' => $dto->password, ]),
             new FailedLoginException(__('auth.unauthenticated'))
         );
 
         /** @var User $user */
-        $user = Auth::user();
-        InvalidateTokensByUser::execute($user);
+        $user = User::whereEmail($dto->email)->firstOrFail();
+        InvalidateTokensByUser::execute(
+            $user,
+            [PersonalAccessToken::SESSION_TOKEN_NAME, PersonalAccessToken::REFRESH_TOKEN_NAME]
+        );
 
         /** @var int $rt_expiration */
         $rt_expiration = config('sanctum.rt_expiration');
         $refreshToken = $user->createToken(
             PersonalAccessToken::REFRESH_TOKEN_NAME,
             [AccessTokenAbilityEnum::IssueAccessToken->value],
-            now()->addHours($rt_expiration)
+            now()->addMinutes($rt_expiration)
         );
 
         /** @var int $expiration */
         $expiration = config('sanctum.expiration');
         $apiToken = $user->createToken(
-            PersonalAccessToken::REFRESH_TOKEN_NAME,
+            PersonalAccessToken::SESSION_TOKEN_NAME,
             [AccessTokenAbilityEnum::AccessApi->value],
-            now()->addHours($expiration)
+            now()->addMinutes($expiration)
         );
 
         return [

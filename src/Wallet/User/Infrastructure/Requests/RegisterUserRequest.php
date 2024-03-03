@@ -16,7 +16,7 @@ final class RegisterUserRequest extends FormRequest
      *
      * @api
      *
-     * @psalm-return array{name: list{'required', 'string', 'max:255'}, email: list{'required', 'email', 'unique:users'}, password: list{'required', Password}}
+     * @psalm-return array{name: list{'required', 'string', 'max:255'}, email: list{'required', 'email', 'unique:users'}, password: list{'required', Password}, confirmation_password: list{'required', 'same:password'}}
      */
     public function rules(): array
     {
@@ -31,6 +31,7 @@ final class RegisterUserRequest extends FormRequest
                     ->symbols()
                     ->max(255),
             ],
+            "confirmation_password" => ['required', 'same:' . RegisterUserFields::PASSWORD],
         ];
     }
 

@@ -8,7 +8,7 @@ import * as z from "zod";
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import { Header, Typography } from "@/Components/Layout/Typography";
-import { useApi } from "@/Hooks/useApi";
+import { useApi } from "@/Hooks/Api/useApi";
 import { ROUTES } from "@/Router/routes";
 
 const schema = z
@@ -18,19 +18,19 @@ const schema = z
       .min(1, { message: "The email is required." })
       .email("Invalid email."),
     password: z.string().min(1, { message: "The password is required." }),
-    confirmationPassword: z
+    confirmation_password: z
       .string()
       .min(1, { message: "The password confirmation is required." }),
     name: z.string().min(1, { message: "The first name is required." }),
-    lastName: z.string().min(1, { message: "The last name is required." }),
+    last_name: z.string().min(1, { message: "The last name is required." }),
   })
   .refine(
     (data) => {
-      return data.password === data.confirmationPassword;
+      return data.password === data.confirmation_password;
     },
     {
       message: "Confirmation password does not match.",
-      path: ["confirmationPassword"],
+      path: ["confirmation_password"],
     },
   );
 
@@ -76,8 +76,8 @@ export const Register = () => {
             <Input
               id="last_name"
               placeholder="Last Name"
-              {...register("lastName")}
-              error={errors.lastName?.message}
+              {...register("last_name")}
+              error={errors.last_name?.message}
             />
           </div>
           <Input
@@ -98,10 +98,10 @@ export const Register = () => {
           />
           <Input
             type="password"
-            id="confirmationPassword"
+            id="confirmation_password"
             placeholder="Repeat your password.."
-            {...register("confirmationPassword")}
-            error={errors.confirmationPassword?.message}
+            {...register("confirmation_password")}
+            error={errors.confirmation_password?.message}
           />
           <Typography className="float-left !text-sm">
             Have an account?{" "}

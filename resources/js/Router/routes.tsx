@@ -30,7 +30,6 @@ export const ROUTES = {
 
 export interface AppRoute {
   useNavbar?: boolean;
-  visibility?: "public" | "private";
 }
 
 export type AppRouteType<T> = {
@@ -47,31 +46,26 @@ export const routes: {
     {
       path: "/*",
       element: ROUTES.notFound.component,
-      visibility: "public",
     },
     {
       path: ROUTES.notFound.path,
       element: ROUTES.notFound.component,
-      visibility: "public",
     },
     {
       path: ROUTES.login.path,
       element: ROUTES.login.component,
       useNavbar: false,
-      visibility: "public",
     },
     {
       path: ROUTES.register.path,
       element: ROUTES.register.component,
       useNavbar: false,
-      visibility: "public",
     },
   ],
   private: [
     {
       path: ROUTES.home.path,
       element: ROUTES.home.component,
-      visibility: "private",
     },
   ],
 };
