@@ -24,7 +24,6 @@ export const useApi = () => {
   useRefreshToken(api);
 
   const signIn = async (data: { email: string; password: string }) => {
-    await axios.get("sanctum/csrf-cookie");
     return api.post<BaseApiAnswer<Credentials>>("/login", data);
   };
   const signUp = (data: {

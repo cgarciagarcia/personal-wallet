@@ -67,7 +67,7 @@ export const Register = () => {
     },
     onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
       if (response.response?.data) {
-        toast.error(presentValidationErrors(response.response.data, true));
+        toast.error(presentValidationErrors(response.response.data));
       }
     },
     mutationKey: ["signUp"],
