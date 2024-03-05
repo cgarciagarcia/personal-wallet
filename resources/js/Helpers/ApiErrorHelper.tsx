@@ -15,7 +15,6 @@ export const presentValidationErrors = <
   T extends AllApiErrorNotInternalServerError,
 >(
   response: BaseApiError<T>,
-  deep = false,
 ) => {
   if (isInternalServerError<T>(response)) {
     return (
@@ -25,19 +24,7 @@ export const presentValidationErrors = <
     );
   }
 
-  if (!deep) {
-    return (
-      <div>
-        <Typography>{response.error.message}</Typography>
-      </div>
-    );
-  }
-
-  if (
-    deep &&
-    response.error.detail &&
-    Object.keys(response.error.detail).length
-  ) {
+  if (response.error.detail && Object.keys(response.error.detail).length) {
     return (
       <div>
         {Object.values(response.error.detail)
@@ -45,6 +32,12 @@ export const presentValidationErrors = <
           .map((e, k) => (
             <Typography key={k}>{e}</Typography>
           ))}
+      </div>
+    );
+  } else if (response.error?.message) {
+    return (
+      <div>
+        <Typography>{response.error.message}</Typography>
       </div>
     );
   }

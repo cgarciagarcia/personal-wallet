@@ -1,6 +1,7 @@
 import * as React from "react";
 import { type ReactNode } from "react";
 import { useState } from "react";
+import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { Link, NavLink, type NavLinkProps } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
@@ -28,9 +29,9 @@ const NavbarLink = ({
   return (
     <li
       className={twMerge(
-        "mt-8 w-full p-4 md:mt-0 md:p-0",
+        "mt-4 w-full rounded p-4 md:mt-0 md:p-0",
         active &&
-          "w-auto rounded bg-primary-50 p-4 md:rounded-none md:border-b-2 md:border-solid md:border-b-white md:bg-transparent md:p-0",
+          "w-auto bg-primary-700 p-4 md:rounded-none md:border-b-2 md:border-solid md:border-b-white md:bg-transparent md:p-0",
       )}
     >
       <NavLink
@@ -41,8 +42,12 @@ const NavbarLink = ({
         )}
       >
         <Typography
-          className={twMerge("text-nowrap text-white", active && "font-bold")}
+          className={twMerge(
+            "text-nowrap capitalize md:text-white",
+            active && "font-bold text-white",
+          )}
           as="p"
+          weight={active ? "medium" : "thin"}
         >
           {children as ReactNode}
         </Typography>
@@ -54,9 +59,11 @@ const NavbarLink = ({
 const MobileNavbar = ({
   className,
   location,
+  logout,
 }: {
   className?: string;
   location: string;
+  logout: () => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -76,35 +83,47 @@ const MobileNavbar = ({
           />
         </div>
       </div>
-      <ul
+      <div
         className={twMerge(
-          "flex h-0 w-auto flex-col overflow-y-hidden bg-gray-50 px-8 shadow-lg duration-500",
+          "flex h-0 w-auto flex-col justify-between overflow-y-hidden bg-white px-4 shadow-lg duration-500",
           isOpen && "h-[300px]",
         )}
       >
-        {navLinks.map((link) => (
-          <NavbarLink
-            to={link.path}
-            key={link.label}
-            active={location === link.path}
-            onClick={() => setIsOpen(false)}
-          >
-            {link.label}
-          </NavbarLink>
-        ))}
-      </ul>
+        <ul>
+          {navLinks.map((link) => (
+            <NavbarLink
+              to={link.path}
+              key={link.label}
+              active={location === link.path}
+              onClick={() => setIsOpen(false)}
+            >
+              {link.label}
+            </NavbarLink>
+          ))}
+        </ul>
+        <Link
+          to={ROUTES.login.path}
+          onClick={() => logout()}
+          className="my-4 flex items-center"
+        >
+          <div className="flex items-center justify-center rounded-full bg-complementary p-2">
+            <ArrowRightEndOnRectangleIcon className="h-4 text-white" />
+          </div>
+          <Typography className="ml-2">Logout</Typography>
+        </Link>
+      </div>
     </div>
   );
 };
 const DesktopNavbar = ({
   className,
   location,
+  logout,
 }: {
   className?: string;
   location: string;
+  logout: () => void;
 }) => {
-  const { logout } = useApi();
-
   return (
     <div
       className={twMerge(
@@ -135,24 +154,32 @@ const DesktopNavbar = ({
           </NavbarLink>
         ))}
       </ul>
-      <div className="pr-4">
-        <Typography as="p" className="text-white" onClick={() => logout()}>
-          Logout
-        </Typography>
+      <div className="group/logout relative pr-4">
+        <ArrowRightEndOnRectangleIcon
+          className="h-8 text-white"
+          onClick={() => logout()}
+        />
+        <div className="absolute rounded bg-gray-800 p-2 opacity-0 transition-opacity duration-200 group-hover/logout:opacity-100">
+          <Typography className="float-left !text-sm text-white" weight="thin">
+            Logout
+          </Typography>
+        </div>
       </div>
     </div>
   );
 };
 
 export const Navbar = () => {
+  const { logout } = useApi();
+
   const renderNavbar = useNavbar();
   if (!renderNavbar) return;
 
   return (
     <nav className="absolute h-14 w-full bg-primary shadow-lg lg:h-16 xl:h-20">
       <div className="mx-auto flex max-w-limit-nav ">
-        <DesktopNavbar location={location.pathname} />
-        <MobileNavbar location={location.pathname} />
+        <DesktopNavbar location={location.pathname} logout={logout} />
+        <MobileNavbar location={location.pathname} logout={logout} />
       </div>
     </nav>
   );

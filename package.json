@@ -7,7 +7,8 @@
         "format:check": "prettier --check \"./resources/js/**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path ../../.gitignore",
         "format:write": "prettier --write \"./resources/js/**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path ../../.gitignore",
         "type-check": "tsc --noEmit",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "style:fix": "prettier --write \"./resources/js/**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path ../../.gitignore && eslint . --fix"
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.10",

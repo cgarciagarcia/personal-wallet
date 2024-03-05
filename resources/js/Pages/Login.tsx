@@ -1,15 +1,23 @@
+import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import axios, { type AxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as z from "zod";
 
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import { Header, Typography } from "@/Components/Layout/Typography";
+import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
 import { useApi } from "@/Hooks/Api/useApi";
 import { ROUTES } from "@/Router/routes";
 import { useAuthStore } from "@/Stores/useAuthStore";
+import {
+  type BaseApiError,
+  type ValidationErrorResponse,
+} from "@/Types/ApiErrors";
 
 const schema = z.object({
   email: z
@@ -27,6 +35,10 @@ export const Login = () => {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    void axios.get("sanctum/csrf-cookie").then(() => null);
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -40,6 +52,11 @@ export const Login = () => {
     onSuccess: ({ data }) => {
       setAuth(data.data);
       navigate(ROUTES.home.path);
+    },
+    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
+      if (response.response?.data) {
+        toast.error(presentValidationErrors(response.response.data));
+      }
     },
     mutationKey: ["sigIn"],
   });
