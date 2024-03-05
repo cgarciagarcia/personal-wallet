@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\View;
+use Support\Controllers\AppController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\View;
 |
 */
 
-Route::get('{unknown}', fn () => View::make('app'))->where('unknown', '^(?!api).*$');
+Route::get('{unknown}', AppController::class)->where('unknown', '^(?!api).*$');

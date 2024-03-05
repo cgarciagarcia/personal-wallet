@@ -6,6 +6,7 @@ namespace Wallet\User\Domain\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,6 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\PersonalAccessToken;
 use Spatie\Permission\Traits\HasRoles;
 use Wallet\Budget\Domain\Models\Budget;
 use Wallet\Transaction\Domain\Models\Transaction;
@@ -39,8 +39,10 @@ use Wallet\Transaction\Domain\Models\Transaction;
  * @property-read int|null $permissions_count
  * @property-read Collection<int, \Spatie\Permission\Models\Role> $roles
  * @property-read int|null $roles_count
- * @property-read Collection<int, PersonalAccessToken> $tokens
+ * @property-read Collection<int, \Wallet\User\Domain\Models\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ * @property-read Collection<int, Transaction> $transactions
+ * @property-read int|null $transactions_count
  *
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
@@ -60,7 +62,7 @@ use Wallet\Transaction\Domain\Models\Transaction;
  *
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use Notifiable;
@@ -69,14 +71,9 @@ class User extends Authenticatable
     /**
      * @var string[]
      *
-     * @psalm-var list{'name', 'email', 'password', 'last_login'}
+     * @psalm-var list{'name', 'email', 'password'}
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'last_login',
-    ];
+    protected $fillable = RegisterUserFields::FIELDS;
 
     /**
      * @var string[]

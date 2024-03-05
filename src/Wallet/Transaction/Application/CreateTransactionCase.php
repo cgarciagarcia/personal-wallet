@@ -10,7 +10,6 @@ use Throwable;
 use Wallet\Transaction\Domain\Dtos\CreateTransactionDto;
 use Wallet\Transaction\Domain\Models\Transaction;
 use Wallet\Transaction\Infrastructure\Events\CreatedTransactionEvent;
-use Wallet\User\Domain\Models\User;
 
 final readonly class CreateTransactionCase
 {
@@ -23,12 +22,14 @@ final readonly class CreateTransactionCase
 
     /**
      *
+     *
+     *
      * @throws Throwable
      */
-    public function __invoke(CreateTransactionDto $dto, User $user): Transaction
+    public function __invoke(CreateTransactionDto $dto): Transaction
     {
         $dispatcher = $this->dispatcher;
-        return DB::transaction(function () use ($dto, $user, $dispatcher) {
+        return DB::transaction(function () use ($dto, $dispatcher) {
             $transaction = new Transaction();
             $transaction->date = $dto->date;
             $transaction->money = $dto->amount;
@@ -39,7 +40,7 @@ final readonly class CreateTransactionCase
             $transaction->repetition_count = $dto->repetition;
             $transaction->repetition_remaining = $dto->repetition;
             $transaction->interval = $dto->interval;
-            $transaction->user_id = $user->id;
+            $transaction->user_id = $dto->user->id;
             $transaction->save();
 
             $dispatcher->dispatch(new CreatedTransactionEvent($transaction));

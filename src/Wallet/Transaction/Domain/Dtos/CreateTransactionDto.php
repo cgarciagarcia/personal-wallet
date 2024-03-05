@@ -8,6 +8,7 @@ use Akaunting\Money\Money;
 use Illuminate\Support\Carbon;
 use Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum;
 use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
+use Wallet\User\Domain\Models\User;
 
 final readonly class CreateTransactionDto
 {
@@ -19,6 +20,7 @@ final readonly class CreateTransactionDto
         public bool $recurring,
         public string $description,
         public ?RepetitionIntervalEnum $interval,
+        public User $user,
         public int $repetition = 0,
     ) {
     }

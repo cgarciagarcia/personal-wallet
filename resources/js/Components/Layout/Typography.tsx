@@ -1,8 +1,10 @@
-import { type ReactNode } from "react";
+import { type HTMLProps, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type HeadersType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type TextType = "p" | "label" | "span";
+type AllTextType = TextType | HeadersType;
+
 type FontWeightType =
   | "thin"
   | "extralight"
@@ -13,13 +15,6 @@ type FontWeightType =
   | "bold"
   | "extrabold"
   | "black";
-
-export interface TypographyProps {
-  as: HeadersType | TextType;
-  children: ReactNode;
-  className?: string;
-  weight?: FontWeightType;
-}
 
 export interface HeaderProps {
   as: HeadersType;
@@ -55,23 +50,30 @@ export const Header = ({
     </Typography>
   );
 };
+
+export interface TypographyProps<T extends AllTextType> extends HTMLProps<T> {
+  as?: T;
+  weight?: FontWeightType;
+}
+
 export const Typography = ({
-  as = "p",
+  as: Component = "p",
   children,
   weight,
   className = "",
   ...props
-}: TypographyProps) => {
-  const AsType = as;
-
+}: TypographyProps<AllTextType>) => {
   return (
-    <AsType
+    // Fix me
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    <Component
       className={twMerge(
         "font-rubik text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
-        as === "label" &&
+        Component === "label" &&
           "text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
-        as === "p" && "",
-        as === "span" && "",
+        Component === "p" && "",
+        Component === "span" && "",
         weight == "thin" && "font-thin",
         weight == "extralight" && "font-extralight",
         weight == "light" && "font-light",
@@ -86,6 +88,6 @@ export const Typography = ({
       {...props}
     >
       {children}
-    </AsType>
+    </Component>
   );
 };

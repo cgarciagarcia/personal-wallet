@@ -8,10 +8,8 @@ use Akaunting\Money\Money;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Wallet\Shared\Domain\Models\Category;
 use Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum;
 use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
-use Wallet\User\Domain\Models\User;
 
 /**
  * Wallet\Transaction\Domain\Models\Transaction
@@ -30,19 +28,17 @@ use Wallet\User\Domain\Models\User;
  * @property string                      $description
  * @property Carbon|null                 $created_at
  * @property Carbon|null                 $updated_at
- * @property-read Category|null $category
- * @property-read User $user
  *
  * @method static Builder|Transaction newModelQuery()
  * @method static Builder|Transaction newQuery()
  * @method static Builder|Transaction query()
- * @method static Builder|Transaction whereAmount($value)
  * @method static Builder|Transaction whereCategoryId($value)
  * @method static Builder|Transaction whereCreatedAt($value)
  * @method static Builder|Transaction whereDate($value)
  * @method static Builder|Transaction whereDescription($value)
  * @method static Builder|Transaction whereId($value)
  * @method static Builder|Transaction whereInterval($value)
+ * @method static Builder|Transaction whereMoney($value)
  * @method static Builder|Transaction whereNextChargeDate($value)
  * @method static Builder|Transaction whereRecurring($value)
  * @method static Builder|Transaction whereRepetitionCount($value)

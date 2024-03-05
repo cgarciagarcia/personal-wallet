@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { Typography } from "@/Components/Layout/Typography";
-import { useApi } from "@/Hooks/useApi";
+import { useApi } from "@/Hooks/Api/useApi";
 
 export const Home = () => {
   const { getTransactions } = useApi();
@@ -11,7 +11,6 @@ export const Home = () => {
     queryKey: ["getTransactions"],
   });
 
-  console.log(isLoading);
   return (
     <div className="bg-white">
       {!isLoading && data?.data && data?.data.data.length > 0 ? (

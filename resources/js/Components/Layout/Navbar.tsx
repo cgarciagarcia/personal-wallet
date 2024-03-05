@@ -2,15 +2,12 @@ import * as React from "react";
 import { type ReactNode } from "react";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
-import {
-  Link,
-  NavLink,
-  useLocation,
-  type NavLinkProps,
-} from "react-router-dom";
+import { Link, NavLink, type NavLinkProps } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 import { Typography } from "@/Components/Layout/Typography";
+import { useApi } from "@/Hooks/Api/useApi";
+import { useNavbar } from "@/Hooks/useNavbar";
 import { ROUTES } from "@/Router/routes";
 
 const navLinks = [
@@ -106,6 +103,8 @@ const DesktopNavbar = ({
   className?: string;
   location: string;
 }) => {
+  const { logout } = useApi();
+
   return (
     <div
       className={twMerge(
@@ -137,18 +136,17 @@ const DesktopNavbar = ({
         ))}
       </ul>
       <div className="pr-4">
-        <Link to="/login">
-          <Typography as="span" className="text-white">
-            Login
-          </Typography>
-        </Link>
+        <Typography as="p" className="text-white" onClick={() => logout()}>
+          Logout
+        </Typography>
       </div>
     </div>
   );
 };
 
 export const Navbar = () => {
-  const location = useLocation();
+  const renderNavbar = useNavbar();
+  if (!renderNavbar) return;
 
   return (
     <nav className="absolute h-14 w-full bg-primary shadow-lg lg:h-16 xl:h-20">

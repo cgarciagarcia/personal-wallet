@@ -1,8 +1,13 @@
-import { type ComponentPropsWithoutRef, type ForwardedRef } from "react";
+import {
+  type ComponentPropsWithoutRef,
+  type ForwardedRef,
+  type ReactNode,
+} from "react";
 import { twMerge } from "tailwind-merge";
 
+import Spinner from "@/Components//Layout/Spinner";
 import { IconWrapper } from "@/Components/IconWrapper";
-import { forwardRef } from "@/helpers/forwardRef";
+import { forwardRef } from "@/Helpers/forwardRef";
 import { Typography } from "./Typography";
 
 export const buttonVariants = ["primary", "complementary", "tertiary"] as const;
@@ -14,8 +19,9 @@ export type ButtonSize = (typeof buttonSizes)[number];
 export interface ButtonProps extends ComponentPropsWithoutRef<"button"> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  left?: React.ReactNode;
-  right?: React.ReactNode;
+  left?: ReactNode;
+  right?: ReactNode;
+  isLoading?: boolean;
 }
 
 export const Button = forwardRef(
@@ -29,6 +35,7 @@ export const Button = forwardRef(
       size = "md",
       type = "button",
       variant = "primary",
+      isLoading,
       ...props
     }: ButtonProps,
     ref: ForwardedRef<HTMLButtonElement>,
@@ -56,7 +63,7 @@ export const Button = forwardRef(
         ],
         className,
       )}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       {...props}
     >
       <div className="flex flex-row items-center gap-2">
@@ -74,10 +81,12 @@ export const Button = forwardRef(
           )}
           as="span"
         >
-          {children}
+          {isLoading ? "Loading..." : children}
         </Typography>
       </div>
-      {right && <IconWrapper size={size}>{right}</IconWrapper>}
+      {(right ?? isLoading) && (
+        <IconWrapper size={size}>{isLoading ? <Spinner /> : right}</IconWrapper>
+      )}
     </button>
   ),
 );

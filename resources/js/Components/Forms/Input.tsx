@@ -14,7 +14,7 @@ import { twMerge } from "tailwind-merge";
 import { Message, type FormErrorType } from "@/Components/Forms/Message";
 import { IconWrapper } from "@/Components/IconWrapper";
 import { Typography } from "@/Components/Layout/Typography";
-import { forwardRef } from "@/helpers/forwardRef";
+import { forwardRef } from "@/Helpers/forwardRef";
 
 export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   compact?: boolean;
@@ -55,7 +55,10 @@ export const Input = forwardRef(
     return (
       <div style={style} className={twMerge("relative", containerClassName)}>
         {!!label && (
-          <Typography as="label" className="">
+          <Typography
+            as="label"
+            className={twMerge("", error && "text-red-500")}
+          >
             {label}
           </Typography>
         )}
@@ -91,14 +94,15 @@ export const Input = forwardRef(
             id={id}
             {...rest}
             className={twMerge(
-              "block h-[46px] w-full rounded-md border border-gray-200 px-2 py-3 text-[16px] text-lg",
-              "placeholder:text-primary-white-600 focus:border-secondary-green font-normal text-gray-700 focus:ring-2",
-              "focus:ring-secondary-green-300 ",
-              "placeholder:text-[16px] placeholder:font-normal placeholder:leading-normal placeholder:text-gray-700",
+              "block h-[46px] w-full rounded-md border border-gray-200 px-2 py-3",
+              "focus:ring-secondary-green-300 focus:border-secondary-green text-gray-700 focus:ring-2",
+              "font-normal ",
+              "placeholder:text-sm placeholder:font-normal placeholder:text-gray-400 md:placeholder:text-base",
               "rounded border-solid border-gray-800",
               (!!left || type === "password") && "pl-10",
               !!rest.disabled && "bg-black-100 border-gray-500",
-              !!error && "focus:border-red border-red-500 focus:ring-red-200",
+              !!error &&
+                "focus:border-red border-red-500 placeholder:text-red-500 focus:ring-red-200",
               type === "password" || right ? `mr-[${rightwMergeidth}px]` : "",
               className,
             )}
@@ -125,7 +129,7 @@ export const Input = forwardRef(
                   <EyeIcon
                     className={twMerge(
                       "h-5 w-5 cursor-pointer stroke-1 text-gray-800",
-                      !!error && "stroke-red-500",
+                      !!error && "fill-red-500 stroke-red-500",
                     )}
                     onClick={() => setShowPassword((current) => !current)}
                   />
