@@ -6,7 +6,7 @@ INTERACTIVE="--no-interaction"
 
 vendor/bin/captainhook $INTERACTIVE --configuration=captainhook.json --bootstrap=vendor/autoload.php hook:pre-push "$@" <&0
 
-if [ $(git status --porcelain) ]; then
+if [[ $(git status --porcelain) ]]; then
    echo "Uncommited  files present. Aborting push.";
    exit 1;
 fi
