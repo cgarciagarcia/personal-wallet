@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Wallet\User\Domain\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;

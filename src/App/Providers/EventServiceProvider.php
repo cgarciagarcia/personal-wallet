@@ -7,6 +7,7 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Wallet\Budget\Infrastructure\Events\CreatedBudgetEvent;
 use Wallet\Transaction\Infrastructure\Events\CreatedTransactionEvent;
+use Wallet\Transaction\Infrastructure\Events\TransactionDeletedEvent;
 use Wallet\Transaction\Infrastructure\MakeLogOnCreatedTransactionListener;
 use Wallet\User\Infrastructure\Events\UserRegistered;
 
@@ -25,6 +26,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         CreatedTransactionEvent::class => [
             MakeLogOnCreatedTransactionListener::class,
+        ],
+        TransactionDeletedEvent::class => [
         ],
     ];
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Wallet\User\Application;
 
 use Illuminate\Support\Facades\Auth;
+use Throwable;
 use Wallet\User\Domain\Dtos\UserLoginDto;
 use Wallet\User\Domain\Exceptions\FailedLoginException;
 use Wallet\User\Domain\Models\AccessTokenAbilityEnum;
@@ -14,9 +15,10 @@ use Wallet\User\Domain\Models\User;
 final readonly class UserLoginCase
 {
     /**
+     *
      * @return string[]
      *
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @psalm-return array{access_token: string, refresh_token: string}
      */

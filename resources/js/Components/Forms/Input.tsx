@@ -12,7 +12,7 @@ import {
 import { twMerge } from "tailwind-merge";
 
 import { Message, type FormErrorType } from "@/Components/Forms/Message";
-import { IconWrapper } from "@/Components/IconWrapper";
+import { IconEnveloper } from "@/Components/IconEnveloper";
 import { Typography } from "@/Components/Layout/Typography";
 import { forwardRef } from "@/Helpers/forwardRef";
 
@@ -75,7 +75,7 @@ export const Input = forwardRef(
                 position: "absolute",
               }}
             >
-              <IconWrapper size="sm">
+              <IconEnveloper size="sm">
                 {left ?? (
                   <LockClosedIcon
                     className={twMerge(
@@ -85,7 +85,7 @@ export const Input = forwardRef(
                     onClick={() => setShowPassword((current) => !current)}
                   />
                 )}
-              </IconWrapper>
+              </IconEnveloper>
             </div>
           )}
           <input
@@ -108,7 +108,7 @@ export const Input = forwardRef(
             )}
           />
           {(!!right || type === "password") && (
-            <IconWrapper
+            <IconEnveloper
               size="sm"
               className={twMerge(
                 "absolute right-3 flex flex-row items-center justify-center",
@@ -134,7 +134,7 @@ export const Input = forwardRef(
                     onClick={() => setShowPassword((current) => !current)}
                   />
                 ))}
-            </IconWrapper>
+            </IconEnveloper>
           )}
         </div>
         {}

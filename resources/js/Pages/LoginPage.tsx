@@ -29,7 +29,7 @@ const schema = z.object({
 
 type schemaType = z.infer<typeof schema>;
 
-export const Login = () => {
+export const LoginPage = () => {
   const { signIn } = useApi();
   const { setAuth } = useAuthStore();
 

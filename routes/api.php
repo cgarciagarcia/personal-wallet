@@ -5,10 +5,12 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Wallet\Budget\Infrastructure\Controllers\CreateBudgetController;
 use Wallet\Transaction\Infrastructure\Controllers\CreateTransactionController;
+use Wallet\Transaction\Infrastructure\Controllers\DeleteTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserController;
 use Wallet\User\Domain\Models\AccessTokenAbilityEnum;
 use Wallet\User\Infrastructure\Controllers\RefreshAccessTokenController;
 use Wallet\User\Infrastructure\Controllers\UserLoginController;
+use Wallet\User\Infrastructure\Controllers\UserLogoutController;
 use Wallet\User\Infrastructure\Controllers\UserRegisterController;
 
 /*
@@ -30,17 +32,19 @@ use Wallet\User\Infrastructure\Controllers\UserRegisterController;
  */
 Route::post('/users', UserRegisterController::class)->name('user.register');
 Route::post('/login', UserLoginController::class)->name('user.login');
-
 /*
  * --------------------------------------------------------------------------
  * REFRESH ROUTES
  * --------------------------------------------------------------------------
  */
-Route::post('/refresh-access-token', RefreshAccessTokenController::class)
-    ->middleware([
+Route::group([
+    'middleware' => [
         'auth:sanctum',
         'ability:'.AccessTokenAbilityEnum::IssueAccessToken->value,
-    ])->name('user.token.refresh');
+    ],
+], function () {
+    Route::post('/refresh-access-token', RefreshAccessTokenController::class)->name('user.token.refresh');
+});
 
 /*
  * --------------------------------------------------------------------------
@@ -48,7 +52,9 @@ Route::post('/refresh-access-token', RefreshAccessTokenController::class)
  * --------------------------------------------------------------------------
  */
 Route::group(['middleware' => ['auth:sanctum', 'ability:'.AccessTokenAbilityEnum::AccessApi->value,]], function () {
+    Route::delete('/logout', UserLogoutController::class)->name('user.logout');
     Route::post('/users/{user}/budget', CreateBudgetController::class)->name('user.create.budget');
     Route::get('/transactions', GetTransactionsByUserController::class)->name('user.transactions.get');
     Route::post('/transactions', CreateTransactionController::class)->name('user.transaction.create');
+    Route::delete('/transactions/{transaction}', DeleteTransactionController::class)->name('user.transaction.delete');
 });

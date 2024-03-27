@@ -6,7 +6,7 @@ import {
 import { twMerge } from "tailwind-merge";
 
 import Spinner from "@/Components//Layout/Spinner";
-import { IconWrapper } from "@/Components/IconWrapper";
+import { IconEnveloper } from "@/Components/IconEnveloper";
 import { forwardRef } from "@/Helpers/forwardRef";
 import { Typography } from "./Typography";
 
@@ -44,7 +44,7 @@ export const Button = forwardRef(
       ref={ref}
       type={type}
       className={twMerge(
-        "flex h-12 flex-row items-center justify-between gap-2 border border-transparent text-center focus:outline-none disabled:cursor-not-allowed",
+        "flex h-12 cursor-pointer flex-row items-center justify-between gap-2 border border-black text-center focus:outline-none disabled:cursor-not-allowed",
         "rounded-3xl focus:ring-2 focus:ring-offset-0",
         !left && !right && "justify-center",
         variant === "primary" &&
@@ -67,7 +67,7 @@ export const Button = forwardRef(
       {...props}
     >
       <div className="flex flex-row items-center gap-2">
-        {left && <IconWrapper size={size}>{left}</IconWrapper>}
+        {left && <IconEnveloper size={size}>{left}</IconEnveloper>}
         <Typography
           weight="medium"
           className={twMerge(
@@ -85,7 +85,9 @@ export const Button = forwardRef(
         </Typography>
       </div>
       {(right ?? isLoading) && (
-        <IconWrapper size={size}>{isLoading ? <Spinner /> : right}</IconWrapper>
+        <IconEnveloper size={size}>
+          {isLoading ? <Spinner /> : right}
+        </IconEnveloper>
       )}
     </button>
   ),

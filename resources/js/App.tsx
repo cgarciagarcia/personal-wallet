@@ -5,6 +5,7 @@ import { env } from "./env";
 
 import "./bootstrap";
 import "../css/app.css";
+import "react-tooltip/dist/react-tooltip.css";
 
 import { StrictMode } from "react";
 import { ToastContainer } from "react-toastify";
@@ -12,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 import { Router } from "@/Router";
 
@@ -26,6 +28,7 @@ export const App = () => (
       {env.VITE_APP_ENV === "local" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
+      <Tooltip id="tooltip" />
       <ToastContainer stacked={true} />
     </QueryClientProvider>
   </StrictMode>

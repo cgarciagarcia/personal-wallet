@@ -1,5 +1,8 @@
-export interface Transactions {
+export interface Transaction {
   id: number;
+  type: string;
+  date: string;
+  description: string;
   money: {
     amount: number;
   };

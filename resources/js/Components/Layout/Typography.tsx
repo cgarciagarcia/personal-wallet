@@ -54,6 +54,7 @@ export const Header = ({
 export interface TypographyProps<T extends AllTextType> extends HTMLProps<T> {
   as?: T;
   weight?: FontWeightType;
+  wrap?: "nowrap" | "wrap";
 }
 
 export const Typography = ({
@@ -61,6 +62,7 @@ export const Typography = ({
   children,
   weight,
   className = "",
+  wrap,
   ...props
 }: TypographyProps<AllTextType>) => {
   return (
@@ -71,7 +73,7 @@ export const Typography = ({
       className={twMerge(
         "font-rubik text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
         Component === "label" &&
-          "text-sm md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
+          "text-xs md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
         Component === "p" && "",
         Component === "span" && "",
         weight == "thin" && "font-thin",
@@ -83,6 +85,8 @@ export const Typography = ({
         weight == "bold" && "font-bold",
         weight == "extrabold" && "font-extrabold",
         weight == "black" && "font-black",
+        wrap == "wrap" && "text-wrap",
+        wrap == "nowrap" && "text-nowrap",
         className,
       )}
       {...props}

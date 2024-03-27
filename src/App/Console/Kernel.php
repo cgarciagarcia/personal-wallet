@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     }
 
     /**
-     * Register the commands for the application.
+     * RegisterPage the commands for the application.
      */
     #[\Override]
     protected function commands(): void

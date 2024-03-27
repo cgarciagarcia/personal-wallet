@@ -30,7 +30,7 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
+     * RegisterPage the exception handling callbacks for the application.
      */
     #[\Override]
     public function register(): void
@@ -45,15 +45,15 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e): Response|JsonResponse|RedirectResponse|ResponseSymfony
     {
         if ($e instanceof MissingAbilityException) {
-            return responder()->error(403, __('auth.missing_ability'))->respond(403);
+            return responder()->error(403, (string) __('auth.missing_ability'))->respond(403);
         }
 
         if ($e instanceof AuthenticationException) {
-            return responder()->error(401, __('auth.unauthenticated'))->respond(401);
+            return responder()->error(401, (string) __('auth.unauthenticated'))->respond(401);
         }
 
         if ($e instanceof FailedLoginException) {
-            return responder()->error(422, __('auth.failed'))->respond(422);
+            return responder()->error(422, (string) __('auth.failed'))->respond(422);
         }
 
         if ($e instanceof ValidationException) {

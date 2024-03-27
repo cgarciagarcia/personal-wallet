@@ -1,35 +1,42 @@
 import { type RouteObject } from "react-router/dist/lib/context";
 
-import { Home } from "@/Pages/Home";
-import { Login } from "@/Pages/Login";
-import { NotFound } from "@/Pages/NotFound";
-import { Register } from "@/Pages/Register";
+import { BudgetPage } from "@/Pages/BudgetPage";
+import { HomePage } from "@/Pages/Home/HomePage";
+import { LoginPage } from "@/Pages/LoginPage";
+import { NotFoundPage } from "@/Pages/NotFoundPage";
+import { RegisterPage } from "@/Pages/RegisterPage";
 
 export const ROUTES = {
   home: {
     path: "/",
-    component: <Home />,
+    component: <HomePage />,
     label: "Home",
   },
   login: {
     path: "/login",
-    component: <Login />,
+    component: <LoginPage />,
     label: "login",
   },
   register: {
     path: "/registration",
-    component: <Register />,
+    component: <RegisterPage />,
     label: "register",
   },
   notFound: {
     path: "/404",
-    component: <NotFound />,
+    component: <NotFoundPage />,
     label: "Not found",
+  },
+  budget: {
+    path: "/budget",
+    component: <BudgetPage />,
+    label: "Budgets",
   },
 };
 
 export interface AppRoute {
   useNavbar?: boolean;
+  useFooter?: boolean;
 }
 
 export type AppRouteType<T> = {
@@ -55,17 +62,23 @@ export const routes: {
       path: ROUTES.login.path,
       element: ROUTES.login.component,
       useNavbar: false,
+      useFooter: false,
     },
     {
       path: ROUTES.register.path,
       element: ROUTES.register.component,
       useNavbar: false,
+      useFooter: false,
     },
   ],
   private: [
     {
       path: ROUTES.home.path,
       element: ROUTES.home.component,
+    },
+    {
+      path: ROUTES.budget.path,
+      element: ROUTES.budget.component,
     },
   ],
 };

@@ -46,7 +46,7 @@ const schema = z
 
 type schemaType = z.infer<typeof schema>;
 
-export const Register = () => {
+export const RegisterPage = () => {
   const { signUp } = useApi();
 
   const navigate = useNavigate();
