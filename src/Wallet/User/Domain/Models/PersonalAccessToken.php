@@ -75,8 +75,8 @@ class PersonalAccessToken extends SanctumPersonalAccessToken
     /**
      * @param Builder<PersonalAccessToken> $query
      *
-     *
      * @api
+     *
      * @psalm-return Builder<self>
      */
     public function scopeActives(Builder $query): Builder
