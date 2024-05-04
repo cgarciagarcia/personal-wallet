@@ -28,9 +28,7 @@ uses(
 |
 */
 
-//expect()->extend('toBeOne', function () {
-//    return $this->toBe(1);
-//});
+// This is an example to extends common expectations expect()->extend('toBeOne', function () {return $this->toBe(1); });
 
 /*
 |--------------------------------------------------------------------------
