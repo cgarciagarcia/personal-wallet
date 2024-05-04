@@ -12,26 +12,26 @@
         "akaunting/laravel-money": "^5.1",
         "flugger/laravel-responder": "^3.3",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^v10.45.0",
-        "laravel/sanctum": "^3.3",
+        "laravel/framework": "^v11.6.0",
+        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.8",
         "sentry/sentry-laravel": "^4.2",
         "spatie/laravel-permission": "^6.3"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.13",
+        "barryvdh/laravel-ide-helper": "^v3.0.0",
         "captainhook/captainhook": "^5.19",
         "defstudio/pest-plugin-laravel-expectations": "^2.1",
         "fakerphp/faker": "^1.9.1",
         "larastan/larastan": "^2.0",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",
-        "laravel/telescope": "^4.17",
+        "laravel/telescope": "^5.0",
         "marcocesarato/php-conventional-changelog": "^1.17",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "pestphp/pest": "^2.31",
-        "pestphp/pest-plugin-laravel": "^2.2",
+        "nunomaduro/collision": "^8.1",
+        "pestphp/pest": "^v2.34.5",
+        "pestphp/pest-plugin-laravel": "^2.3",
         "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.1",
         "psalm/plugin-laravel": "^2.8",
@@ -121,5 +121,19 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "version": "0.0.1"
+    "version": "0.0.1",
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "ramsey/conventional-commits",
+                "version": "1.5",
+                "source": {
+                    "url": "https://github.com/cgarciagarcia/conventional-commits.git",
+                    "type": "git",
+                    "reference": "main"
+                }
+            }
+        }
+    ]
 }
