@@ -3,16 +3,18 @@ import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { Typography } from "@/Components/Layout/Typography";
-import { type Transaction } from "@/Types";
+import { TransactionsTypes, type Transaction } from "@/Types";
 
 export interface TransactionItemProps {
   transaction: Transaction;
   setTransactionToDelete: (transaction: Transaction) => void;
+  setTransactionToEdit: (transaction: Transaction) => void;
 }
 
 export const TransactionItem = ({
   transaction,
   setTransactionToDelete,
+  setTransactionToEdit,
 }: TransactionItemProps) => {
   return (
     <article
@@ -41,13 +43,14 @@ export const TransactionItem = ({
               data-tooltip-content="Edit transaction"
               className="w-4 cursor-pointer"
               tabIndex={0}
+              onClick={() => setTransactionToEdit(transaction)}
               aria-label={`Edit transaction ${transaction.description}`}
             />
           </div>
           <Typography
             weight="medium"
             className={twMerge(
-              transaction.type === "inflows"
+              transaction.type === TransactionsTypes.income
                 ? "text-green-500"
                 : "text-red-500",
             )}

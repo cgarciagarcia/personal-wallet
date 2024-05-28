@@ -6,6 +6,7 @@ import { env } from "./env";
 import "./bootstrap";
 import "../css/app.css";
 import "react-tooltip/dist/react-tooltip.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 import { StrictMode } from "react";
 import { ToastContainer } from "react-toastify";

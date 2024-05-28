@@ -6,6 +6,7 @@ namespace Wallet\Transaction\Domain\Models;
 
 abstract class TransactionFields
 {
+    public const ID = "id";
     public const MONEY = "money";
     public const TYPE = "type";
     public const USER_ID = "user_id";

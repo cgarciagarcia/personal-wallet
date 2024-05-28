@@ -3,7 +3,7 @@ import axios from "axios";
 import { env } from "@/env";
 import { useRefreshToken } from "@/Hooks/Api/useRefresh";
 import { useAuthStore } from "@/Stores/useAuthStore";
-import { type Credentials, type Transaction, type User } from "@/Types";
+import { type Credentials, type User } from "@/Types";
 
 export interface BaseApiAnswer<T> {
   data: T;
@@ -19,7 +19,7 @@ const api = axios.create({
 });
 
 export const useApi = () => {
-  const { logout: clearCredentials } = useAuthStore();
+  const clearCredentials = useAuthStore((s) => s.logout);
 
   useRefreshToken(api);
 
@@ -34,17 +34,16 @@ export const useApi = () => {
   }) => {
     return api.post<BaseApiAnswer<User>>("/users", data);
   };
-  const getTransactions = () =>
-    api.get<BaseApiAnswer<Transaction[]>>("/transactions");
-
-  const deleteTransactions = (id: number) => {
-    return api.delete<BaseApiAnswer<Transaction[]>>(`/transactions/${id}`);
-  };
 
   const logout = () => {
     clearCredentials();
     return api.delete("/logout");
   };
 
-  return { signIn, signUp, getTransactions, logout, deleteTransactions };
+  return {
+    signIn,
+    signUp,
+    logout,
+    api,
+  };
 };

@@ -25,11 +25,11 @@ final class TransactionRule
         return [
             TransactionFields::RECURRING => ['boolean', 'required'],
             TransactionFields::REPETITION_COUNT => [
-                Rule::excludeIf($recurring === false || $repetition !== null),
+                Rule::excludeIf($recurring === false || ! ! $repetition !== null),
                 'required', 'integer', 'gte:1',
             ],
             TransactionFields::INTERVAL => [
-                Rule::excludeIf($recurring === false && $repetition === null),
+                Rule::excludeIf($recurring === false && ($repetition === null || $repetition === 0)),
                 'required', Rule::enum(RepetitionIntervalEnum::class),
             ],
         ];

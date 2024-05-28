@@ -5,7 +5,10 @@ import { type BaseApiAnswer } from "@/Hooks/Api/useApi";
 import { emptyCredentials, useAuthStore } from "@/Stores/useAuthStore";
 
 export const useRefreshToken = (api: AxiosInstance) => {
-  const { credentials, setAuth, logout, refreshAccessToken } = useAuthStore();
+  const credentials = useAuthStore((s) => s.credentials);
+  const setAuth = useAuthStore((s) => s.setAuth);
+  const logout = useAuthStore((s) => s.logout);
+  const refreshAccessToken = useAuthStore((s) => s.refreshAccessToken);
 
   const renewToken = useCallback(
     async (refreshToken: string) =>

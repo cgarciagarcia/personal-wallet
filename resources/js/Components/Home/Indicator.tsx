@@ -1,32 +1,33 @@
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import { twMerge } from "tailwind-merge";
 
 import { Header, Typography } from "@/Components/Layout/Typography";
-import { type Transaction } from "@/Types";
+import { TransactionsTypes, type Transaction } from "@/Types";
 
 export interface IndicatorProps {
   transactions: Transaction[];
+  isFetching: boolean;
 }
 
-export const Indicator = ({ transactions }: IndicatorProps) => {
+export const Indicator = ({ transactions, isFetching }: IndicatorProps) => {
   const [incomes, setIncomes] = useState<number>(0);
-  const [outgoings, setOutgoings] = useState<number>(0);
+  const [expenses, setExpenses] = useState<number>(0);
 
   useEffect(() => {
     const income = transactions
-      .filter((t) => t.type === "inflows")
-      ?.map((t) => t.money.amount)
-      ?.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue;
-      }, 0);
+      .filter((t) => t.type === TransactionsTypes.income)
+      .map((t) => t.money.amount)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
     setIncomes(income ?? 0);
-    const out = transactions
-      .filter((t) => t.type === "outflows")
-      ?.map((t) => t.money.amount)
-      ?.reduce((accumulator, currentValue) => {
+
+    const outcomes = transactions
+      .filter((t) => t.type === TransactionsTypes.outcome)
+      .map((t) => t.money.amount)
+      .reduce((accumulator, currentValue) => {
         return accumulator + currentValue;
       }, 0);
-    setOutgoings(out ?? 0);
+    setExpenses(outcomes ?? 0);
   }, [transactions]);
 
   return (
@@ -35,25 +36,25 @@ export const Indicator = ({ transactions }: IndicatorProps) => {
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
           <Header as="h5">Incomes: </Header>
           <Typography weight="medium" className={twMerge("text-green-500")}>
-            {incomes}
+            {isFetching ? <Skeleton width={50} /> : incomes}
           </Typography>
         </div>
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
-          <Header as="h5">Outcomes: </Header>
+          <Header as="h5">Expenses: </Header>
           <Typography weight="medium" className={twMerge("text-red-500")}>
-            {outgoings}
+            {isFetching ? <Skeleton width={50} /> : expenses}
           </Typography>
         </div>
         <hr className="my-2 border border-gray-300 md:my-0 lg:my-2" />
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
-          <Header as="h5">Result: </Header>
+          <Header as="h5">Outcome: </Header>
           <Typography
             weight="medium"
             className={twMerge(
-              incomes - outgoings > 0 ? "text-green-500" : "text-red-500",
+              incomes - expenses > 0 ? "text-green-500" : "text-red-500",
             )}
           >
-            {incomes - outgoings}
+            {isFetching ? <Skeleton width={50} /> : incomes - expenses}
           </Typography>
         </div>
       </div>

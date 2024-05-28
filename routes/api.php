@@ -7,6 +7,7 @@ use Wallet\Budget\Infrastructure\Controllers\CreateBudgetController;
 use Wallet\Transaction\Infrastructure\Controllers\CreateTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\DeleteTransactionController;
 use Wallet\Transaction\Infrastructure\Controllers\GetTransactionsByUserController;
+use Wallet\Transaction\Infrastructure\Controllers\UpdateTransactionController;
 use Wallet\User\Domain\Models\AccessTokenAbilityEnum;
 use Wallet\User\Infrastructure\Controllers\RefreshAccessTokenController;
 use Wallet\User\Infrastructure\Controllers\UserLoginController;
@@ -57,4 +58,5 @@ Route::group(['middleware' => ['auth:sanctum', 'ability:'.AccessTokenAbilityEnum
     Route::get('/transactions', GetTransactionsByUserController::class)->name('user.transactions.get');
     Route::post('/transactions', CreateTransactionController::class)->name('user.transaction.create');
     Route::delete('/transactions/{transaction}', DeleteTransactionController::class)->name('user.transaction.delete');
+    Route::put('transactions/{transaction}', UpdateTransactionController::class)->name('user.transaction.update');
 });

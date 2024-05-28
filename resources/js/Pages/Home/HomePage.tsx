@@ -1,81 +1,93 @@
 import { useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { PlusIcon } from "@heroicons/react/20/solid";
 
-import { Button } from "@/Components/Layout/Button";
-import { Header, Typography } from "@/Components/Layout/Typography";
-import Modal from "@/Components/Modal";
-import { useApi } from "@/Hooks/Api/useApi";
-import { Indicator } from "@/Pages/Home/Indicator";
-import { TransactionList } from "@/Pages/Home/TransactionList";
-import { useAuthStore } from "@/Stores/useAuthStore";
+import { Indicator } from "@/Components/Home/Indicator";
+import { ModalDeleteTransaction } from "@/Components/Home/ModalDeleteTransaction";
+import { ModalTransaction } from "@/Components/Home/ModalTransaction";
+import { TransactionList } from "@/Components/Home/TransactionList";
+import { Header } from "@/Components/Layout/Typography";
+import { useTransaction } from "@/Hooks/Api/useTransaction";
 import { type Transaction } from "@/Types";
 
 export const HomePage = () => {
-  const { credentials } = useAuthStore();
+  const [showAddOperation, setShowAddOperation] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
+  const [transactionSelected, setTransactionSelected] = useState<Transaction>();
 
-  const queryClient = useQueryClient();
-  const { getTransactions, deleteTransactions } = useApi();
-  const { data: response } = useQuery({
-    queryFn: getTransactions,
-    queryKey: ["getTransactions", credentials.access_token],
-  });
-  const { mutate: deleteTransaction } = useMutation({
-    mutationFn: deleteTransactions,
-    mutationKey: [
-      "deleteTransactions",
-      transactionToDelete?.id,
-      credentials.access_token,
-    ],
-    onSuccess: () => {
-      toast.success(`Transaction has been deleted`);
-      setTransactionToDelete(undefined);
-      void queryClient.invalidateQueries({ queryKey: ["getTransactions"] });
-    },
-  });
+  const { data: response, isFetching } = useTransaction().getQuery;
+  const useDeleteTransaction = useTransaction().deleteMutation;
 
   return (
     <section className="mt-8 flex flex-col items-center justify-center px-4 md:px-12">
       <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row md:gap-6 lg:gap-24">
         <aside>
-          <Header as="h1" weight="extrabold" className="mb-4">
-            Transactions
-          </Header>
+          <div className="flex flex-row justify-between">
+            <Header as="h1" weight="extrabold" className="mb-4">
+              Transactions
+            </Header>
+            <div>
+              <div
+                data-tooltip-id="tooltip"
+                data-tooltip-content="Add operation"
+                aria-label="Add operation "
+                tabIndex={0}
+                role="button"
+                onClick={() => setShowAddOperation(true)}
+                onKeyDown={() => null}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-complementary"
+              >
+                <PlusIcon className="h-6 w-6 text-white" />
+              </div>
+            </div>
+          </div>
           <TransactionList
             transactions={response?.data.data ?? []}
             setTransactionToDelete={setTransactionToDelete}
+            setTransactionToEdit={(transaction) => {
+              setTransactionSelected(transaction);
+              setShowAddOperation(true);
+            }}
+            isFetching={isFetching}
           />
         </aside>
         <aside>
           <Header as="h1" weight="extrabold" className="mb-4">
             Balance
           </Header>
-          <Indicator transactions={response?.data?.data ?? []} />
+          <Indicator
+            transactions={response?.data?.data ?? []}
+            isFetching={isFetching}
+          />
         </aside>
       </div>
-      <Modal
-        show={transactionToDelete !== undefined}
+      <ModalDeleteTransaction
+        transaction={transactionToDelete}
         onClose={() =>
           setTimeout(() => {
             setTransactionToDelete(undefined);
-          }, 500)
+          }, 1000)
         }
-      >
-        <div className="flex flex-col items-center">
-          <Typography className="mb-4" wrap="nowrap">
-            Are you sure you want delete{" "}
-            <strong>{transactionToDelete?.description}</strong> transaction?
-          </Typography>
-          <Button
-            variant="complementary"
-            className=""
-            onClick={() => deleteTransaction(transactionToDelete!.id)}
-          >
-            Accept
-          </Button>
-        </div>
-      </Modal>
+        onAccept={() => {
+          useDeleteTransaction.mutate(transactionToDelete!.id, {
+            onSuccess: () => {
+              setTransactionToDelete(undefined);
+            },
+          });
+        }}
+        isPending={useDeleteTransaction.isPending}
+      />
+      <ModalTransaction
+        transaction={transactionSelected}
+        show={showAddOperation}
+        onSuccess={() => {
+          setTransactionSelected(undefined);
+          setShowAddOperation(false);
+        }}
+        onClose={() => {
+          setTransactionSelected(undefined);
+          setShowAddOperation(false);
+        }}
+      />
     </section>
   );
 };

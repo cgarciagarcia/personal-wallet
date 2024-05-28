@@ -1,11 +1,26 @@
 export interface Transaction {
   id: number;
-  type: string;
+  type: TypeTransactionTypes;
   date: string;
   description: string;
+  category_id: number;
   money: {
     amount: number;
   };
+  interval?: TransactionsIntervalType;
+  recurring: boolean;
+  repetition_count?: number;
+}
+
+export interface NewTransaction {
+  description: string;
+  category_id?: number;
+  type: string;
+  date: string;
+  recurring: boolean;
+  repetition_count?: number;
+  money: number;
+  interval?: TransactionsIntervalType;
 }
 
 export interface Credentials {
@@ -21,3 +36,19 @@ export interface User {
   created_at: string;
   updated_at: string;
 }
+
+export const TransactionsTypes = {
+  income: "income",
+  outcome: "outcome",
+};
+
+export type TypeTransactionTypes = keyof typeof TransactionsTypes;
+
+export const Intervals = {
+  daily: "daily",
+  weekly: "weekly",
+  monthly: "monthly",
+  annually: "annually",
+};
+
+export type TransactionsIntervalType = keyof typeof Intervals;
