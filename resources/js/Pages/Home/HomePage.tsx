@@ -22,7 +22,11 @@ export const HomePage = () => {
       <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row md:gap-6 lg:gap-24">
         <aside>
           <div className="flex flex-row justify-between">
-            <Header as="h1" weight="extrabold" className="mb-4">
+            <Header
+              as="h1"
+              weight="extrabold"
+              className="mb-4 underline decoration-primary-500 underline-offset-2"
+            >
               Transactions
             </Header>
             <div>
@@ -34,9 +38,9 @@ export const HomePage = () => {
                 role="button"
                 onClick={() => setShowAddOperation(true)}
                 onKeyDown={() => null}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-complementary"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-complementary hover:bg-complementary-400"
               >
-                <PlusIcon className="h-6 w-6 text-white" />
+                <PlusIcon className="h-6 w-6 text-white hover:text-gray-300" />
               </div>
             </div>
           </div>

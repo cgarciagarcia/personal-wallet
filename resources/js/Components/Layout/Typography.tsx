@@ -71,7 +71,7 @@ export const Typography = ({
     // @ts-expect-error
     <Component
       className={twMerge(
-        "font-rubik text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
+        "font-base text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
         Component === "label" &&
           "text-xs md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
         Component === "p" && "",

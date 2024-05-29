@@ -73,7 +73,7 @@ export const RegisterPage = () => {
     mutationKey: ["signUp"],
   });
   return (
-    <section className="flex h-full flex-col items-center justify-center">
+    <section className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-[450px]">
         <Header as="h1" weight="extrabold" className="text-center">
           Create your <br /> Wallet Account

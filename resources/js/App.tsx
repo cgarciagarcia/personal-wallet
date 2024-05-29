@@ -29,7 +29,7 @@ export const App = () => (
       {env.VITE_APP_ENV === "local" && (
         <ReactQueryDevtools initialIsOpen={false} />
       )}
-      <Tooltip id="tooltip" />
+      <Tooltip id="tooltip" className="z-30" />
       <ToastContainer stacked={true} />
     </QueryClientProvider>
   </StrictMode>

@@ -15,11 +15,7 @@ use Wallet\Transaction\Infrastructure\Requests\UpdateTransactionRequest;
 final readonly class UpdateTransactionController
 {
     /**
-     * @param UpdateTransactionRequest $request
-     * @param UpdateTransactionCase    $case
-     * @param Transaction              $transaction
      *
-     * @return JsonResponse
      *
      * @throws Throwable
      *

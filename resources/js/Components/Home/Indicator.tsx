@@ -31,7 +31,7 @@ export const Indicator = ({ transactions, isFetching }: IndicatorProps) => {
   }, [transactions]);
 
   return (
-    <section className="h-auto w-max  rounded-lg border border-solid border-black bg-gray-100 p-8 md:w-[150px] md:p-4 lg:w-[300px] lg:p-8">
+    <section className="border-style h-auto w-max bg-gray-100 p-8 md:min-w-[150px] md:p-4 lg:w-[300px] lg:p-8">
       <div className="flex flex-col">
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
           <Header as="h5">Incomes: </Header>

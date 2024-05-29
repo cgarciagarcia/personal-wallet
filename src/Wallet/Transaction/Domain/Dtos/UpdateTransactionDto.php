@@ -14,7 +14,6 @@ use Wallet\User\Domain\Models\User;
 final readonly class UpdateTransactionDto
 {
     public function __construct(
-
         public Money $amount,
         public FlowTypeEnum $type,
         public Carbon $date,

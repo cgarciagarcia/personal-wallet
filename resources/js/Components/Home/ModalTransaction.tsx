@@ -24,20 +24,21 @@ export function getValues<T extends Record<string, unknown>>(obj: T) {
 
 const schema = z.object({
   description: z.string().min(1, "Description is required"),
-  category_id: z.union([z.number().int().positive(), z.nan()]).nullable(),
+  category_id: z
+    .union([z.number().int().positive(), z.string().length(0)])
+    .nullable(),
   type: z.enum(getValues(TransactionsTypes)),
   date: z
     .date()
     .min(new Date("1900-01-01"), { message: "The date is invalid" }),
   recurring: z.boolean(),
   repetition_count: z
-    .number()
-    .optional()
-    .transform((value) => value ?? undefined),
+    .union([z.number().int().gt(1), z.string().length(0)])
+    .transform((val) => (!val ? "" : val)),
+
   amount: z.number().gt(0),
   interval: z
     .enum([...getValues(Intervals), ""])
-    .optional()
     .transform((value) => value ?? undefined),
 });
 
@@ -83,7 +84,7 @@ export const ModalTransaction = ({
 
   const onSubmit: SubmitHandler<schemaType> = (data) => {
     transaction
-      ? updateMutation(
+      ? updateMutation.mutate(
           {
             ...transaction,
             ...data,
@@ -125,9 +126,7 @@ export const ModalTransaction = ({
           <Input
             id="category_id"
             label="Category"
-            {...register("category_id", {
-              valueAsNumber: true,
-            })}
+            {...register("category_id")}
             error={errors.category_id?.message}
             containerClassName="md:w-1/2"
           />
@@ -174,7 +173,7 @@ export const ModalTransaction = ({
             error={errors.repetition_count?.message}
             label="Repetition count"
             {...register("repetition_count", {
-              value: 0,
+              valueAsNumber: true,
             })}
             containerClassName="md:w-1/2"
           />

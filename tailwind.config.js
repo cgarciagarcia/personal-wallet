@@ -75,7 +75,7 @@ export default {
         "limit-nav": "1024px",
       },
       fontFamily: {
-        rubik: ["Rubik", "sans-serif"],
+        base: ["Chivo", "sans-serif"],
       },
     },
   },

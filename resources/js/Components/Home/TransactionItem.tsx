@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
@@ -11,15 +12,15 @@ export interface TransactionItemProps {
   setTransactionToEdit: (transaction: Transaction) => void;
 }
 
-export const TransactionItem = ({
+export const TransactionItem = memo(function TransactionItemMemo({
   transaction,
   setTransactionToDelete,
   setTransactionToEdit,
-}: TransactionItemProps) => {
+}: TransactionItemProps) {
   return (
     <article
       key={transaction.id}
-      className="min-h-auto w-full p-4 first:rounded-t-lg last:border-b-2 last:border-black hover:!bg-gray-300"
+      className="min-h-auto w-full p-4 transition-colors duration-200 first:rounded-t-lg last:border-b-2 last:border-black hover:!bg-gray-300"
     >
       <Typography as="span" weight="bold">
         {format(new Date(transaction.date), "EEEE d MMM")}
@@ -64,4 +65,4 @@ export const TransactionItem = ({
       </div>
     </article>
   );
-};
+});

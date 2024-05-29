@@ -1,8 +1,9 @@
+import { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 
 import { Typography } from "@/Components/Layout/Typography";
 
-export const TransactionItemSkeleton = () => {
+export const TransactionItemSkeleton = memo(function MemoSkeleton() {
   return (
     <article className="min-h-auto w-full p-4 first:rounded-t-lg last:border-b-2 last:border-black hover:!bg-gray-300">
       <Typography as="span" weight="bold">
@@ -26,4 +27,4 @@ export const TransactionItemSkeleton = () => {
       </div>
     </article>
   );
-};
+});

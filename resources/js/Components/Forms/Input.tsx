@@ -55,10 +55,7 @@ export const Input = forwardRef(
     return (
       <div style={style} className={twMerge("relative", containerClassName)}>
         {!!label && (
-          <Typography
-            as="label"
-            className={twMerge("", error && "text-red-500")}
-          >
+          <Typography as="label" className="font-medium">
             {label}
           </Typography>
         )}
@@ -95,7 +92,7 @@ export const Input = forwardRef(
             {...rest}
             className={twMerge(
               "block h-[46px] w-full rounded-md border border-gray-200 px-2 py-3",
-              "focus:ring-secondary-green-300 focus:border-secondary-green text-gray-700 focus:ring-2",
+              "focus:ring-secondary-green-300 focus:border-secondary-green text-gray-700 focus:ring-1",
               "font-normal ",
               "placeholder:text-sm placeholder:font-normal placeholder:text-gray-400 md:placeholder:text-base",
               "rounded border-solid border-gray-800",

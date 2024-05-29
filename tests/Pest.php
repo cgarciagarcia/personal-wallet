@@ -14,6 +14,7 @@ declare(strict_types=1);
 */
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Wallet\User\Domain\Models\User;
 
 uses(
     Tests\TestCase::class,
@@ -46,3 +47,8 @@ uses(
 */
 
 // Here you define your custom commons functions
+
+function asUser(): User
+{
+    return new User();
+}

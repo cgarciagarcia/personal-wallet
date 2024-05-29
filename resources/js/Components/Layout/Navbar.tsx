@@ -33,15 +33,16 @@ const NavbarLink = ({
   return (
     <li
       className={twMerge(
-        "mt-4 w-full rounded p-4 md:mt-0 md:p-0",
+        "mt-4 w-full rounded p-4 transition-all duration-150 md:mt-0 md:p-0",
         active &&
-          "w-auto bg-primary-700 p-4 md:rounded-none md:border-b-2 md:border-solid md:border-b-white md:bg-transparent md:p-0",
+          "w-auto bg-primary-700 p-4 md:rounded-none md:bg-transparent md:p-0",
+        false && "w-0 md:border-b-2 md:border-solid md:border-b-white",
       )}
     >
       <NavLink
         {...props}
         className={twMerge(
-          "",
+          "group/link",
           active && "hover:font-medium md:border-b-4 md:border-solid",
         )}
       >
@@ -56,6 +57,13 @@ const NavbarLink = ({
         >
           {children as ReactNode}
         </Typography>
+        <div
+          className={twMerge(
+            "w-full transition-all duration-150 md:border-solid md:border-b-white",
+            !active && "w-0 group-hover/link:w-full md:border-b-2",
+            active && "md:border-b-2 ",
+          )}
+        />
       </NavLink>
     </li>
   );
@@ -188,7 +196,7 @@ export const Navbar = () => {
   if (!renderNavbar) return;
 
   return (
-    <nav className="fixed h-14 w-full bg-primary-900 shadow-lg lg:h-16 xl:h-20">
+    <nav className="fixed z-10 h-14 w-full bg-primary-900 shadow-lg lg:h-16 xl:h-20">
       <div className="mx-auto flex max-w-limit-nav ">
         <DesktopNavbar location={location.pathname} logout={logout} />
         <MobileNavbar location={location.pathname} logout={logout} />
