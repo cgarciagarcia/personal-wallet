@@ -13,9 +13,9 @@ use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
 final class TransactionRule
 {
     /**
-     * @return (\Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\ExcludeIf|\Illuminate\Validation\Rules\RequiredIf|string)[][]
+     * @return (\Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\ExcludeIf|string)[][]
      *
-     * @return array{recurring: list{'boolean', 'required'}, repetition_count: list{\Illuminate\Validation\Rules\RequiredIf, 'required', 'integer', 'gte:1'}, interval: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', \Illuminate\Validation\Rules\Enum}}
+     * @psalm-return array{recurring: list{'boolean', 'required'}, repetition_count: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', 'integer', 'gte:1'}, interval: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', \Illuminate\Validation\Rules\Enum}}
      */
     public static function rules(FormRequest $request): array
     {

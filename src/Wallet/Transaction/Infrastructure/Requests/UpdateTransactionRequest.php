@@ -18,11 +18,11 @@ use Wallet\User\Domain\Models\User;
 final class UpdateTransactionRequest extends FormRequest
 {
     /**
-     * @return (\Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\ExcludeIf|\Illuminate\Validation\Rules\RequiredIf|string)[][]
+     * @return (\Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\ExcludeIf|string)[][]
      *
      * @api
      *
-     * @psalm-return array{id: list{'required', 'exists:transactions'}, money: list{'required', 'numeric'}, type: list{'required', \Illuminate\Validation\Rules\Enum}, date: list{'required', 'date'}, category_id: list{'nullable', 'integer'}, description: list{'required', 'string'}, recurring: list{'boolean', 'required'}, repetition_count: list{\Illuminate\Validation\Rules\RequiredIf, 'required', 'integer', 'gte:1'}, interval: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', \Illuminate\Validation\Rules\Enum}}
+     * @psalm-return array{id: list{'required', 'exists:transactions'}, money: list{'required', 'numeric'}, type: list{'required', \Illuminate\Validation\Rules\Enum}, date: list{'required', 'date'}, category_id: list{'nullable', 'integer'}, description: list{'required', 'string'}, recurring: list{'boolean', 'required'}, repetition_count: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', 'integer', 'gte:1'}, interval: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', \Illuminate\Validation\Rules\Enum}}
      */
     public function rules(): array
     {

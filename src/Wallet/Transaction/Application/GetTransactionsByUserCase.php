@@ -16,7 +16,6 @@ use Wallet\User\Domain\Models\User;
 final class GetTransactionsByUserCase
 {
     /**
-     * @param  Request  $request
      * @return Collection<int, Transaction>
      */
     public function __invoke(Request $request): Collection
@@ -34,7 +33,7 @@ final class GetTransactionsByUserCase
                 AllowedFilter::scope('month'),
             ])
             ->allowedSorts(TransactionFields::DATE)
-            ->defaultSorts(["-".TransactionFields::DATE])
+            ->defaultSorts(["-" . TransactionFields::DATE])
             ->get();
 
         return $transactions;

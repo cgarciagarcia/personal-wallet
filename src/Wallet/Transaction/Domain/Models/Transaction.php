@@ -47,6 +47,7 @@ use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
  * @method static Builder|Transaction whereType($value)
  * @method static Builder|Transaction whereUpdatedAt($value)
  * @method static Builder|Transaction whereUserId($value)
+ *
  * @mixin Eloquent
  */
 class Transaction extends Model
@@ -67,11 +68,11 @@ class Transaction extends Model
     ];
 
     /**
-     * @param  Builder<Transaction>  $query
-     * @param  string  $from
-     * @param  string  $to
-     * @return Builder<Transaction>
+     * @param Builder<Transaction> $query
+     *
      * @api
+     *
+     * @psalm-return Builder<self>
      */
     public function scopeBetweenDates(Builder $query, string $from, string $to): Builder
     {
@@ -79,10 +80,11 @@ class Transaction extends Model
     }
 
     /**
-     * @param  Builder<Transaction>  $query
-     * @param  int  $month
-     * @return Builder<Transaction>
+     * @param Builder<Transaction> $query
+     *
      * @api
+     *
+     * @psalm-return Builder<self>
      */
     public function scopeMonth(Builder $query, int $month): Builder
     {
