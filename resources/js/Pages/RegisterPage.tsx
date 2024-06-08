@@ -8,9 +8,9 @@ import * as z from "zod";
 
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
-import { Header, Typography } from "@/Components/Layout/Typography";
+import { Text, Title } from "@/Components/Layout/Text";
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
-import { useApi } from "@/Hooks/Api/useApi";
+import { useAuth } from "@/Hooks/Api/useAuth";
 import { ROUTES } from "@/Router/routes";
 import {
   type BaseApiError,
@@ -47,7 +47,7 @@ const schema = z
 type schemaType = z.infer<typeof schema>;
 
 export const RegisterPage = () => {
-  const { signUp } = useApi();
+  const { signUp } = useAuth();
 
   const navigate = useNavigate();
 
@@ -75,9 +75,9 @@ export const RegisterPage = () => {
   return (
     <section className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-[450px]">
-        <Header as="h1" weight="extrabold" className="text-center">
+        <Title as="h1" weight="extrabold" className="text-center">
           Create your <br /> Wallet Account
-        </Header>
+        </Title>
 
         <form onSubmit={handleSubmit((formData) => mutate(formData))}>
           <div className="mt-8 flex flex-col justify-center gap-2 md:flex-row md:items-end">
@@ -118,18 +118,13 @@ export const RegisterPage = () => {
             {...register("confirmation_password")}
             error={errors.confirmation_password?.message}
           />
-          <Typography className="float-left !text-sm">
+          <Text className="float-left !text-sm">
             Have an account?{" "}
             <Link to="/login" className="text-primary hover:underline">
-              Log in
+              Sign Up
             </Link>
-          </Typography>
-          <Button
-            type="submit"
-            className="mt-8 w-full"
-            isLoading={isPending}
-            onClick={() => console.log("asdadasdasdasds")}
-          >
+          </Text>
+          <Button type="submit" className="mt-8 w-full" isLoading={isPending}>
             {isPending ? "Loading" : "Submit"}
           </Button>
         </form>

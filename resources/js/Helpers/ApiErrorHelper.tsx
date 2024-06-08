@@ -1,4 +1,4 @@
-import { Typography } from "@/Components/Layout/Typography";
+import { Text } from "@/Components/Layout/Text";
 import {
   type AllApiErrorNotInternalServerError,
   type BaseApiError,
@@ -19,7 +19,7 @@ export const presentValidationErrors = <
   if (isInternalServerError<T>(response)) {
     return (
       <div>
-        <Typography>{response.message}</Typography>
+        <Text>{response.message}</Text>
       </div>
     );
   }
@@ -30,21 +30,21 @@ export const presentValidationErrors = <
         {Object.values(response.error.detail)
           .flat()
           .map((e, k) => (
-            <Typography key={k}>{e}</Typography>
+            <Text key={k}>{e}</Text>
           ))}
       </div>
     );
   } else if (response.error?.message) {
     return (
       <div>
-        <Typography>{response.error.message}</Typography>
+        <Text>{response.error.message}</Text>
       </div>
     );
   }
 
   return (
     <div>
-      <Typography>Ups something went wrong</Typography>
+      <Text>Ups something went wrong</Text>
     </div>
   );
 };

@@ -5,16 +5,16 @@ import { Indicator } from "@/Components/Home/Indicator";
 import { ModalDeleteTransaction } from "@/Components/Home/ModalDeleteTransaction";
 import { ModalTransaction } from "@/Components/Home/ModalTransaction";
 import { TransactionList } from "@/Components/Home/TransactionList";
-import { Header } from "@/Components/Layout/Typography";
+import { Title } from "@/Components/Layout/Text";
 import { useTransaction } from "@/Hooks/Api/useTransaction";
 import { type Transaction } from "@/Types";
 
 export const HomePage = () => {
   const [showAddOperation, setShowAddOperation] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
-  const [transactionSelected, setTransactionSelected] = useState<Transaction>();
+  const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 
-  const { data: response, isFetching } = useTransaction().getQuery;
+  const { data: response, isFetching } = useTransaction().getTransactions();
   const useDeleteTransaction = useTransaction().deleteMutation;
 
   return (
@@ -22,13 +22,13 @@ export const HomePage = () => {
       <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row md:gap-6 lg:gap-24">
         <aside>
           <div className="flex flex-row justify-between">
-            <Header
+            <Title
               as="h1"
               weight="extrabold"
               className="mb-4 underline decoration-primary-500 underline-offset-2"
             >
               Transactions
-            </Header>
+            </Title>
             <div>
               <div
                 data-tooltip-id="tooltip"
@@ -48,16 +48,16 @@ export const HomePage = () => {
             transactions={response?.data.data ?? []}
             setTransactionToDelete={setTransactionToDelete}
             setTransactionToEdit={(transaction) => {
-              setTransactionSelected(transaction);
+              setTransactionToEdit(transaction);
               setShowAddOperation(true);
             }}
             isFetching={isFetching}
           />
         </aside>
         <aside>
-          <Header as="h1" weight="extrabold" className="mb-4">
+          <Title as="h1" weight="extrabold" className="mb-4">
             Balance
-          </Header>
+          </Title>
           <Indicator
             transactions={response?.data?.data ?? []}
             isFetching={isFetching}
@@ -81,14 +81,14 @@ export const HomePage = () => {
         isPending={useDeleteTransaction.isPending}
       />
       <ModalTransaction
-        transaction={transactionSelected}
+        transaction={transactionToEdit}
         show={showAddOperation}
         onSuccess={() => {
-          setTransactionSelected(undefined);
+          setTransactionToEdit(undefined);
           setShowAddOperation(false);
         }}
         onClose={() => {
-          setTransactionSelected(undefined);
+          setTransactionToEdit(undefined);
           setShowAddOperation(false);
         }}
       />

@@ -17,7 +17,7 @@ export const Main = ({ children }: MainProps) => {
   const renderFooter = useFooter();
 
   return (
-    <main className="flex-column relative h-full min-h-screen  w-full items-center justify-between md:h-screen">
+    <div className="flex-column relative h-full min-h-screen  w-full items-center justify-between md:h-screen">
       <Navbar />
       <div
         className={twMerge(
@@ -30,6 +30,6 @@ export const Main = ({ children }: MainProps) => {
         </div>
       </div>
       {renderFooter && <Footer />}
-    </main>
+    </div>
   );
 };

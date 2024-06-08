@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 import Spinner from "@/Components//Layout/Spinner";
 import { IconEnveloper } from "@/Components/IconEnveloper";
 import { forwardRef } from "@/Helpers/forwardRef";
-import { Typography } from "./Typography";
+import { Text } from "./Text";
 
 export const buttonVariants = ["primary", "complementary", "tertiary"] as const;
 export type ButtonVariant = (typeof buttonVariants)[number];
@@ -44,8 +44,8 @@ export const Button = forwardRef(
       ref={ref}
       type={type}
       className={twMerge(
-        "flex h-12 cursor-pointer flex-row items-center justify-between gap-2 border border-black text-center focus:outline-none disabled:cursor-not-allowed",
-        "rounded-3xl focus:ring-2 focus:ring-offset-0",
+        "flex h-12 cursor-pointer flex-row items-center justify-between gap-2 border-[0.5px] border-black text-center focus:outline-none disabled:cursor-not-allowed",
+        "rounded focus:ring-2 focus:ring-offset-0",
         !left && !right && "justify-center",
         variant === "primary" &&
           "focus:ring-primary-100 bg-primary hover:bg-primary-500 focus:bg-primary disabled:bg-primary-50",
@@ -63,12 +63,13 @@ export const Button = forwardRef(
         ],
         className,
       )}
+      aria-label={typeof children === "string" ? children : undefined}
       disabled={disabled || isLoading}
       {...props}
     >
       <div className="flex flex-row items-center gap-2">
         {left && <IconEnveloper size={size}>{left}</IconEnveloper>}
-        <Typography
+        <Text
           weight="medium"
           className={twMerge(
             "text-base",
@@ -82,7 +83,7 @@ export const Button = forwardRef(
           as="span"
         >
           {isLoading ? "Loading..." : children}
-        </Typography>
+        </Text>
       </div>
       {(right ?? isLoading) && (
         <IconEnveloper size={size}>

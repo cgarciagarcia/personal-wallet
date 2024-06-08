@@ -13,11 +13,7 @@ export const Router = () => {
       <Route element={<Main />}>
         <Route element={<GuestRoute />}>
           {routes.public.map((route) => (
-            <Route
-              path={route.path}
-              element={<Animation>{route.element}</Animation>}
-              key={route.path}
-            />
+            <Route path={route.path} element={route.element} key={route.path} />
           ))}
         </Route>
         <Route element={<PrivateRoute />}>

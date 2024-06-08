@@ -15,12 +15,12 @@ export const ROUTES = {
   login: {
     path: "/login",
     component: <LoginPage />,
-    label: "login",
+    label: "Login",
   },
   register: {
     path: "/registration",
     component: <RegisterPage />,
-    label: "register",
+    label: "Register",
   },
   notFound: {
     path: "/404",

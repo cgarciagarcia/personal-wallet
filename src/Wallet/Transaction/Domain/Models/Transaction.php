@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Wallet\Transaction\Domain\Models;
 
 use Akaunting\Money\Money;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
@@ -46,8 +47,7 @@ use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
  * @method static Builder|Transaction whereType($value)
  * @method static Builder|Transaction whereUpdatedAt($value)
  * @method static Builder|Transaction whereUserId($value)
- *
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Transaction extends Model
 {
@@ -65,4 +65,27 @@ class Transaction extends Model
         TransactionFields::INTERVAL => RepetitionIntervalEnum::class,
         TransactionFields::RECURRING => 'boolean',
     ];
+
+    /**
+     * @param  Builder<Transaction>  $query
+     * @param  string  $from
+     * @param  string  $to
+     * @return Builder<Transaction>
+     * @api
+     */
+    public function scopeBetweenDates(Builder $query, string $from, string $to): Builder
+    {
+        return $query->whereBetween(TransactionFields::DATE, [$from, $to]);
+    }
+
+    /**
+     * @param  Builder<Transaction>  $query
+     * @param  int  $month
+     * @return Builder<Transaction>
+     * @api
+     */
+    public function scopeMonth(Builder $query, int $month): Builder
+    {
+        return $query->whereMonth(TransactionFields::DATE, $month);
+    }
 }

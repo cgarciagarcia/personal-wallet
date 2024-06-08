@@ -7,7 +7,7 @@ import { z } from "zod";
 
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
-import Modal from "@/Components/Modal";
+import Modal from "@/Components/Layout/Modal";
 import { useTransaction } from "@/Hooks/Api/useTransaction";
 import { Intervals, TransactionsTypes, type Transaction } from "@/Types";
 
@@ -27,15 +27,21 @@ const schema = z.object({
   category_id: z
     .union([z.number().int().positive(), z.string().length(0)])
     .nullable(),
-  type: z.enum(getValues(TransactionsTypes)),
+  type: z.enum(getValues(TransactionsTypes), {
+    errorMap: () => {
+      return {
+        message:
+          "The possible values are: " + getValues(TransactionsTypes).join(", "),
+      };
+    },
+  }),
   date: z
     .date()
     .min(new Date("1900-01-01"), { message: "The date is invalid" }),
   recurring: z.boolean(),
   repetition_count: z
     .union([z.number().int().gt(1), z.string().length(0)])
-    .transform((val) => (!val ? "" : val)),
-
+    .transform((val) => (val ? "" : val)),
   amount: z.number().gt(0),
   interval: z
     .enum([...getValues(Intervals), ""])

@@ -13,7 +13,7 @@ import { twMerge } from "tailwind-merge";
 
 import { Message, type FormErrorType } from "@/Components/Forms/Message";
 import { IconEnveloper } from "@/Components/IconEnveloper";
-import { Typography } from "@/Components/Layout/Typography";
+import { Text } from "@/Components/Layout/Text";
 import { forwardRef } from "@/Helpers/forwardRef";
 
 export interface InputProps extends ComponentPropsWithoutRef<"input"> {
@@ -46,6 +46,7 @@ export const Input = forwardRef(
       rightwMergeidth = 40,
       style,
       type = "text",
+      required,
       ...rest
     }: InputProps,
     ref: ForwardedRef<HTMLInputElement>,
@@ -55,9 +56,9 @@ export const Input = forwardRef(
     return (
       <div style={style} className={twMerge("relative", containerClassName)}>
         {!!label && (
-          <Typography as="label" className="font-medium">
+          <Text as="label" className="font-medium" htmlFor={id}>
             {label}
-          </Typography>
+          </Text>
         )}
         <div
           className={twMerge(
@@ -103,6 +104,10 @@ export const Input = forwardRef(
               type === "password" || right ? `mr-[${rightwMergeidth}px]` : "",
               className,
             )}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${id}-error-description` : undefined}
+            aria-required={required}
+            required={required}
           />
           {(!!right || type === "password") && (
             <IconEnveloper
@@ -135,7 +140,14 @@ export const Input = forwardRef(
           )}
         </div>
         {}
-        {!compact && <Message message={message} error={error} />}
+        {!compact && (
+          <Message
+            message={message}
+            error={error}
+            role={error ? "alert" : undefined}
+            id={error ? `${id}-error-description` : undefined}
+          />
+        )}
       </div>
     );
   },

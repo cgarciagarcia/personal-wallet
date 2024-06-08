@@ -8,13 +8,19 @@ export interface MessageProps extends ComponentPropsWithoutRef<"p"> {
   error?: FormErrorType;
 }
 
-export const Message = ({ message, error, className }: MessageProps) => (
+export const Message = ({
+  message,
+  error,
+  className,
+  ...props
+}: MessageProps) => (
   <p
     className={twMerge(
       "text-black-800 block pb-1 pt-1 text-xs opacity-80",
       !!error && "text-red-500",
       className,
     )}
+    {...props}
   >
     {error === true ? "\u200b" : !error ? message ?? "\u200b" : error}
   </p>

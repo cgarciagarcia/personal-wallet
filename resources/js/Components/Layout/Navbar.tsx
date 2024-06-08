@@ -6,8 +6,8 @@ import { Bars3Icon } from "@heroicons/react/24/solid";
 import { Link, NavLink, type NavLinkProps } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
-import { Typography } from "@/Components/Layout/Typography";
-import { useApi } from "@/Hooks/Api/useApi";
+import { Text } from "@/Components/Layout/Text";
+import { useAuth } from "@/Hooks/Api/useAuth";
 import { useNavbar } from "@/Hooks/useNavbar";
 import { ROUTES } from "@/Router/routes";
 
@@ -46,7 +46,7 @@ const NavbarLink = ({
           active && "hover:font-medium md:border-b-4 md:border-solid",
         )}
       >
-        <Typography
+        <Text
           className={twMerge(
             "text-nowrap capitalize transition-all md:text-white",
             active && "font-bold text-white",
@@ -56,11 +56,12 @@ const NavbarLink = ({
           weight={active ? "medium" : "thin"}
         >
           {children as ReactNode}
-        </Typography>
+        </Text>
         <div
           className={twMerge(
             "w-full transition-all duration-150 md:border-solid md:border-b-white",
-            !active && "w-0 group-hover/link:w-full md:border-b-2",
+            !active &&
+              "w-0 group-hover/link:w-full group-focus/link:w-full md:border-b-2",
             active && "md:border-b-2 ",
           )}
         />
@@ -127,7 +128,7 @@ const MobileNavbar = ({
           <div className="flex items-center justify-center rounded-full bg-complementary p-2">
             <ArrowRightEndOnRectangleIcon className="h-4 text-white" />
           </div>
-          <Typography className="ml-2">Logout</Typography>
+          <Text className="ml-2">Logout</Text>
         </div>
       </div>
     </div>
@@ -173,16 +174,18 @@ const DesktopNavbar = ({
         ))}
       </ul>
       <button
-        className="group/logout relative mr-4 h-8 w-8 border-complementary focus:border-solid focus:border-complementary"
+        className="relative mr-4 h-8 w-8 border-complementary focus:border-solid focus:border-complementary"
         onClick={() => logout()}
         id="logout"
         aria-label="Press to logout"
+        data-tooltip-id="tooltip"
+        data-tooltip-content="Logout"
       >
         <ArrowRightEndOnRectangleIcon className="h-full text-white" />
         <div className="absolute rounded bg-gray-800 p-2 opacity-0 transition-opacity duration-200 group-hover/logout:opacity-100">
-          <Typography className="float-left !text-sm text-white" weight="thin">
+          <Text className="float-left !text-sm text-white" weight="thin">
             Logout
-          </Typography>
+          </Text>
         </div>
       </button>
     </div>
@@ -190,7 +193,7 @@ const DesktopNavbar = ({
 };
 
 export const Navbar = () => {
-  const { logout } = useApi();
+  const { logout } = useAuth();
 
   const renderNavbar = useNavbar();
   if (!renderNavbar) return;

@@ -38,7 +38,8 @@ const config = {
       2,
       { checksVoidReturn: { attributes: false } }
     ],
-    'import/consistent-type-specifier-style': ['error', 'prefer-inline']
+    'import/consistent-type-specifier-style': ['error', 'prefer-inline'],
+    'import/no-duplicates': 'error'
   },
   ignorePatterns: ['**/.eslintrc.cjs', '**/*.config.js', '**/*.config.cjs', '**/*.config.ts'],
   reportUnusedDisableDirectives: true,

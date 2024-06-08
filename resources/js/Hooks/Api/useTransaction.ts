@@ -16,10 +16,11 @@ export const useTransaction = () => {
   const credentials = useAuthStore((s) => s.credentials);
   const queryClient = useQueryClient();
 
-  const getQuery = useQuery({
-    queryFn: () => api.get<BaseApiAnswer<Transaction[]>>("/transactions"),
-    queryKey: ["getTransactions", credentials.access_token],
-  });
+  const useGetTransactions = () =>
+    useQuery({
+      queryFn: () => api.get<BaseApiAnswer<Transaction[]>>("/transactions"),
+      queryKey: ["getTransactions", credentials.refresh_token],
+    });
 
   const deleteMutation = useMutation({
     mutationFn: (id: number) => {
@@ -33,7 +34,7 @@ export const useTransaction = () => {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: TransactionForm) =>
+    mutationFn: (data: object) =>
       api.post<BaseApiAnswer<Transaction>>("/transactions", data),
     mutationKey: ["newTransaction"],
     onSuccess: () => {
@@ -48,8 +49,12 @@ export const useTransaction = () => {
 
   const updateMutation = useMutation({
     mutationFn: (
-      data: TransactionForm & {
+      data: object & {
         id: number;
+        date: string;
+        money: number;
+        interval?: string;
+        repetition_count?: number | string;
       },
     ) => api.put<BaseApiAnswer<Transaction>>(`/transactions/${data.id}`, data),
     mutationKey: ["updateTransaction"],
@@ -64,7 +69,7 @@ export const useTransaction = () => {
   });
 
   return {
-    getQuery,
+    getTransactions: useGetTransactions,
     createMutation,
     updateMutation,
     deleteMutation,

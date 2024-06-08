@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import { twMerge } from "tailwind-merge";
 
-import { Header, Typography } from "@/Components/Layout/Typography";
+import { Text } from "@/Components/Layout/Text";
 import { TransactionsTypes, type Transaction } from "@/Types";
 
 export interface IndicatorProps {
@@ -31,31 +31,31 @@ export const Indicator = ({ transactions, isFetching }: IndicatorProps) => {
   }, [transactions]);
 
   return (
-    <section className="border-style h-auto w-max bg-gray-100 p-8 md:min-w-[150px] md:p-4 lg:w-[300px] lg:p-8">
+    <section className="border-style h-auto w-max bg-white p-8 md:min-w-[150px] md:p-4 lg:w-[300px] lg:p-8">
       <div className="flex flex-col">
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
-          <Header as="h5">Incomes: </Header>
-          <Typography weight="medium" className={twMerge("text-green-500")}>
+          <Text as="span">Incomes:</Text>
+          <Text weight="medium" className={twMerge("text-green-700")}>
             {isFetching ? <Skeleton width={50} /> : incomes}
-          </Typography>
+          </Text>
         </div>
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
-          <Header as="h5">Expenses: </Header>
-          <Typography weight="medium" className={twMerge("text-red-500")}>
+          <Text as="span">Expenses:</Text>
+          <Text weight="medium" className={twMerge("text-red-700")}>
             {isFetching ? <Skeleton width={50} /> : expenses}
-          </Typography>
+          </Text>
         </div>
         <hr className="my-2 border border-gray-300 md:my-0 lg:my-2" />
         <div className="flex flex-row justify-between gap-4 md:gap-0 lg:flex-row lg:gap-4">
-          <Header as="h5">Outcome: </Header>
-          <Typography
+          <Text as="span">Outcome:</Text>
+          <Text
             weight="medium"
             className={twMerge(
-              incomes - expenses > 0 ? "text-green-500" : "text-red-500",
+              incomes - expenses > 0 ? "text-green-700" : "text-red-700",
             )}
           >
             {isFetching ? <Skeleton width={50} /> : incomes - expenses}
-          </Typography>
+          </Text>
         </div>
       </div>
     </section>

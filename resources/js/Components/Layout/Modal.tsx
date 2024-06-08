@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-interface ModalProps {
+export interface ModalProps {
   children: ReactNode;
   show: boolean;
   onClose?: () => void;

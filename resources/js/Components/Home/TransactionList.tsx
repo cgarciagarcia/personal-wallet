@@ -21,7 +21,7 @@ export const TransactionList = ({
     <div className="border-style relative h-[600px] w-full overflow-hidden md:w-[500px]">
       <div
         className={twMerge(
-          "no-scrollbar flex h-full w-full flex-col overflow-y-auto bg-gray-100 [&>*:nth-child(even)]:bg-gray-200",
+          "no-scrollbar flex h-full w-full flex-col overflow-y-auto bg-white [&>*:nth-child(even)]:bg-primary/5",
           isFetching && "overflow-y-hidden",
         )}
       >

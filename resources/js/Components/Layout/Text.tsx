@@ -23,7 +23,7 @@ export interface HeaderProps {
   weight?: FontWeightType;
 }
 
-export const Header = ({
+export const Title = ({
   as = "h1",
   children,
   className,
@@ -31,7 +31,7 @@ export const Header = ({
   ...props
 }: HeaderProps) => {
   return (
-    <Typography
+    <Text
       as={as}
       weight={weight}
       className={twMerge(
@@ -47,7 +47,7 @@ export const Header = ({
       {...props}
     >
       {children}
-    </Typography>
+    </Text>
   );
 };
 
@@ -57,7 +57,7 @@ export interface TypographyProps<T extends AllTextType> extends HTMLProps<T> {
   wrap?: "nowrap" | "wrap";
 }
 
-export const Typography = ({
+export const Text = ({
   as: Component = "p",
   children,
   weight,
