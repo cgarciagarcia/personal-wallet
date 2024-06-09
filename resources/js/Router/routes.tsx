@@ -1,10 +1,12 @@
 import { type RouteObject } from "react-router/dist/lib/context";
 
-import { BudgetPage } from "@/Pages/BudgetPage";
-import { HomePage } from "@/Pages/Home/HomePage";
-import { LoginPage } from "@/Pages/LoginPage";
-import { NotFoundPage } from "@/Pages/NotFoundPage";
-import { RegisterPage } from "@/Pages/RegisterPage";
+import {
+  BudgetPage,
+  HomePage,
+  LoginPage,
+  NotFoundPage,
+  RegisterPage,
+} from "@/Pages";
 
 export const ROUTES = {
   home: {
