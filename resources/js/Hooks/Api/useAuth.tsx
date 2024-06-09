@@ -8,7 +8,7 @@ import { useAuthStore } from "@/Stores/useAuthStore";
 import {
   type BaseApiError,
   type ValidationErrorResponse,
-} from "@/Types/ApiErrors";
+} from "@/Types/ApiTypes";
 
 export const useAuth = () => {
   const clearCredentials = useAuthStore((s) => s.logout);

@@ -3,7 +3,7 @@ import {
   type AllApiErrorNotInternalServerError,
   type BaseApiError,
   type InternalServerError,
-} from "@/Types/ApiErrors";
+} from "@/Types/ApiTypes";
 
 const isInternalServerError = <T extends AllApiErrorNotInternalServerError>(
   error: InternalServerError | BaseApiError<T>,

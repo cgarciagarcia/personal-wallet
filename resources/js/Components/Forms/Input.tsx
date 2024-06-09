@@ -26,7 +26,7 @@ export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   message?: string;
   preventEventsRightIcon?: boolean;
   right?: ReactNode;
-  rightwMergeidth?: number;
+  rightMarginWidth?: number;
   type?: string;
 }
 
@@ -43,7 +43,7 @@ export const Input = forwardRef(
       message,
       preventEventsRightIcon,
       right,
-      rightwMergeidth = 40,
+      rightMarginWidth = 40,
       style,
       type = "text",
       required,
@@ -101,7 +101,7 @@ export const Input = forwardRef(
               !!rest.disabled && "bg-black-100 border-gray-500",
               !!error &&
                 "focus:border-red border-red-500 placeholder:text-red-500 focus:ring-red-200",
-              type === "password" || right ? `mr-[${rightwMergeidth}px]` : "",
+              type === "password" || right ? `mr-[${rightMarginWidth}px]` : "",
               className,
             )}
             aria-invalid={!!error}
@@ -114,7 +114,7 @@ export const Input = forwardRef(
               size="sm"
               className={twMerge(
                 "absolute right-3 flex flex-row items-center justify-center",
-                `w-[${rightwMergeidth}px]`,
+                `w-[${rightMarginWidth}px]`,
                 preventEventsRightIcon ? "pointer-events-none" : "",
               )}
             >

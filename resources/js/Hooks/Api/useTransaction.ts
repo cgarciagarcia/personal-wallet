@@ -3,29 +3,30 @@ import { type AxiosError } from "axios";
 import { toast } from "react-toastify";
 
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
-import { useApi, type BaseApiAnswer } from "@/Hooks/Api/useApi";
+import {
+  createTransaction,
+  deleteTransaction,
+  getTransactions,
+  updateTransaction,
+} from "@/Hooks/Api/Endpoints";
 import { useAuthStore } from "@/Stores/useAuthStore";
-import { type Transaction } from "@/Types";
 import {
   type BaseApiError,
   type ValidationErrorResponse,
-} from "@/Types/ApiErrors";
+} from "@/Types/ApiTypes";
 
 export const useTransaction = () => {
-  const { api } = useApi();
   const credentials = useAuthStore((s) => s.credentials);
   const queryClient = useQueryClient();
 
   const useGetTransactions = () =>
     useQuery({
-      queryFn: () => api.get<BaseApiAnswer<Transaction[]>>("/transactions"),
+      queryFn: getTransactions,
       queryKey: ["getTransactions", credentials.refresh_token],
     });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => {
-      return api.delete<BaseApiAnswer<Transaction[]>>(`/transactions/${id}`);
-    },
+    mutationFn: deleteTransaction,
     mutationKey: ["deleteTransactions"],
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["getTransactions"] });
@@ -34,8 +35,7 @@ export const useTransaction = () => {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: object) =>
-      api.post<BaseApiAnswer<Transaction>>("/transactions", data),
+    mutationFn: createTransaction,
     mutationKey: ["newTransaction"],
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["getTransactions"] });
@@ -48,15 +48,7 @@ export const useTransaction = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (
-      data: object & {
-        id: number;
-        date: string;
-        money: number;
-        interval?: string;
-        repetition_count?: number | string;
-      },
-    ) => api.put<BaseApiAnswer<Transaction>>(`/transactions/${data.id}`, data),
+    mutationFn: updateTransaction,
     mutationKey: ["updateTransaction"],
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["getTransactions"] });

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { type ModalProps } from "@headlessui/react/dist/internal/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { useForm, type SubmitHandler } from "react-hook-form";
@@ -7,7 +6,7 @@ import { z } from "zod";
 
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
-import Modal from "@/Components/Layout/Modal";
+import Modal, { type ModalProps } from "@/Components/Layout/Modal";
 import { useTransaction } from "@/Hooks/Api/useTransaction";
 import { Intervals, TransactionsTypes, type Transaction } from "@/Types";
 
@@ -111,7 +110,14 @@ export const ModalTransaction = ({
             money: data.amount,
             interval:
               data.interval == "" || !data.interval ? undefined : data.interval,
-            repetition_count: data.repetition_count ?? undefined,
+            repetition_count:
+              typeof data.repetition_count === "string"
+                ? undefined
+                : data.repetition_count,
+            category_id:
+              typeof data.category_id === "string"
+                ? undefined
+                : data.category_id ?? undefined,
           },
           {
             onSuccess,

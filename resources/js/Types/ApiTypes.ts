@@ -17,3 +17,9 @@ export interface InternalServerError {
 }
 
 export type AllApiErrorNotInternalServerError = ValidationErrorResponse;
+
+export interface BaseApiAnswer<T> {
+  data: T;
+  success: boolean;
+  status: number;
+}

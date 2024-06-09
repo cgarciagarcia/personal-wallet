@@ -36,7 +36,6 @@ const NavbarLink = ({
         "mt-4 w-full rounded p-4 transition-all duration-150 md:mt-0 md:p-0",
         active &&
           "w-auto bg-primary-700 p-4 md:rounded-none md:bg-transparent md:p-0",
-        false && "w-0 md:border-b-2 md:border-solid md:border-b-white",
       )}
     >
       <NavLink
@@ -194,8 +193,8 @@ const DesktopNavbar = ({
 
 export const Navbar = () => {
   const { mutate } = useAuth().logout;
-
   const renderNavbar = useNavbar();
+
   if (!renderNavbar) return;
 
   return (
