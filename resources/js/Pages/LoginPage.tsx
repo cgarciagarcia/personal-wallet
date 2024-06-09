@@ -1,23 +1,15 @@
-import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import axios, { type AxiosError } from "axios";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as z from "zod";
 
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import { Text, Title } from "@/Components/Layout/Text";
-import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
 import { useAuth } from "@/Hooks/Api/useAuth";
+import { useMount } from "@/Hooks/useMount";
 import { ROUTES } from "@/Router/routes";
-import { useAuthStore } from "@/Stores/useAuthStore";
-import {
-  type BaseApiError,
-  type ValidationErrorResponse,
-} from "@/Types/ApiErrors";
 
 const schema = z.object({
   email: z
@@ -30,14 +22,11 @@ const schema = z.object({
 type schemaType = z.infer<typeof schema>;
 
 export const LoginPage = () => {
-  const { signIn } = useAuth();
-  const { setAuth } = useAuthStore();
-
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useMount(() => {
     void axios.get("sanctum/csrf-cookie").then(() => null);
-  }, []);
+  });
 
   const {
     register,
@@ -47,19 +36,7 @@ export const LoginPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: signIn,
-    onSuccess: ({ data }) => {
-      setAuth(data.data);
-      navigate(ROUTES.home.path);
-    },
-    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
-      if (response.response?.data) {
-        toast.error(presentValidationErrors(response.response.data));
-      }
-    },
-    mutationKey: ["sigIn"],
-  });
+  const { mutate, isPending } = useAuth().signIn;
 
   return (
     <section className="flex h-screen flex-col items-center justify-center">
@@ -71,15 +48,18 @@ export const LoginPage = () => {
         <form
           className="mt-8 w-full"
           onSubmit={handleSubmit((form) => {
-            mutate(form);
+            mutate(form, {
+              onSuccess: () => navigate(ROUTES.home.path),
+            });
           })}
+          aria-label="This is a login"
         >
           <Input
             label="Email"
             type="email"
             id="email"
             autoComplete="email"
-            placeholder="enter your email@mail.com"
+            placeholder="example@mail.com"
             {...register("email")}
             error={errors.email?.message}
           />

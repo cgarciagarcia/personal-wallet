@@ -1,32 +1,60 @@
-import { useApi, type BaseApiAnswer } from "@/Hooks/Api/useApi";
+import { useMutation } from "@tanstack/react-query";
+import { type AxiosError } from "axios";
+import { toast } from "react-toastify";
+
+import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
+import { logout, signIn, signUp } from "@/Hooks/Api/Endpoints";
 import { useAuthStore } from "@/Stores/useAuthStore";
-import { type Credentials, type User } from "@/Types";
+import {
+  type BaseApiError,
+  type ValidationErrorResponse,
+} from "@/Types/ApiErrors";
 
 export const useAuth = () => {
-  const { api } = useApi();
-
   const clearCredentials = useAuthStore((s) => s.logout);
+  const setAuth = useAuthStore((s) => s.setAuth);
 
-  const signIn = async (data: { email: string; password: string }) => {
-    return api.post<BaseApiAnswer<Credentials>>("/login", data);
-  };
-  const signUp = (data: {
-    name: string;
-    last_name: string;
-    email: string;
-    password: string;
-  }) => {
-    return api.post<BaseApiAnswer<User>>("/users", data);
-  };
+  const useSignIn = useMutation({
+    mutationFn: signIn,
+    onSuccess: ({ data }) => {
+      setAuth(data.data);
+    },
+    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
+      if (response.response?.data) {
+        toast.error(presentValidationErrors(response.response.data));
+      }
+    },
+    mutationKey: ["sigIn"],
+  });
 
-  const logout = () => {
-    clearCredentials();
-    return api.delete("/logout");
-  };
+  const useLogout = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      clearCredentials();
+    },
+    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
+      if (response.response?.data) {
+        toast.error(presentValidationErrors(response.response.data));
+      }
+    },
+  });
+
+  const useSignUp = useMutation({
+    mutationFn: signUp,
+    onSuccess: () => {
+      toast.success("Your account has been successfully created.");
+    },
+    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
+      if (response.response?.data) {
+        toast.error(presentValidationErrors(response.response.data));
+      }
+    },
+    mutationKey: ["signUp"],
+  });
 
   return {
-    signIn,
-    signUp,
-    logout,
+    signIn: useSignIn,
+    signUp: useSignUp,
+    logout: useLogout,
   };
 };

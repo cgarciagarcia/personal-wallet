@@ -101,3 +101,7 @@
 .border-style {
     @apply rounded-lg shadow-xl
 }
+
+.title-underlined {
+    @apply underline decoration-primary-500
+}

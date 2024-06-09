@@ -9,7 +9,7 @@ export interface BaseApiAnswer<T> {
   status: number;
 }
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: env.VITE_API_URL + "/api/v1",
   headers: {
     Accept: "application/json",

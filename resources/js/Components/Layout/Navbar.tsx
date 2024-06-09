@@ -193,7 +193,7 @@ const DesktopNavbar = ({
 };
 
 export const Navbar = () => {
-  const { logout } = useAuth();
+  const { mutate } = useAuth().logout;
 
   const renderNavbar = useNavbar();
   if (!renderNavbar) return;
@@ -201,8 +201,8 @@ export const Navbar = () => {
   return (
     <nav className="fixed z-10 h-14 w-full bg-primary-900 shadow-lg lg:h-16 xl:h-20">
       <div className="mx-auto flex max-w-limit-nav ">
-        <DesktopNavbar location={location.pathname} logout={logout} />
-        <MobileNavbar location={location.pathname} logout={logout} />
+        <DesktopNavbar location={location.pathname} logout={mutate} />
+        <MobileNavbar location={location.pathname} logout={mutate} />
       </div>
     </nav>
   );

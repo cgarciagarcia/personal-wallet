@@ -25,7 +25,7 @@ export const HomePage = () => {
             <Title
               as="h1"
               weight="extrabold"
-              className="mb-4 underline decoration-primary-500 underline-offset-2"
+              className="title-underlined mb-4 underline-offset-2"
             >
               Transactions
             </Title>
@@ -55,7 +55,7 @@ export const HomePage = () => {
           />
         </aside>
         <aside>
-          <Title as="h1" weight="extrabold" className="mb-4">
+          <Title as="h1" weight="extrabold" className="title-underlined mb-4">
             Balance
           </Title>
           <Indicator

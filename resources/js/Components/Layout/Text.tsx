@@ -1,4 +1,4 @@
-import { type HTMLProps, type ReactNode } from "react";
+import { createElement, type HTMLProps, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type HeadersType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -58,24 +58,22 @@ export interface TypographyProps<T extends AllTextType> extends HTMLProps<T> {
 }
 
 export const Text = ({
-  as: Component = "p",
+  as = "p",
   children,
   weight,
   className = "",
   wrap,
   ...props
 }: TypographyProps<AllTextType>) => {
-  return (
-    // Fix me
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    <Component
-      className={twMerge(
+  return createElement(
+    as,
+    {
+      className: twMerge(
         "font-base text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
-        Component === "label" &&
+        as === "label" &&
           "text-xs md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
-        Component === "p" && "",
-        Component === "span" && "",
+        as === "p" && "",
+        as === "span" && "",
         weight == "thin" && "font-thin",
         weight == "extralight" && "font-extralight",
         weight == "light" && "font-light",
@@ -88,10 +86,9 @@ export const Text = ({
         wrap == "wrap" && "text-wrap",
         wrap == "nowrap" && "text-nowrap",
         className,
-      )}
-      {...props}
-    >
-      {children}
-    </Component>
+      ),
+      ...props,
+    },
+    children,
   );
 };

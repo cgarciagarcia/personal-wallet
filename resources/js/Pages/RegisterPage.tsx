@@ -1,21 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { type AxiosError } from "axios";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import * as z from "zod";
 
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import { Text, Title } from "@/Components/Layout/Text";
-import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
 import { useAuth } from "@/Hooks/Api/useAuth";
+import { useMount } from "@/Hooks/useMount";
 import { ROUTES } from "@/Router/routes";
-import {
-  type BaseApiError,
-  type ValidationErrorResponse,
-} from "@/Types/ApiErrors";
 
 const schema = z
   .object({
@@ -47,7 +41,11 @@ const schema = z
 type schemaType = z.infer<typeof schema>;
 
 export const RegisterPage = () => {
-  const { signUp } = useAuth();
+  const { mutate, isPending } = useAuth().signUp;
+
+  useMount(() => {
+    void axios.get("sanctum/csrf-cookie").then(() => null);
+  });
 
   const navigate = useNavigate();
 
@@ -59,19 +57,6 @@ export const RegisterPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: signUp,
-    onSuccess: () => {
-      toast.success("Your account has been successfully created.");
-      navigate(ROUTES.login.path);
-    },
-    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
-      if (response.response?.data) {
-        toast.error(presentValidationErrors(response.response.data));
-      }
-    },
-    mutationKey: ["signUp"],
-  });
   return (
     <section className="flex h-screen flex-col items-center justify-center">
       <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-[450px]">
@@ -79,7 +64,13 @@ export const RegisterPage = () => {
           Create your <br /> Wallet Account
         </Title>
 
-        <form onSubmit={handleSubmit((formData) => mutate(formData))}>
+        <form
+          onSubmit={handleSubmit((formData) =>
+            mutate(formData, {
+              onSuccess: () => navigate(ROUTES.login.path),
+            }),
+          )}
+        >
           <div className="mt-8 flex flex-col justify-center gap-2 md:flex-row md:items-end">
             <Input
               label="About you"
