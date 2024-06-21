@@ -43,13 +43,13 @@ export const ForgotPasswordPage = () => {
 
   return (
     <section className="flex h-screen flex-col items-center justify-center">
-      <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-[400px]">
-        <Title as="h1" weight="extrabold" className="text-center">
+      <div className="flex h-auto w-11/12 flex-col rounded-lg border border-solid border-gray-200 bg-white p-6 shadow-lg md:w-auto md:min-w-[400px]">
+        <Title as="h1" weight="extrabold" className="text-center md:text-left">
           Reset your password
         </Title>
 
         <form
-          className="mt-8 w-full"
+          className="mt-8"
           onSubmit={handleSubmit(onSubmit)}
           aria-label="This is a login"
         >

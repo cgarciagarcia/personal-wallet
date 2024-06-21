@@ -76,10 +76,7 @@ export const Input = forwardRef(
               <IconEnveloper size="sm">
                 {left ?? (
                   <LockClosedIcon
-                    className={twMerge(
-                      "h-32 w-32 cursor-pointer fill-gray-800 stroke-gray-800 stroke-[.2px]",
-                      !!error && "fill-red-500 stroke-red-500",
-                    )}
+                    className="h-32 w-32 cursor-pointer fill-gray-800 stroke-gray-800 stroke-[.2px]"
                     onClick={() => setShowPassword((current) => !current)}
                   />
                 )}
@@ -98,8 +95,7 @@ export const Input = forwardRef(
               "rounded border-solid border-gray-800",
               (!!left || type === "password") && "pl-10",
               !!rest.disabled && "bg-black-100 border-gray-500",
-              !!error &&
-                "focus:border-red border-red-500 placeholder:text-red-500 focus:ring-red-200",
+              !!error && "focus:border-red focus:ring-red-200",
               type === "password" || right ? `mr-[${rightMarginWidth}px]` : "",
               className,
             )}
@@ -122,18 +118,12 @@ export const Input = forwardRef(
               {right ??
                 (showPassword ? (
                   <EyeSlashIcon
-                    className={twMerge(
-                      "h-5 w-5 cursor-pointer fill-gray-800 stroke-[.2px] text-gray-800",
-                      !!error && "fill-red-500 stroke-red-500",
-                    )}
+                    className="h-5 w-5 cursor-pointer fill-gray-800 stroke-[.2px] text-gray-800"
                     onClick={() => setShowPassword((current) => !current)}
                   />
                 ) : (
                   <EyeIcon
-                    className={twMerge(
-                      "h-5 w-5 cursor-pointer stroke-1 text-gray-800",
-                      !!error && "fill-red-500 stroke-red-500",
-                    )}
+                    className="h-5 w-5 cursor-pointer stroke-1 text-gray-800"
                     onClick={() => setShowPassword((current) => !current)}
                   />
                 ))}

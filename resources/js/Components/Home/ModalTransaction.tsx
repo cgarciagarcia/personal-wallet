@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
@@ -74,7 +74,7 @@ export const ModalTransaction = ({
       reset({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        date: format(new Date(transaction.date), "yyyy-MM-dd"),
+        date: format(parseISO(transaction.date), "yyyy-MM-dd"),
         amount: transaction.money.amount,
         description: transaction.description,
         category_id: transaction.category_id,
@@ -89,6 +89,7 @@ export const ModalTransaction = ({
   }, [reset, show, transaction]);
 
   const onSubmit: SubmitHandler<schemaType> = (data) => {
+    console.log(format(data.date, "yyyy-MM-dd"));
     transaction
       ? updateMutation.mutate(
           {
