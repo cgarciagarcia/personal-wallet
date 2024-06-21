@@ -64,3 +64,6 @@ export const updateTransaction = (
 
 export const deleteTransaction = (id: number) =>
   api.delete<BaseApiAnswer<Transaction[]>>(`/transactions/${id}`);
+
+export const forgotPassword = (email: string) =>
+  api.post<BaseApiAnswer<void>>("/forgot-password", { email });

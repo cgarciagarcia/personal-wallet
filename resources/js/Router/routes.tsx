@@ -2,6 +2,7 @@ import { type RouteObject } from "react-router/dist/lib/context";
 
 import {
   BudgetPage,
+  ForgotPasswordPage,
   HomePage,
   LoginPage,
   NotFoundPage,
@@ -35,6 +36,11 @@ export const ROUTES = {
     component: <RegisterPage />,
     label: "Register",
   },
+  forgotPassword: {
+    path: "/forgot-password",
+    component: <ForgotPasswordPage />,
+    label: "Forgot password",
+  },
   notFound: {
     path: "/404",
     component: <NotFoundPage />,
@@ -63,6 +69,12 @@ export const routes: {
     {
       path: ROUTES.login.path,
       element: ROUTES.login.component,
+      useNavbar: false,
+      useFooter: false,
+    },
+    {
+      path: ROUTES.forgotPassword.path,
+      element: ROUTES.forgotPassword.component,
       useNavbar: false,
       useFooter: false,
     },

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { toast } from "react-toastify";
 
-import { logout, signIn, signUp } from "@/Api/Endpoints";
+import { forgotPassword, logout, signIn, signUp } from "@/Api/Endpoints";
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
 import { useAuthStore } from "@/Stores/useAuthStore";
 import {
@@ -52,9 +52,25 @@ export const useAuth = () => {
     mutationKey: ["signUp"],
   });
 
+  const forgotPasswordMutation = useMutation({
+    mutationFn: forgotPassword,
+    mutationKey: ["forgotPassword"],
+    onSuccess: () => {
+      toast.success(
+        "We have sent you an email with instructions to reset your password.",
+      );
+    },
+    onError: (response: AxiosError<BaseApiError<ValidationErrorResponse>>) => {
+      if (response.response?.data) {
+        toast.error(presentValidationErrors(response.response.data));
+      }
+    },
+  });
+
   return {
     signIn: useSignIn,
     signUp: useSignUp,
     logout: useLogout,
+    forgotPassword: forgotPasswordMutation,
   };
 };

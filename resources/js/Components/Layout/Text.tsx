@@ -1,4 +1,4 @@
-import { createElement, type HTMLProps, type ReactNode } from "react";
+import { createElement, type HTMLAttributes, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type HeadersType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -16,7 +16,7 @@ type FontWeightType =
   | "extrabold"
   | "black";
 
-export interface HeaderProps {
+export interface HeaderProps extends TypographyProps<AllTextType> {
   as: HeadersType;
   children: ReactNode;
   className?: string;
@@ -51,7 +51,8 @@ export const Title = ({
   );
 };
 
-export interface TypographyProps<T extends AllTextType> extends HTMLProps<T> {
+export interface TypographyProps<T extends AllTextType>
+  extends HTMLAttributes<T> {
   as?: T;
   weight?: FontWeightType;
   wrap?: "nowrap" | "wrap";
@@ -60,7 +61,7 @@ export interface TypographyProps<T extends AllTextType> extends HTMLProps<T> {
 export const Text = ({
   as = "p",
   children,
-  weight,
+  weight = "normal",
   className = "",
   wrap,
   ...props
@@ -69,7 +70,7 @@ export const Text = ({
     as,
     {
       className: twMerge(
-        "font-base sm:text-xs text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
+        "font-base sm:text-xs text-sm md:text-base xl:text-base 2xl:text-2xl",
         as === "label" &&
           "text-xs md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
         as === "p" && "",

@@ -44,11 +44,11 @@ export const Button = forwardRef(
       ref={ref}
       type={type}
       className={twMerge(
-        "flex h-12 cursor-pointer flex-row items-center justify-between gap-2 border-[0.5px] border-black text-center focus:outline-none disabled:cursor-not-allowed",
+        "flex h-12 cursor-pointer flex-row items-center justify-between gap-2 border-[0.5px] text-center focus:outline-none disabled:cursor-not-allowed",
         "rounded focus:ring-2 focus:ring-offset-0",
         !left && !right && "justify-center",
         variant === "primary" &&
-          "focus:ring-primary-100 bg-primary hover:bg-primary-500 focus:bg-primary disabled:bg-primary-50",
+          "focus:ring-primary-100 border-primary-600 bg-primary hover:bg-primary-500 focus:bg-primary disabled:bg-primary-50",
         variant === "complementary" &&
           "bg-complementary text-white hover:text-black focus:text-black focus:ring-1 focus:ring-complementary-700 disabled:bg-complementary-20 disabled:hover:text-white disabled:focus:text-white",
 

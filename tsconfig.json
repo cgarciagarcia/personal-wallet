@@ -34,6 +34,6 @@
     "include": [
         "./resources/js/**/*",
         ".eslintrc.cjs",
-        "prettier.config.cjs"
+        "./prettier.config.cjs"
     ]
 }
