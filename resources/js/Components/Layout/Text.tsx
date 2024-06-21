@@ -69,7 +69,7 @@ export const Text = ({
     as,
     {
       className: twMerge(
-        "font-base text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
+        "font-base sm:text-xs text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl",
         as === "label" &&
           "text-xs md:text-sm lg:text-sm xl:text-sm 2xl:text-sm",
         as === "p" && "",

@@ -6,7 +6,7 @@ interface Props {
   style?: React.CSSProperties;
 }
 
-const Spinner = ({ className }: Props) => {
+export const Spinner = ({ className }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -22,5 +22,3 @@ const Spinner = ({ className }: Props) => {
     </svg>
   );
 };
-
-export default Spinner;

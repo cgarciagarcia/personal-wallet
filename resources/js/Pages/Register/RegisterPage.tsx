@@ -110,9 +110,9 @@ export const RegisterPage = () => {
             error={errors.confirmation_password?.message}
           />
           <Text className="float-left !text-sm">
-            Have an account?{" "}
+            I have an account?{" "}
             <Link to="/login" className="text-primary hover:underline">
-              Sign Up
+              Sign in
             </Link>
           </Text>
           <Button type="submit" className="mt-8 w-full" isLoading={isPending}>

@@ -1,7 +1,7 @@
 import axios, { type AxiosError } from "axios";
 
+import { api } from "@/Api/axios";
 import { env } from "@/env";
-import { api } from "@/Hooks/Api/axios";
 import { useAuthStore } from "@/Stores/useAuthStore";
 import {
   type Credentials,
@@ -47,8 +47,8 @@ export const refreshAccessToken = async () => {
     .catch((error: AxiosError) => error);
 };
 
-export const getTransactions = () =>
-  api.get<BaseApiAnswer<Transaction[]>>("/transactions");
+export const getTransactions = (params: string) =>
+  api.get<BaseApiAnswer<Transaction[]>>(`/transactions${params}`);
 
 export const createTransaction = (data: NewTransaction) =>
   api.post<BaseApiAnswer<Transaction>>("/transactions", data);

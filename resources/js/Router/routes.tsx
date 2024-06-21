@@ -8,6 +8,17 @@ import {
   RegisterPage,
 } from "@/Pages";
 
+export interface AppRoute {
+  useNavbar?: boolean;
+  useFooter?: boolean;
+}
+
+export type AppRouteType<T> = {
+  [K in keyof T]: T[K];
+};
+
+export type AppRoutesType = AppRouteType<RouteObject & AppRoute>;
+
 export const ROUTES = {
   home: {
     path: "/",
@@ -35,17 +46,6 @@ export const ROUTES = {
     label: "Budgets",
   },
 };
-
-export interface AppRoute {
-  useNavbar?: boolean;
-  useFooter?: boolean;
-}
-
-export type AppRouteType<T> = {
-  [K in keyof T]: T[K];
-};
-
-export type AppRoutesType = AppRouteType<RouteObject & AppRoute>;
 
 export const routes: {
   public: AppRoutesType[];

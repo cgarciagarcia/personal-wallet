@@ -1,7 +1,7 @@
 import { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 
-import { Text } from "@/Components/Layout/Text";
+import { Text } from "@/Components/Layout";
 
 export const TransactionItemSkeleton = memo(function MemoSkeleton() {
   return (

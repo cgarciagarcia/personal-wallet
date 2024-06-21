@@ -55,7 +55,8 @@ export const ModalTransaction = ({
   onSuccess,
   ...rest
 }: ModalTransactionProps & Omit<ModalProps, "show" | "children">) => {
-  const { createMutation, updateMutation } = useTransaction();
+  const createMutation = useTransaction().createMutation;
+  const updateMutation = useTransaction().updateMutation;
 
   const isPending = createMutation.isPending || updateMutation.isPending;
 
@@ -184,9 +185,7 @@ export const ModalTransaction = ({
             min="0"
             error={errors.repetition_count?.message}
             label="Repetition count"
-            {...register("repetition_count", {
-              valueAsNumber: true,
-            })}
+            {...register("repetition_count")}
             containerClassName="md:w-1/2"
           />
         </div>

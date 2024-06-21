@@ -31,6 +31,7 @@ final class GetTransactionsByUserCase
             ->allowedFilters([
                 AllowedFilter::scope('between_dates'),
                 AllowedFilter::scope('month'),
+                AllowedFilter::scope('date'),
             ])
             ->allowedSorts(TransactionFields::DATE)
             ->defaultSorts(["-" . TransactionFields::DATE])

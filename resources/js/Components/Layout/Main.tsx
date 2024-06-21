@@ -17,12 +17,13 @@ export const Main = ({ children }: MainProps) => {
   const renderFooter = useFooter();
 
   return (
-    <div className="flex-column relative h-full min-h-screen  w-full items-center justify-between md:h-screen">
+    <div className="flex-column relative h-full min-h-screen w-full items-center justify-between md:h-screen">
       <Navbar />
       <div
         className={twMerge(
-          "min-h-full w-full bg-background py-16 pt-14 lg:pt-16 xl:pt-20",
-          !renderNavbar && " min-h-screen !pt-0",
+          "min-h-screen w-full bg-background py-16 pt-14 md:min-h-full lg:pt-16 xl:pt-20",
+          !renderNavbar && "!pt-0",
+          !renderFooter && "!pb-0",
         )}
       >
         <div className="mx-auto h-full w-full max-w-limit-x ">

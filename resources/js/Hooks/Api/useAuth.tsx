@@ -2,8 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { toast } from "react-toastify";
 
+import { logout, signIn, signUp } from "@/Api/Endpoints";
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
-import { logout, signIn, signUp } from "@/Hooks/Api/Endpoints";
 import { useAuthStore } from "@/Stores/useAuthStore";
 import {
   type BaseApiError,

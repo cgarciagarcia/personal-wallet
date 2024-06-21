@@ -1,10 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { Main } from "@/Components/Layout/Main";
-import { Animation } from "@/Router/Animation";
-import { GuestRoute } from "@/Router/GuestRoute";
-import { PrivateRoute } from "@/Router/PrivateRoute";
-import { routes } from "@/Router/routes";
+import { AnimationRoute, GuestRoute, PrivateRoute, routes } from "@/Router";
 
 export const Router = () => {
   const location = useLocation();
@@ -20,7 +17,7 @@ export const Router = () => {
           {routes.private.map((route) => (
             <Route
               path={route.path}
-              element={<Animation>{route.element}</Animation>}
+              element={<AnimationRoute>{route.element}</AnimationRoute>}
               key={route.path}
             />
           ))}

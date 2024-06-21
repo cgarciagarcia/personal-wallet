@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { motion } from "framer-motion";
 
-export const Animation = ({ children }: { children: ReactNode }) => {
+export const AnimationRoute = ({ children }: { children: ReactNode }) => {
   return (
     <motion.div
       className="h-full w-full"

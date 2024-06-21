@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/20/solid";
+import { query } from "@vortechron/query-builder-ts";
 
+import { DateFilter } from "@/Components/Home/DateFIlter";
 import { Indicator } from "@/Components/Home/Indicator";
 import { ModalDeleteTransaction } from "@/Components/Home/ModalDeleteTransaction";
 import { ModalTransaction } from "@/Components/Home/ModalTransaction";
@@ -14,35 +16,44 @@ export const HomePage = () => {
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 
-  const { data: response, isFetching } = useTransaction().getTransactions();
+  const [queryBuilder, updateBuilder] = useState(query());
+
+  const { data: response, isFetching } =
+    useTransaction().getTransactions(queryBuilder);
   const useDeleteTransaction = useTransaction().deleteMutation;
 
   return (
     <section className="mt-8 flex flex-col items-center justify-center px-4 md:px-12">
       <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row md:gap-6 lg:gap-24">
         <aside>
-          <div className="flex flex-row justify-between">
-            <Title
-              as="h1"
-              weight="extrabold"
-              className="title-underlined mb-4 underline-offset-2"
-            >
-              Transactions
-            </Title>
-            <div>
-              <div
-                data-tooltip-id="tooltip"
-                data-tooltip-content="Add operation"
-                aria-label="Add operation "
-                tabIndex={0}
-                role="button"
-                onClick={() => setShowAddOperation(true)}
-                onKeyDown={() => null}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-complementary hover:bg-complementary-400"
+          <div className="mb-4 flex flex-col justify-between">
+            <div className="flex flex-row items-center justify-between gap-8">
+              <Title
+                as="h1"
+                weight="extrabold"
+                className="title-underlined mb-4 underline-offset-2"
               >
-                <PlusIcon className="h-6 w-6 text-white hover:text-gray-300" />
+                Transactions
+              </Title>
+              <div>
+                <div
+                  data-tooltip-id="tooltip"
+                  data-tooltip-content="Add operation"
+                  aria-label="Add operation "
+                  tabIndex={0}
+                  role="button"
+                  onClick={() => setShowAddOperation(true)}
+                  onKeyDown={() => null}
+                  className="flex h-8 w-8 items-center justify-center rounded-full bg-complementary hover:bg-complementary-400"
+                >
+                  <PlusIcon className="h-6 w-6 text-white hover:text-gray-300" />
+                </div>
               </div>
             </div>
+            <DateFilter
+              queryBuilder={queryBuilder}
+              updateBuilder={updateBuilder}
+            />
           </div>
           <TransactionList
             transactions={response?.data.data ?? []}

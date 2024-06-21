@@ -5,8 +5,8 @@ import {
 } from "react";
 import { twMerge } from "tailwind-merge";
 
-import Spinner from "@/Components//Layout/Spinner";
 import { IconEnveloper } from "@/Components/IconEnveloper";
+import { Spinner } from "@/Components/Layout";
 import { forwardRef } from "@/Helpers/forwardRef";
 import { Text } from "./Text";
 

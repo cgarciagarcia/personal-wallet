@@ -10,7 +10,7 @@ export default ({ mode }) => {
   const config = {
     plugins: [
       laravel({
-        input: ["resources/css/app.css", "resources/js/index.tsx"],
+        input: ["resources/css/app.css", "resources/js/Router.tsx"],
         refresh: true,
       }),
       react(),

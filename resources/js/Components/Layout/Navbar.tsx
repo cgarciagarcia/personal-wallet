@@ -9,18 +9,20 @@ import { twMerge } from "tailwind-merge";
 import { Text } from "@/Components/Layout/Text";
 import { useAuth } from "@/Hooks/Api/useAuth";
 import { useNavbar } from "@/Hooks/useNavbar";
-import { ROUTES } from "@/Router/routes";
+import { ROUTES } from "@/Router";
 
-const navLinks = [
-  {
-    path: ROUTES.home.path,
-    label: ROUTES.home.label,
-  },
-  {
-    path: ROUTES.budget.path,
-    label: ROUTES.budget.label,
-  },
-];
+const navLinks = () => {
+  return [
+    {
+      path: ROUTES.home.path,
+      label: ROUTES.home.label,
+    },
+    {
+      path: ROUTES.budget.path,
+      label: ROUTES.budget.label,
+    },
+  ];
+};
 
 const NavbarLink = ({
   active,
@@ -106,7 +108,7 @@ const MobileNavbar = ({
         )}
       >
         <ul>
-          {navLinks.map((link) => (
+          {navLinks().map((link) => (
             <NavbarLink
               to={link.path}
               key={link.label}
@@ -162,7 +164,7 @@ const DesktopNavbar = ({
           "flex flex-row items-center gap-12  md:flex md:flex-row",
         )}
       >
-        {navLinks.map((link) => (
+        {navLinks().map((link) => (
           <NavbarLink
             to={link.path}
             key={link.label}

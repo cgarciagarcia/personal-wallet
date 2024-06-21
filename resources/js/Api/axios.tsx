@@ -1,8 +1,8 @@
 import axios, { type AxiosError } from "axios";
 import { toast } from "react-toastify";
 
+import { refreshAccessToken } from "@/Api/Endpoints";
 import { env } from "@/env";
-import { refreshAccessToken } from "@/Hooks/Api/Endpoints";
 import { useAuthStore } from "@/Stores/useAuthStore";
 
 export const api = axios.create({

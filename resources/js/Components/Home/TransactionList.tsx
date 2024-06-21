@@ -1,7 +1,6 @@
 import { twMerge } from "tailwind-merge";
 
-import { TransactionItem } from "@/Components/Home/TransactionItem";
-import { TransactionItemSkeleton } from "@/Components/Home/TransactionItemSkeleton";
+import { TransactionItem, TransactionItemSkeleton } from "@/Components/Home/";
 import { type Transaction } from "@/Types";
 
 export interface TransactionListProps {

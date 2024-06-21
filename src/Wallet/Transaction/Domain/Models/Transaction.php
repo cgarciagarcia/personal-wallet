@@ -9,6 +9,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum;
 use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
 
@@ -80,14 +81,26 @@ class Transaction extends Model
     }
 
     /**
-     * @param Builder<Transaction> $query
-     *
      * @api
+     *
+     * @param Builder<Transaction> $query
      *
      * @psalm-return Builder<self>
      */
-    public function scopeMonth(Builder $query, int $month): Builder
+    public function scopeMonth(Builder $query, int ...$months): Builder
     {
-        return $query->whereMonth(TransactionFields::DATE, $month);
+        return $query->whereIn(DB::raw("month(" . TransactionFields::DATE . ")"), $months);
+    }
+
+    /**
+     * @api
+     *
+     * @param Builder<Transaction> $query
+     *
+     * @psalm-return Builder<self>
+     */
+    public function scopeDate(Builder $query, string ...$days): Builder
+    {
+        return $query->whereIn(TransactionFields::DATE, $days);
     }
 }
