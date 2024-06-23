@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <psalm
-        errorLevel="1"
-        resolveFromConfigFile="true"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="https://getpsalm.org/schema/config"
-        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
-        findUnusedBaselineEntry="true"
-        findUnusedCode="true"
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="true"
 >
     <projectFiles>
         <directory name="src"/>
@@ -22,8 +22,6 @@
             <file name="src/App/Providers/AppServiceProvider.php"/>
             <file name="src/App/Providers/AuthServiceProvider.php"/>
             <file name="src/App/Http/Middleware/TrustHosts.php"/>
-            <file name="src/App/Http/Kernel.php"/>
-            <file name="src/App/Console/Kernel.php"/>
             <file name="database/seeders/DatabaseSeeder.php"/>
             <file name="src/App/Http/Middleware/VerifyCsrfToken.php"/>
             <file name="src/App/Http/Middleware/ValidateSignature.php"/>
@@ -38,5 +36,6 @@
     <plugins>
         <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
         <pluginClass class="Psalm\MockeryPlugin\Plugin"/>
-    <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/></plugins>
+        <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
+    </plugins>
 </psalm>

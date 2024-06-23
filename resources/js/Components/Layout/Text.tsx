@@ -1,4 +1,4 @@
-import { createElement, type HTMLAttributes, type ReactNode } from "react";
+import { createElement, type LabelHTMLAttributes, type ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 type HeadersType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
@@ -52,7 +52,7 @@ export const Title = ({
 };
 
 export interface TypographyProps<T extends AllTextType>
-  extends HTMLAttributes<T> {
+  extends LabelHTMLAttributes<T> {
   as?: T;
   weight?: FontWeightType;
   wrap?: "nowrap" | "wrap";
