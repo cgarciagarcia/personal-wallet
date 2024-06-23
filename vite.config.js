@@ -24,7 +24,6 @@ export default ({ mode }) => {
         name: "blade",
       },
     ],
-
     build: {
       sourcemap: true,
       rollupOptions: {
