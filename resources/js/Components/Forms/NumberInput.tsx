@@ -1,14 +1,8 @@
 import {
-  useState,
   type ComponentPropsWithoutRef,
   type ForwardedRef,
   type ReactNode,
 } from "react";
-import {
-  EyeIcon,
-  EyeSlashIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/solid";
 import { twMerge } from "tailwind-merge";
 
 import { Message, type FormErrorType } from "@/Components/Forms/Message";
@@ -27,10 +21,10 @@ export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   preventEventsRightIcon?: boolean;
   right?: ReactNode;
   rightMarginWidth?: number;
-  type?: string;
+  decimals?: boolean;
 }
 
-export const Input = forwardRef(
+export const NumberInput = forwardRef(
   (
     {
       className,
@@ -45,14 +39,13 @@ export const Input = forwardRef(
       right,
       rightMarginWidth = 40,
       style,
-      type = "text",
       required,
+      type = "number",
+      decimals = true,
       ...rest
     }: InputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
-    const [showPassword, setShowPassword] = useState(false);
-
     return (
       <div style={style} className={twMerge("relative", containerClassName)}>
         {!!label && (
@@ -66,26 +59,19 @@ export const Input = forwardRef(
             !!rest.disabled && "opacity-30",
           )}
         >
-          {(!!left || type === "password") && (
+          {!!left && (
             <div
               className="pointer-events-none pl-3"
               style={{
                 position: "absolute",
               }}
             >
-              <IconEnveloper size="sm">
-                {left ?? (
-                  <LockClosedIcon
-                    className="h-32 w-32 cursor-pointer fill-gray-800 stroke-gray-800 stroke-[.2px]"
-                    onClick={() => setShowPassword((current) => !current)}
-                  />
-                )}
-              </IconEnveloper>
+              <IconEnveloper size="sm">{left}</IconEnveloper>
             </div>
           )}
           <input
             ref={ref}
-            type={type === "password" ? (showPassword ? "text" : type) : type}
+            type="text"
             id={id}
             className={twMerge(
               "block h-[46px] w-full rounded-md border border-gray-200 px-2 py-3",
@@ -106,8 +92,21 @@ export const Input = forwardRef(
             required={required}
             autoComplete="off"
             {...rest}
+            onChange={(e) => {
+              e.currentTarget.value = e.currentTarget.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*)\./g, "$1");
+              rest.onChange!(e);
+            }}
+            onKeyDown={(event) => {
+              if (!decimals && event.key === ".") {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              rest.onKeyDown ? rest.onKeyDown(event) : undefined;
+            }}
           />
-          {(!!right || type === "password") && (
+          {!!right && (
             <IconEnveloper
               size="sm"
               className={twMerge(
@@ -116,18 +115,7 @@ export const Input = forwardRef(
                 preventEventsRightIcon ? "pointer-events-none" : "",
               )}
             >
-              {right ??
-                (showPassword ? (
-                  <EyeSlashIcon
-                    className="h-5 w-5 cursor-pointer fill-gray-800 stroke-[.2px] text-gray-800"
-                    onClick={() => setShowPassword((current) => !current)}
-                  />
-                ) : (
-                  <EyeIcon
-                    className="h-5 w-5 cursor-pointer stroke-1 text-gray-800"
-                    onClick={() => setShowPassword((current) => !current)}
-                  />
-                ))}
+              {right}
             </IconEnveloper>
           )}
         </div>

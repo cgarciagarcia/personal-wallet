@@ -1,9 +1,8 @@
-import { memo } from "react";
 import Skeleton from "react-loading-skeleton";
 
 import { Text } from "@/Components/Layout";
 
-export const TransactionItemSkeleton = memo(function MemoSkeleton() {
+export const TransactionItemSkeleton = () => {
   return (
     <article className="min-h-auto w-full p-4 first:rounded-t-lg last:border-b-2 last:border-black hover:!bg-gray-300">
       <Text as="span" weight="bold">
@@ -27,4 +26,4 @@ export const TransactionItemSkeleton = memo(function MemoSkeleton() {
       </div>
     </article>
   );
-});
+};

@@ -1,14 +1,17 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
+import { CheckboxInput } from "@/Components/Forms/Checkbox";
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
 import Modal, { type ModalProps } from "@/Components/Layout/Modal";
+import { dateLocalTz } from "@/Helpers/utils";
 import { useTransaction } from "@/Hooks/Api/useTransaction";
 import { Intervals, TransactionsTypes, type Transaction } from "@/Types";
+import { NumberInput } from "../Forms/NumberInput";
 
 export interface ModalTransactionProps {
   transaction?: Transaction;
@@ -21,31 +24,42 @@ export function getValues<T extends Record<string, unknown>>(obj: T) {
   return Object.values(obj) as [keyof typeof obj];
 }
 
-const schema = z.object({
-  description: z.string().min(1, "Description is required"),
-  category_id: z
-    .union([z.number().int().positive(), z.string().length(0)])
-    .nullable(),
-  type: z.enum(getValues(TransactionsTypes), {
-    errorMap: () => {
-      return {
-        message:
-          "The possible values are: " + getValues(TransactionsTypes).join(", "),
-      };
+const schema = z
+  .object({
+    description: z.string().min(1, "Description is required"),
+    category_id: z
+      .union([z.number().int().positive(), z.string().length(0)])
+      .nullable(),
+    type: z.enum(getValues(TransactionsTypes), {
+      errorMap: () => {
+        return {
+          message:
+            "The possible values are: " +
+            getValues(TransactionsTypes).join(", "),
+        };
+      },
+    }),
+    date: z
+      .date()
+      .min(new Date("1900-01-01"), { message: "The date is invalid" }),
+    recurring: z.boolean(),
+    repetition_count: z.number().positive().optional(),
+    amount: z.number({ message: "The amount should be a number" }).gt(0),
+    interval: z
+      .enum([...getValues(Intervals), ""])
+      .transform((value) => value ?? undefined),
+  })
+  .refine(
+    (form) => {
+      return (
+        form.repetition_count && form.repetition_count > 0 && form.recurring
+      );
     },
-  }),
-  date: z
-    .date()
-    .min(new Date("1900-01-01"), { message: "The date is invalid" }),
-  recurring: z.boolean(),
-  repetition_count: z
-    .union([z.number().int().gt(1), z.string().length(0)])
-    .transform((val) => (val ? "" : val)),
-  amount: z.number().gt(0),
-  interval: z
-    .enum([...getValues(Intervals), ""])
-    .transform((value) => value ?? undefined),
-});
+    {
+      message: "Recurring field should be checked.",
+      path: ["recurring"],
+    },
+  );
 
 type schemaType = z.infer<typeof schema>;
 
@@ -57,7 +71,6 @@ export const ModalTransaction = ({
 }: ModalTransactionProps & Omit<ModalProps, "show" | "children">) => {
   const createMutation = useTransaction().createMutation;
   const updateMutation = useTransaction().updateMutation;
-
   const isPending = createMutation.isPending || updateMutation.isPending;
 
   const {
@@ -70,32 +83,32 @@ export const ModalTransaction = ({
   });
 
   useEffect(() => {
-    if (transaction) {
-      reset({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        date: format(parseISO(transaction.date), "yyyy-MM-dd"),
-        amount: transaction.money.amount,
-        description: transaction.description,
-        category_id: transaction.category_id,
-        type: transaction.type,
-        recurring: transaction.recurring,
-        interval: transaction.interval,
-        repetition_count: transaction.repetition_count ?? 0,
-      });
-    } else {
-      reset({});
-    }
+    reset(
+      transaction
+        ? {
+            date: format(
+              dateLocalTz(transaction.date),
+              "yyyy-MM-dd",
+            ) as unknown as Date,
+            amount: transaction.money.amount,
+            description: transaction.description,
+            category_id: transaction.category_id,
+            type: transaction.type,
+            recurring: transaction.recurring,
+            interval: transaction.interval,
+            repetition_count: transaction.repetition_count ?? 0,
+          }
+        : {},
+    );
   }, [reset, show, transaction]);
 
   const onSubmit: SubmitHandler<schemaType> = (data) => {
-    console.log(format(data.date, "yyyy-MM-dd"));
     transaction
       ? updateMutation.mutate(
           {
             ...transaction,
             ...data,
-            date: format(data.date, "yyyy-MM-dd"),
+            date: format(dateLocalTz(data.date), "yyyy-MM-dd"),
             money: data.amount,
             interval:
               data.interval == "" || !data.interval ? undefined : data.interval,
@@ -108,14 +121,11 @@ export const ModalTransaction = ({
       : createMutation.mutate(
           {
             ...data,
-            date: format(data.date, "yyyy-MM-dd"),
+            date: format(dateLocalTz(data.date), "yyyy-MM-dd"),
             money: data.amount,
             interval:
               data.interval == "" || !data.interval ? undefined : data.interval,
-            repetition_count:
-              typeof data.repetition_count === "string"
-                ? undefined
-                : data.repetition_count,
+            repetition_count: data.repetition_count ?? undefined,
             category_id:
               typeof data.category_id === "string"
                 ? undefined
@@ -180,24 +190,22 @@ export const ModalTransaction = ({
             error={errors.interval?.message}
             containerClassName="md:w-1/2"
           />
-          <Input
+          <NumberInput
             id="repetition_count"
-            type="number"
             min="0"
             error={errors.repetition_count?.message}
             label="Repetition count"
             {...register("repetition_count")}
             containerClassName="md:w-1/2"
+            decimals={false}
           />
         </div>
-        <Input
+        <CheckboxInput
           id="recurring"
           label="Recurring"
           error={errors.recurring?.message}
           {...register("recurring")}
-          type="checkbox"
         />
-
         <Button type="submit" isLoading={isPending} className="mx-auto ">
           {transaction ? "Save Changes" : "Create transaction"}
         </Button>

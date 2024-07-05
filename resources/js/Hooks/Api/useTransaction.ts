@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { type QueryBuilder } from "@vortechron/query-builder-ts";
 import { type AxiosError } from "axios";
 import { toast } from "react-toastify";
 
@@ -10,11 +9,20 @@ import {
   updateTransaction,
 } from "@/Api/Endpoints";
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
+import { type QueryBuilder } from "@/Hooks/useQueryBuilder/useQueryBuilder";
 import { useAuthStore } from "@/Stores/useAuthStore";
 import {
   type BaseApiError,
   type ValidationErrorResponse,
 } from "@/Types/ApiTypes";
+
+const useTransactionKeys = () => {
+  return {
+    useGetTransactions: (token: string, params: string) => {
+      return ["getTransactions", token, params];
+    },
+  };
+};
 
 export const useTransaction = () => {
   const credentials = useAuthStore((s) => s.credentials);
@@ -23,7 +31,10 @@ export const useTransaction = () => {
   const useGetTransactions = (query: QueryBuilder) =>
     useQuery({
       queryFn: () => getTransactions(query.build()),
-      queryKey: ["getTransactions", [credentials.refresh_token, query.build()]],
+      queryKey: useTransactionKeys().useGetTransactions(
+        credentials.access_token,
+        query.build(),
+      ),
     });
 
   const deleteMutation = useMutation({

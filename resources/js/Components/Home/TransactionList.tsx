@@ -1,9 +1,8 @@
-import { twMerge } from "tailwind-merge";
-
 import { TransactionItem, TransactionItemSkeleton } from "@/Components/Home/";
+import { Table } from "@/Components/Table/Table";
 import { type Transaction } from "@/Types";
 
-export interface TransactionListProps {
+interface TransactionListProps {
   transactions: Transaction[];
   setTransactionToDelete: (transaction: Transaction) => void;
   setTransactionToEdit: (transaction: Transaction) => void;
@@ -17,38 +16,19 @@ export const TransactionList = ({
   isFetching,
 }: TransactionListProps) => {
   return (
-    <div className="border-style relative h-[600px] w-full overflow-hidden md:w-[500px]">
-      <div
-        className={twMerge(
-          "no-scrollbar flex h-full w-full flex-col overflow-y-auto bg-white [&>*:nth-child(even)]:bg-primary/5",
-          isFetching && "overflow-y-hidden",
-        )}
-      >
-        {transactions.length > 0 ? (
-          transactions.map((transaction) => (
-            <TransactionItem
-              key={transaction.id}
-              transaction={transaction}
-              setTransactionToDelete={setTransactionToDelete}
-              setTransactionToEdit={setTransactionToEdit}
-            />
-          ))
-        ) : transactions.length == 0 && !isFetching ? (
-          <article className="min-h-auto w-full p-4 first:rounded-t-lg last:rounded-b-lg hover:bg-gray-200">
-            <div className="flex items-center justify-between">
-              Nothing to show...
-            </div>
-          </article>
-        ) : (
-          <>
-            <TransactionItemSkeleton />
-            <TransactionItemSkeleton />
-            <TransactionItemSkeleton />
-            <TransactionItemSkeleton />
-            <TransactionItemSkeleton />
-          </>
-        )}
-      </div>
-    </div>
+    <Table
+      isFetching={isFetching}
+      fallbackElement={TransactionItemSkeleton}
+      fallbackRepetitions={10}
+    >
+      {transactions.map((transaction) => (
+        <TransactionItem
+          key={transaction.id}
+          transaction={transaction}
+          setTransactionToDelete={setTransactionToDelete}
+          setTransactionToEdit={setTransactionToEdit}
+        />
+      ))}
+    </Table>
   );
 };

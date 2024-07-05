@@ -10,6 +10,7 @@ export interface Transaction {
   interval?: TransactionsIntervalType;
   recurring: boolean;
   repetition_count?: number;
+  created_at: string;
 }
 
 export interface NewTransaction {

@@ -10,12 +10,11 @@ use Wallet\Transaction\Domain\Models\Transaction;
 class TransactionTransformer extends TransformerAbstract
 {
     /**
-     *
      * @return (\Akaunting\Money\Money|\Illuminate\Support\Carbon|\Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum|bool|int|null|string)[]
      *
      * @psalm-api
      *
-     * @psalm-return array{id: int, date: \Illuminate\Support\Carbon, money: \Akaunting\Money\Money, type: \Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum, category_id: int|null, description: string, recurring: bool}
+     * @psalm-return array{id: int, date: \Illuminate\Support\Carbon, money: \Akaunting\Money\Money, type: \Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum, category_id: int|null, description: string, recurring: bool, created_at: \Illuminate\Support\Carbon|null}
      */
     public function transform(Transaction $transaction): array
     {
@@ -27,6 +26,7 @@ class TransactionTransformer extends TransformerAbstract
             'category_id' => $transaction->category_id,
             'description' => $transaction->description,
             'recurring' => $transaction->recurring,
+            'created_at' => $transaction->created_at,
         ];
     }
 }

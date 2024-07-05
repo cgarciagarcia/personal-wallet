@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { type QueryBuilder } from "@vortechron/query-builder-ts";
-import { format, subMonths, subYears } from "date-fns";
+import { endOfWeek, format, startOfWeek, subMonths, subYears } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { Text } from "@/Components/Layout/Text";
+import { type QueryBuilder } from "@/Hooks/useQueryBuilder/useQueryBuilder";
 
 const today = new Date();
 
@@ -15,8 +15,21 @@ interface FilterDate {
 
 const RangeDates = [
   {
+    label: "Today",
+    value: format(today, "yyyy-mm-dd"),
+    filter: "date",
+  },
+  {
+    label: "This week",
+    value: [
+      format(startOfWeek(today, { weekStartsOn: 1 }), "yyyy-MM-dd"),
+      format(endOfWeek(today, { weekStartsOn: 1 }), "yyyy-MM-dd"),
+    ],
+    filter: "between_dates",
+  },
+  {
     label: "June",
-    value: format(today, "MM"),
+    value: format(today, "M"),
     filter: "month",
   },
   {
@@ -52,27 +65,22 @@ const RangeDates = [
 
 export interface DataFilterProps {
   queryBuilder: QueryBuilder;
-  updateBuilder: (builder: QueryBuilder) => void;
 }
 
-export const DateFilter = ({
-  queryBuilder,
-  updateBuilder,
-}: DataFilterProps) => {
+export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
   const [selectedDate, setSelectedDate] = useState<string>(
     RangeDates[0].filter,
   );
 
   const onChangeDate = (date: FilterDate) => {
-    queryBuilder.forget(`filter[${selectedDate}]`);
     if (typeof date.value === "string") {
-      queryBuilder.filter(date.filter, date.value);
+      queryBuilder.clearFilters().filter(date.filter, [date.value, "05"]);
     } else {
-      queryBuilder.filter(date.filter, date.value[0]);
-      queryBuilder.filter(date.filter, date.value[1]);
+      queryBuilder
+        .clearFilters()
+        .filter(date.filter, [date.value[0], date.value[1]]);
     }
     setSelectedDate(date.filter);
-    updateBuilder(queryBuilder);
   };
 
   return (

@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { PlusIcon } from "@heroicons/react/20/solid";
-import { query } from "@vortechron/query-builder-ts";
 
-import { DateFilter } from "@/Components/Home/DateFIlter";
-import { Indicator } from "@/Components/Home/Indicator";
-import { ModalDeleteTransaction } from "@/Components/Home/ModalDeleteTransaction";
-import { ModalTransaction } from "@/Components/Home/ModalTransaction";
-import { TransactionList } from "@/Components/Home/TransactionList";
-import { Title } from "@/Components/Layout/Text";
-import { useTransaction } from "@/Hooks/Api/useTransaction";
+import {
+  DateFilter,
+  Indicator,
+  ModalDeleteTransaction,
+  ModalTransaction,
+  Title,
+  TransactionList,
+} from "@/Components";
+import { useQueryBuilder, useTransaction } from "@/Hooks";
 import { type Transaction } from "@/Types";
 
 export const HomePage = () => {
@@ -16,15 +17,19 @@ export const HomePage = () => {
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 
-  const [queryBuilder, updateBuilder] = useState(query());
-
+  const queryBuilder = useQueryBuilder({
+    aliases: {
+      asd: "123",
+    },
+  });
+  queryBuilder.filter("", 123);
   const { data: response, isFetching } =
     useTransaction().getTransactions(queryBuilder);
   const useDeleteTransaction = useTransaction().deleteMutation;
 
   return (
     <section className="mt-8 flex flex-col items-center justify-center px-4 md:px-12">
-      <div className="flex w-full flex-col-reverse justify-center gap-4 md:flex-row md:gap-6 lg:gap-24">
+      <div className="flex w-full flex-col-reverse justify-center gap-4 md:gap-6 lg:flex-row lg:gap-14">
         <aside>
           <div className="mb-4 flex flex-col justify-between">
             <div className="flex flex-row items-center justify-between gap-8">
@@ -50,10 +55,7 @@ export const HomePage = () => {
                 </div>
               </div>
             </div>
-            <DateFilter
-              queryBuilder={queryBuilder}
-              updateBuilder={updateBuilder}
-            />
+            <DateFilter queryBuilder={queryBuilder} />
           </div>
           <TransactionList
             transactions={response?.data.data ?? []}

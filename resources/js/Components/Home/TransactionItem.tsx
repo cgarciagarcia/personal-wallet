@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { Text } from "@/Components/Layout/Text";
+import { dateLocalTz } from "@/Helpers/utils";
 import { TransactionsTypes, type Transaction } from "@/Types";
 
 export interface TransactionItemProps {
@@ -18,16 +19,12 @@ export const TransactionItem = memo(function TransactionItemMemo({
   setTransactionToEdit,
 }: TransactionItemProps) {
   return (
-    <article
+    <li
       key={transaction.id}
       className="min-h-auto w-full p-4 transition-colors duration-200 first:rounded-t-lg last:border-b-2 last:border-black hover:!bg-primary-300/30"
     >
       <Text as="span" weight="bold">
-        {format(
-          new Date(transaction.date).getTime() +
-            new Date(transaction.date).getTimezoneOffset() * 60000,
-          "EEEE d MMM",
-        )}
+        {format(dateLocalTz(transaction.date), "EEEE d MMM HH:ii")}
       </Text>
       <div className="flex items-center justify-between">
         <div>
@@ -69,6 +66,8 @@ export const TransactionItem = memo(function TransactionItemMemo({
           </Text>
         </div>
       </div>
-    </article>
+    </li>
   );
 });
+
+export default TransactionItem;

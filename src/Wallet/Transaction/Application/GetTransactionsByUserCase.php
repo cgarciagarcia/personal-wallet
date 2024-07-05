@@ -28,14 +28,14 @@ final class GetTransactionsByUserCase
 
         /** @var Collection<int, Transaction> $transactions */
         $transactions = QueryBuilder::for($query)
-            ->allowedFilters([
-                AllowedFilter::scope('between_dates'),
-                AllowedFilter::scope('month'),
-                AllowedFilter::scope('date'),
-            ])
-            ->allowedSorts(TransactionFields::DATE)
-            ->defaultSorts(["-" . TransactionFields::DATE])
-            ->get();
+        ->allowedFilters([
+            AllowedFilter::scope('between_dates'),
+            AllowedFilter::scope('month'),
+            AllowedFilter::scope('date'),
+        ])
+        ->allowedSorts(TransactionFields::DATE)
+        ->defaultSorts(["-" . TransactionFields::DATE])
+        ->get();
 
         return $transactions;
     }
