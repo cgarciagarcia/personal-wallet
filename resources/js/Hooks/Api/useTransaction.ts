@@ -1,3 +1,4 @@
+import { type QueryBuilder } from "@cgarciagarcia/react-query-builder";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { type AxiosError } from "axios";
 import { toast } from "react-toastify";
@@ -9,7 +10,6 @@ import {
   updateTransaction,
 } from "@/Api/Endpoints";
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
-import { type QueryBuilder } from "@/Hooks/useQueryBuilder/useQueryBuilder";
 import { useAuthStore } from "@/Stores/useAuthStore";
 import {
   type BaseApiError,

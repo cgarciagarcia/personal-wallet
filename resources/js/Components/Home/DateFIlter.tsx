@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { type QueryBuilder } from "@cgarciagarcia/react-query-builder";
 import { endOfWeek, format, startOfWeek, subMonths, subYears } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { Text } from "@/Components/Layout/Text";
-import { type QueryBuilder } from "@/Hooks/useQueryBuilder/useQueryBuilder";
 
 const today = new Date();
 
@@ -16,7 +16,7 @@ interface FilterDate {
 const RangeDates = [
   {
     label: "Today",
-    value: format(today, "yyyy-mm-dd"),
+    value: format(today, "yyyy-MM-dd"),
     filter: "date",
   },
   {
@@ -28,7 +28,7 @@ const RangeDates = [
     filter: "between_dates",
   },
   {
-    label: "June",
+    label: format(today, "LLLL"),
     value: format(today, "M"),
     filter: "month",
   },
@@ -56,11 +56,6 @@ const RangeDates = [
     ],
     filter: "between_dates",
   },
-  {
-    label: "Custom",
-    value: "custom",
-    filter: "between_dates",
-  },
 ] as const satisfies FilterDate[];
 
 export interface DataFilterProps {
@@ -74,18 +69,18 @@ export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
 
   const onChangeDate = (date: FilterDate) => {
     if (typeof date.value === "string") {
-      queryBuilder.clearFilters().filter(date.filter, [date.value, "05"]);
+      queryBuilder.clearFilters().filters(date.filter, date.value);
     } else {
       queryBuilder
         .clearFilters()
-        .filter(date.filter, [date.value[0], date.value[1]]);
+        .filters(date.filter, [date.value[0], date.value[1]]);
     }
     setSelectedDate(date.filter);
   };
 
   return (
     <section className="min-w-full overflow-scroll">
-      <div className="flex w-auto flex-row items-center gap-4 md:justify-between md:overflow-x-hidden">
+      <div className="flex w-auto flex-row items-center gap-4 md:overflow-x-hidden">
         {RangeDates.map((date) => {
           return (
             <div

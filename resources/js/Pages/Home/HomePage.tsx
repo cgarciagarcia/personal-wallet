@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQueryBuilder } from "@cgarciagarcia/react-query-builder";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
 import {
@@ -9,7 +10,7 @@ import {
   Title,
   TransactionList,
 } from "@/Components";
-import { useQueryBuilder, useTransaction } from "@/Hooks";
+import { useTransaction } from "@/Hooks";
 import { type Transaction } from "@/Types";
 
 export const HomePage = () => {
@@ -17,12 +18,8 @@ export const HomePage = () => {
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 
-  const queryBuilder = useQueryBuilder({
-    aliases: {
-      asd: "123",
-    },
-  });
-  queryBuilder.filter("", 123);
+  const queryBuilder = useQueryBuilder();
+
   const { data: response, isFetching } =
     useTransaction().getTransactions(queryBuilder);
   const useDeleteTransaction = useTransaction().deleteMutation;
