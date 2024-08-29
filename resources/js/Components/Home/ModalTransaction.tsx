@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 
+import { InputNumber } from "@/Components/Forms";
 import { CheckboxInput } from "@/Components/Forms/Checkbox";
 import { Input } from "@/Components/Forms/Input";
 import { Button } from "@/Components/Layout/Button";
@@ -11,7 +12,6 @@ import Modal, { type ModalProps } from "@/Components/Layout/Modal";
 import { dateLocalTz } from "@/Helpers/utils";
 import { useTransaction } from "@/Hooks/Api/useTransaction";
 import { Intervals, TransactionsTypes, type Transaction } from "@/Types";
-import { NumberInput } from "../Forms/NumberInput";
 
 export interface ModalTransactionProps {
   transaction?: Transaction;
@@ -43,17 +43,15 @@ const schema = z
       .date()
       .min(new Date("1900-01-01"), { message: "The date is invalid" }),
     recurring: z.boolean(),
-    repetition_count: z.number().positive().optional(),
-    amount: z.number({ message: "The amount should be a number" }).gt(0),
+    repetition_count: z.union([z.number().positive().optional(), z.string()]),
+    amount: z.number({ message: "The amount should be a number" }).positive(),
     interval: z
       .enum([...getValues(Intervals), ""])
       .transform((value) => value ?? undefined),
   })
   .refine(
     (form) => {
-      return (
-        form.repetition_count && form.repetition_count > 0 && form.recurring
-      );
+      return !form.repetition_count || form.repetition_count !== "";
     },
     {
       message: "Recurring field should be checked.",
@@ -96,7 +94,7 @@ export const ModalTransaction = ({
             type: transaction.type,
             recurring: transaction.recurring,
             interval: transaction.interval,
-            repetition_count: transaction.repetition_count ?? 0,
+            repetition_count: transaction.repetition_count,
           }
         : {},
     );
@@ -173,12 +171,14 @@ export const ModalTransaction = ({
             error={errors.date?.message}
             containerClassName="md:w-1/2"
           />
-          <Input
+          <InputNumber
             id="money"
-            label="Amount"
-            {...register("amount", { valueAsNumber: true })}
-            type="number"
+            min="1"
             error={errors.amount?.message}
+            label="Amount"
+            {...register("amount", {
+              valueAsNumber: true,
+            })}
             containerClassName="md:w-1/2"
           />
         </div>
@@ -190,7 +190,7 @@ export const ModalTransaction = ({
             error={errors.interval?.message}
             containerClassName="md:w-1/2"
           />
-          <NumberInput
+          <InputNumber
             id="repetition_count"
             min="0"
             error={errors.repetition_count?.message}

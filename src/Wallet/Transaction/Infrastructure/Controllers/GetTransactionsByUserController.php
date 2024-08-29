@@ -16,10 +16,7 @@ class GetTransactionsByUserController
         GetTransactionsByUserCase $case,
     ): JsonResponse {
         return responder()
-            ->success(
-                $case->__invoke($request),
-                TransactionTransformer::class
-            )
+            ->success($case->__invoke($request), TransactionTransformer::class)
             ->respond();
     }
 }

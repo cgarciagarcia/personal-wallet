@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@cgarciagarcia/react-query-builder':
-        specifier: ^1.3.7
-        version: 1.3.7
+        specifier: ^1.12.1
+        version: 1.12.1
       '@headlessui/react':
         specifier: ^1.7.18
         version: 1.7.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -310,8 +310,8 @@ packages:
     resolution: {integrity: sha512-XEFXSlxiG5td2EJRe8vOmRbaXVgfcBlszKujvVmWIK/UpywWljQCfzAv3RQCGujWQ1RD4YYWEAqDXfuJiy8f5Q==}
     engines: {node: '>=6.9.0'}
 
-  '@cgarciagarcia/react-query-builder@1.3.7':
-    resolution: {integrity: sha512-N+6dt9loLJdp0HEPmsSzjy+Wg61pp0fD4BZrw2i1ZNQZW22oZAM9sOCB1jqgrr064kyaYK4ECNyRQWcdNlWdjg==}
+  '@cgarciagarcia/react-query-builder@1.12.1':
+    resolution: {integrity: sha512-RkLj0u+LqY08V5ORuvLD3wy+E3xCENUevymgwf6UUHaI8c9tiwz53Gqyu03pQVKS5pKhU6p9SWffFVNlfx9Thg==}
 
   '@esbuild/aix-ppc64@0.20.2':
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
@@ -2939,7 +2939,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@cgarciagarcia/react-query-builder@1.3.7':
+  '@cgarciagarcia/react-query-builder@1.12.1':
     dependencies:
       react: 18.3.1
 

@@ -18,7 +18,13 @@ import { Tooltip } from "react-tooltip";
 
 import { Router } from "@/Router";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 50000,
+    },
+  },
+});
 
 export const App = () => (
   <StrictMode>

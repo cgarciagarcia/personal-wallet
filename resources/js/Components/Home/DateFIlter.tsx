@@ -4,6 +4,7 @@ import { endOfWeek, format, startOfWeek, subMonths, subYears } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { Text } from "@/Components/Layout/Text";
+import { type TransactionsAlias } from "@/Pages";
 
 const today = new Date();
 
@@ -59,7 +60,7 @@ const RangeDates = [
 ] as const satisfies FilterDate[];
 
 export interface DataFilterProps {
-  queryBuilder: QueryBuilder;
+  queryBuilder: QueryBuilder<TransactionsAlias>;
 }
 
 export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
@@ -69,17 +70,15 @@ export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
 
   const onChangeDate = (date: FilterDate) => {
     if (typeof date.value === "string") {
-      queryBuilder.clearFilters().filters(date.filter, date.value);
+      queryBuilder.filter(date.filter, date.value);
     } else {
-      queryBuilder
-        .clearFilters()
-        .filters(date.filter, [date.value[0], date.value[1]]);
+      queryBuilder.filter(date.filter, [date.value[0], date.value[1]], true);
     }
     setSelectedDate(date.filter);
   };
 
   return (
-    <section className="min-w-full overflow-scroll">
+    <section className="min-w-full overflow-x-auto">
       <div className="flex w-auto flex-row items-center gap-4 md:overflow-x-hidden">
         {RangeDates.map((date) => {
           return (

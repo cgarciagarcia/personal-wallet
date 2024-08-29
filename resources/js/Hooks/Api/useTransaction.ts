@@ -10,25 +10,24 @@ import {
   updateTransaction,
 } from "@/Api/Endpoints";
 import { presentValidationErrors } from "@/Helpers/ApiErrorHelper";
+import { type TransactionsAlias } from "@/Pages";
 import { useAuthStore } from "@/Stores/useAuthStore";
 import {
   type BaseApiError,
   type ValidationErrorResponse,
 } from "@/Types/ApiTypes";
 
-const useTransactionKeys = () => {
-  return {
-    useGetTransactions: (token: string, params: string) => {
-      return ["getTransactions", token, params];
-    },
-  };
-};
+const useTransactionKeys = () => ({
+  useGetTransactions: (token: string, params: string) => {
+    return ["getTransactions", token, params];
+  },
+});
 
 export const useTransaction = () => {
   const credentials = useAuthStore((s) => s.credentials);
   const queryClient = useQueryClient();
 
-  const useGetTransactions = (query: QueryBuilder) =>
+  const useGetTransactions = (query: QueryBuilder<TransactionsAlias>) =>
     useQuery({
       queryFn: () => getTransactions(query.build()),
       queryKey: useTransactionKeys().useGetTransactions(

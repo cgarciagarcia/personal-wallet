@@ -111,7 +111,10 @@ export const RegisterPage = () => {
           />
           <Text className="float-left !text-sm">
             I have an account?{" "}
-            <Link to="/login" className="text-primary hover:underline">
+            <Link
+              to={ROUTES.login.path}
+              className="text-primary hover:underline"
+            >
               Sign in
             </Link>
           </Text>

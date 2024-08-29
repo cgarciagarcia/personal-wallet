@@ -16,7 +16,7 @@ import { IconEnveloper } from "@/Components/IconEnveloper";
 import { Text } from "@/Components/Layout";
 import { forwardRef } from "@/Helpers/forwardRef";
 
-export interface InputProps extends ComponentPropsWithoutRef<"input"> {
+interface InputProps extends ComponentPropsWithoutRef<"input"> {
   compact?: boolean;
   containerClassName?: string;
   error?: FormErrorType;
@@ -90,7 +90,7 @@ export const Input = forwardRef(
             className={twMerge(
               "block h-[46px] w-full rounded-md border border-gray-200 px-2 py-3",
               "focus:ring-secondary-green-300 focus:border-secondary-green text-gray-700 focus:ring-1",
-              "font-normal ",
+              "font-normal",
               "placeholder:text-sm placeholder:font-normal placeholder:text-gray-400 md:placeholder:text-base",
               "rounded border-solid border-gray-800",
               (!!left || type === "password") && "pl-10",

@@ -26,7 +26,7 @@ const Template = ({
   return (
     <div
       className={twMerge(
-        "border-style relative h-[600px] w-full max-w-full overflow-scroll md:w-[700px] ",
+        "border-style relative h-[600px] w-full max-w-full overflow-hidden md:w-[700px] ",
         containerClassName,
       )}
     >

@@ -8,10 +8,13 @@ use Akaunting\Money\Money;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum;
 use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
+use Wallet\User\Domain\Models\User;
 
 /**
  * Wallet\Transaction\Domain\Models\Transaction
@@ -53,6 +56,8 @@ use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
  */
 class Transaction extends Model
 {
+    use SoftDeletes;
+
     /**
      * @var string
      */
@@ -102,5 +107,16 @@ class Transaction extends Model
     public function scopeDate(Builder $query, string ...$days): Builder
     {
         return $query->whereIn(TransactionFields::DATE, $days);
+    }
+
+    /**
+     * @api
+     *
+     * @return BelongsTo<User, self>
+     *
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

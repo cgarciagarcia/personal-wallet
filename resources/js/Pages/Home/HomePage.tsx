@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useQueryBuilder } from "@cgarciagarcia/react-query-builder";
+import {
+  useQueryBuilder,
+  type BaseConfig,
+} from "@cgarciagarcia/react-query-builder";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
 import {
@@ -13,12 +16,23 @@ import {
 import { useTransaction } from "@/Hooks";
 import { type Transaction } from "@/Types";
 
+export interface TransactionsAlias {
+  transaction: "t";
+  user: "u";
+}
+
+export const TransactionConfig: BaseConfig<TransactionsAlias> = {
+  pruneConflictingFilters: {
+    date: ["between_dates", "month"],
+    between_dates: ["month", "between_dates"],
+  },
+};
+
 export const HomePage = () => {
   const [showAddOperation, setShowAddOperation] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
-
-  const queryBuilder = useQueryBuilder();
+  const queryBuilder = useQueryBuilder(TransactionConfig);
 
   const { data: response, isFetching } =
     useTransaction().getTransactions(queryBuilder);

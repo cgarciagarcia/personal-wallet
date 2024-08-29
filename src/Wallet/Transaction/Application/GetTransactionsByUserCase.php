@@ -24,7 +24,7 @@ final class GetTransactionsByUserCase
         $user = $request->user();
 
         /** @var Builder<Transaction> $query */
-        $query = Transaction::whereUserId($user->id);
+        $query = Transaction::whereUserId($user->id)->with('user');
 
         /** @var Collection<int, Transaction> $transactions */
         $transactions = QueryBuilder::for($query)
@@ -34,7 +34,7 @@ final class GetTransactionsByUserCase
             AllowedFilter::scope('date'),
         ])
         ->allowedSorts(TransactionFields::DATE)
-        ->defaultSorts(["-" . TransactionFields::DATE])
+        ->defaultSorts(['-' . TransactionFields::DATE])
         ->get();
 
         return $transactions;
