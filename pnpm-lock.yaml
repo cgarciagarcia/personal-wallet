@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@cgarciagarcia/react-query-builder':
-        specifier: ^1.12.1
-        version: 1.12.1
+        specifier: ^1.15.0
+        version: 1.15.0
       '@headlessui/react':
         specifier: ^1.7.18
         version: 1.7.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -23,6 +23,9 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.1.1
         version: 4.2.1(prettier@3.3.1)
+      '@lukemorales/query-key-factory':
+        specifier: ^1.3.4
+        version: 1.3.4(@tanstack/query-core@5.40.0)(@tanstack/react-query@5.40.1(react@18.3.1))
       '@radix-ui/react-dialog':
         specifier: ^1.0.5
         version: 1.0.5(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -310,8 +313,8 @@ packages:
     resolution: {integrity: sha512-XEFXSlxiG5td2EJRe8vOmRbaXVgfcBlszKujvVmWIK/UpywWljQCfzAv3RQCGujWQ1RD4YYWEAqDXfuJiy8f5Q==}
     engines: {node: '>=6.9.0'}
 
-  '@cgarciagarcia/react-query-builder@1.12.1':
-    resolution: {integrity: sha512-RkLj0u+LqY08V5ORuvLD3wy+E3xCENUevymgwf6UUHaI8c9tiwz53Gqyu03pQVKS5pKhU6p9SWffFVNlfx9Thg==}
+  '@cgarciagarcia/react-query-builder@1.15.0':
+    resolution: {integrity: sha512-XOJx0yr8QBMhzb29++PS9ZOiJQJLFZLgpUfHbrSqGynvn1BaCSpYWIURqHJE/j5sle29bYhDp9mTEhiQ8Tu7HQ==}
 
   '@esbuild/aix-ppc64@0.20.2':
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
@@ -536,6 +539,13 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@lukemorales/query-key-factory@1.3.4':
+    resolution: {integrity: sha512-A3frRDdkmaNNQi6mxIshsDk4chRXWoXa05US8fBo4kci/H+lVmujS6QrwQLLGIkNIRFGjMqp2uKjC4XsLdydRw==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      '@tanstack/query-core': '>= 4.0.0'
+      '@tanstack/react-query': '>= 4.0.0'
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -2939,7 +2949,7 @@ snapshots:
       '@babel/helper-validator-identifier': 7.24.7
       to-fast-properties: 2.0.0
 
-  '@cgarciagarcia/react-query-builder@1.12.1':
+  '@cgarciagarcia/react-query-builder@1.15.0':
     dependencies:
       react: 18.3.1
 
@@ -3110,6 +3120,11 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
+
+  '@lukemorales/query-key-factory@1.3.4(@tanstack/query-core@5.40.0)(@tanstack/react-query@5.40.1(react@18.3.1))':
+    dependencies:
+      '@tanstack/query-core': 5.40.0
+      '@tanstack/react-query': 5.40.1(react@18.3.1)
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

@@ -69,17 +69,19 @@ export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
   );
 
   const onChangeDate = (date: FilterDate) => {
-    if (typeof date.value === "string") {
+    queryBuilder.when(typeof date.value === "string", () => {
       queryBuilder.filter(date.filter, date.value);
-    } else {
-      queryBuilder.filter(date.filter, [date.value[0], date.value[1]], true);
-    }
+    });
+    queryBuilder.when(typeof date.value !== "string", () =>
+      queryBuilder.filter(date.filter, [date.value[0], date.value[1]], true),
+    );
+
     setSelectedDate(date.filter);
   };
 
   return (
     <section className="min-w-full overflow-x-auto">
-      <div className="flex w-auto flex-row items-center gap-4 md:overflow-x-hidden">
+      <div className="flex w-auto flex-row items-center gap-4">
         {RangeDates.map((date) => {
           return (
             <div

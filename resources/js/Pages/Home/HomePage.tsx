@@ -41,7 +41,7 @@ export const HomePage = () => {
   return (
     <section className="mt-8 flex flex-col items-center justify-center px-4 md:px-12">
       <div className="flex w-full flex-col-reverse justify-center gap-4 md:gap-6 lg:flex-row lg:gap-14">
-        <aside>
+        <aside className="lg:max-w-[60%]">
           <div className="mb-4 flex flex-col justify-between">
             <div className="flex flex-row items-center justify-between gap-8">
               <Title
