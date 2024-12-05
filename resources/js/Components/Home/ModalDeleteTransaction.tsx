@@ -25,7 +25,6 @@ export const ModalDeleteTransaction = ({
         </Text>
         <Button
           variant="complementary"
-          className=""
           onClick={onAccept}
           isLoading={isPending}
         >

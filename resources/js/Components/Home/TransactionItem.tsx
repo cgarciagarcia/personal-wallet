@@ -37,24 +37,26 @@ export const TransactionItem = memo(function TransactionItemMemo({
         </div>
         <div className="flex flex-col gap-4">
           <div className="flex flex-row justify-end gap-3">
-            <TrashIcon
-              data-tooltip-id="tooltip"
-              data-tooltip-content={`Delete transaction ${transaction.description}`}
+            <button
               className="w-4 cursor-pointer"
               aria-hidden="false"
-              tabIndex={0}
               onClick={() => setTransactionToDelete(transaction)}
               aria-label={`Delete transaction ${transaction.description} on ${format(dateLocalTz(transaction.date), "EEEE d MMM")}`}
-            />
-            <PencilIcon
+              data-tooltip-id="tooltip"
+              data-tooltip-content={`Delete transaction ${transaction.description}`}
+            >
+              <TrashIcon />
+            </button>
+            <button
               data-tooltip-id="tooltip"
               data-tooltip-content={`Edit transaction ${transaction.description} `}
               className="w-4 cursor-pointer"
               aria-hidden="false"
-              tabIndex={0}
               onClick={() => setTransactionToEdit(transaction)}
               aria-label={`Edit transaction ${transaction.description} on ${format(dateLocalTz(transaction.date), "EEEE d MMM")} `}
-            />
+            >
+              <PencilIcon />
+            </button>
           </div>
           <Text
             weight="medium"
