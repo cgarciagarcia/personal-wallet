@@ -103,7 +103,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @psalm-return HasMany<Budget>
+     * @return HasMany<Budget, $this>
      */
     public function budgets(): HasMany
     {
@@ -111,7 +111,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * @psalm-return HasMany<Transaction>
+     * @return HasMany<Transaction, $this>
      */
     public function transactions(): HasMany
     {

@@ -19,6 +19,7 @@ final readonly class UserLoginController
         UserLoginCase $uCase,
     ): JsonResponse {
         $token = $uCase->__invoke($request->toDto());
+
         return responder()->success($token)->respond();
     }
 }

@@ -15,8 +15,6 @@ use Wallet\Transaction\Infrastructure\Requests\UpdateTransactionRequest;
 final readonly class UpdateTransactionController
 {
     /**
-     *
-     *
      * @throws Throwable
      *
      * @api
@@ -27,6 +25,7 @@ final readonly class UpdateTransactionController
         Transaction $transaction,
     ): JsonResponse {
         $updatedTransaction = $case->__invoke($transaction, $request->toDto());
+
         return responder()->success(
             $updatedTransaction,
             TransactionTransformer::class

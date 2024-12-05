@@ -15,14 +15,13 @@ use Wallet\User\Domain\Models\User;
 final readonly class UserLoginCase
 {
     /**
-     *
      * @return string[]
      *
      * @throws Throwable
      *
      * @psalm-return array{access_token: string, refresh_token: string}
      */
-    public function __invoke(UserLoginDto $dto, ): array|null
+    public function __invoke(UserLoginDto $dto): array|null
     {
         throw_if(
             ! Auth::validate(['email' => $dto->email, 'password' => $dto->password, ]),

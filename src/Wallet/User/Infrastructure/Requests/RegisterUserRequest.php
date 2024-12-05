@@ -31,7 +31,7 @@ final class RegisterUserRequest extends FormRequest
                     ->symbols()
                     ->max(255),
             ],
-            "confirmation_password" => ['required', 'same:' . RegisterUserFields::PASSWORD],
+            'confirmation_password' => ['required', 'same:' . RegisterUserFields::PASSWORD],
         ];
     }
 

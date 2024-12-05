@@ -23,12 +23,12 @@ final readonly class CreateBudgetCase
     }
 
     /**
-     *
      * @throws Throwable
      */
     public function __invoke(CreateBudgetDto $dto, User $user): Budget
     {
         $dispatcher = $this->dispatcher;
+
         return DB::transaction(function () use ($dto, $user, $dispatcher) {
             $budget = new Budget([
                 [
@@ -40,6 +40,7 @@ final readonly class CreateBudgetCase
             $budget->save();
 
             $dispatcher->dispatch(new CreatedBudgetEvent($budget));
+
             return $budget;
         });
     }

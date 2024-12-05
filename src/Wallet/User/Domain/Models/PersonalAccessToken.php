@@ -51,9 +51,9 @@ class PersonalAccessToken extends SanctumPersonalAccessToken
 {
     use SoftDeletes;
 
-    public const SESSION_TOKEN_NAME = 'session_token';
+    public const string SESSION_TOKEN_NAME = 'session_token';
 
-    public const REFRESH_TOKEN_NAME = 'refresh_token';
+    public const string REFRESH_TOKEN_NAME = 'refresh_token';
 
     /**
      * @var string[]
@@ -77,7 +77,7 @@ class PersonalAccessToken extends SanctumPersonalAccessToken
      *
      * @api
      *
-     * @psalm-return Builder<self>
+     * @return Builder<PersonalAccessToken>
      */
     public function scopeActives(Builder $query): Builder
     {

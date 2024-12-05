@@ -10,7 +10,6 @@ use Wallet\User\Domain\Models\User;
 final class UserTransformer extends TransformerAbstract
 {
     /**
-     *
      * @return (int|string)[]
      *
      * @api

@@ -24,7 +24,12 @@ export const TransactionItem = memo(function TransactionItemMemo({
       className="min-h-auto w-full p-4 transition-colors duration-200 first:rounded-t-lg last:border-b-2 last:border-black hover:!bg-primary-300/30"
     >
       <Text as="span" weight="bold">
-        {format(dateLocalTz(transaction.date), "EEEE d MMM HH:ii")}
+        <time
+          dateTime={transaction.date}
+          aria-label={format(dateLocalTz(transaction.date), "EEEE d MMM HH:ii")}
+        >
+          {format(dateLocalTz(transaction.date), "EEEE d MMM HH:ii")}
+        </time>
       </Text>
       <div className="flex items-center justify-between">
         <div>
@@ -39,7 +44,7 @@ export const TransactionItem = memo(function TransactionItemMemo({
               aria-hidden="false"
               tabIndex={0}
               onClick={() => setTransactionToDelete(transaction)}
-              aria-label={`Delete transaction ${transaction.description} on ${format(new Date(), "EEEE d MMM")}`}
+              aria-label={`Delete transaction ${transaction.description} on ${format(dateLocalTz(transaction.date), "EEEE d MMM")}`}
             />
             <PencilIcon
               data-tooltip-id="tooltip"
@@ -48,7 +53,7 @@ export const TransactionItem = memo(function TransactionItemMemo({
               aria-hidden="false"
               tabIndex={0}
               onClick={() => setTransactionToEdit(transaction)}
-              aria-label={`Edit transaction ${transaction.description} on ${format(new Date(transaction.date), "EEEE d MMM")} `}
+              aria-label={`Edit transaction ${transaction.description} on ${format(dateLocalTz(transaction.date), "EEEE d MMM")} `}
             />
           </div>
           <Text

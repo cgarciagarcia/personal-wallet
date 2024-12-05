@@ -19,6 +19,6 @@ final readonly class InvalidateTokensByUser
             ->whereIn('name', $tokensNames)
             ->orwhereNull('expires_at')
             ->get();
-        $previousTokens->map(fn(PersonalAccessToken $token) => $token->revoke());
+        $previousTokens->map(fn (PersonalAccessToken $token) => $token->revoke());
     }
 }

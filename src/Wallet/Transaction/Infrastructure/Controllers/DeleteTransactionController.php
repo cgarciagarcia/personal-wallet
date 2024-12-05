@@ -23,6 +23,7 @@ final readonly class DeleteTransactionController
         Transaction $transaction,
     ): JsonResponse {
         $case->__invoke($transaction);
+
         return responder()->success()->respond(Response::HTTP_NO_CONTENT);
     }
 }

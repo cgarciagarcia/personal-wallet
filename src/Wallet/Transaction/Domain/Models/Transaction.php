@@ -94,7 +94,7 @@ class Transaction extends Model
      */
     public function scopeMonth(Builder $query, int ...$months): Builder
     {
-        return $query->whereIn(DB::raw("month(" . TransactionFields::DATE . ")"), $months);
+        return $query->whereIn(DB::raw('month(' . TransactionFields::DATE . ')'), $months);
     }
 
     /**
@@ -102,7 +102,7 @@ class Transaction extends Model
      *
      * @param Builder<Transaction> $query
      *
-     * @psalm-return Builder<self>
+     * @return Builder<self>
      */
     public function scopeDate(Builder $query, string ...$days): Builder
     {
@@ -112,8 +112,7 @@ class Transaction extends Model
     /**
      * @api
      *
-     * @return BelongsTo<User, self>
-     *
+     * @return BelongsTo<User, $this>
      */
     public function user(): BelongsTo
     {

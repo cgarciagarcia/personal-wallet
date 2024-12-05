@@ -23,6 +23,7 @@ final class CreateBudgetController
         User $user,
     ): JsonResponse {
         $result = $useCase->__invoke($request->toDto(), $user);
+
         return responder()->success($result)->respond();
     }
 }

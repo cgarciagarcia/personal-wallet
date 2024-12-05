@@ -9,7 +9,7 @@ use Throwable;
 
 class FailedLoginException extends Exception
 {
-    public function __construct(string $message = "", int $code = 401, Throwable|null $previous = null)
+    public function __construct(string $message = '', int $code = 401, Throwable|null $previous = null)
     {
         $message = $message === '' ? __('auth.failed') : $message;
         parent::__construct($message, $code, $previous);
