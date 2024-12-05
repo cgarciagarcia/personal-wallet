@@ -7,7 +7,7 @@ import { useAuthStore } from "@/Stores/useAuthStore";
 export const GuestRoute = ({ children }: { children?: ReactNode }) => {
   const { credentials } = useAuthStore();
 
-  if (credentials.access_token || credentials.refresh_token) {
+  if (credentials.access_token && credentials.refresh_token) {
     return <Navigate to={ROUTES.home.path} replace />;
   }
 

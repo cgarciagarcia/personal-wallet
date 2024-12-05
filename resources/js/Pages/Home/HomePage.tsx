@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useQueryBuilder } from "@cgarciagarcia/react-query-builder";
+import {
+  useQueryBuilder,
+  type BaseConfig,
+} from "@cgarciagarcia/react-query-builder";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
 import {
@@ -13,12 +16,23 @@ import {
 import { useTransaction } from "@/Hooks";
 import { type Transaction } from "@/Types";
 
+export interface TransactionsAlias {
+  transaction: "t";
+  user: "u";
+}
+
+export const TransactionConfig: BaseConfig<TransactionsAlias> = {
+  pruneConflictingFilters: {
+    date: ["between_dates", "month"],
+    between_dates: ["month", "between_dates"],
+  },
+};
+
 export const HomePage = () => {
   const [showAddOperation, setShowAddOperation] = useState(false);
   const [transactionToDelete, setTransactionToDelete] = useState<Transaction>();
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
-
-  const queryBuilder = useQueryBuilder();
+  const queryBuilder = useQueryBuilder(TransactionConfig);
 
   const { data: response, isFetching } =
     useTransaction().getTransactions(queryBuilder);
@@ -27,7 +41,7 @@ export const HomePage = () => {
   return (
     <section className="mt-8 flex flex-col items-center justify-center px-4 md:px-12">
       <div className="flex w-full flex-col-reverse justify-center gap-4 md:gap-6 lg:flex-row lg:gap-14">
-        <aside>
+        <aside className="lg:max-w-[60%]">
           <div className="mb-4 flex flex-col justify-between">
             <div className="flex flex-row items-center justify-between gap-8">
               <Title

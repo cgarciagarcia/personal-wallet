@@ -71,12 +71,12 @@ export const LoginPage = () => {
             {...register("password")}
             error={errors.password?.message}
           />
-          <Link to="/forgot-password">
+          <Link to={ROUTES.forgotPassword.path}>
             <Text className="float-left !text-sm text-primary hover:text-primary-500">
               Forgot Password?
             </Text>
           </Link>
-          <Link to="/registration">
+          <Link to={ROUTES.register.path}>
             <Text className="float-right !text-sm text-primary hover:text-primary-500">
               I don&apos;t have an account
             </Text>

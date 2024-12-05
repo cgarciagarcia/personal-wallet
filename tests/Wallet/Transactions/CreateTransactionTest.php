@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
-it('', function () {
+
+it('Should create a new transaction as user', function () {
     asUser();
-});
+})->skip();

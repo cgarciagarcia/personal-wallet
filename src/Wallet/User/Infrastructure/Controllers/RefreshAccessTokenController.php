@@ -15,6 +15,7 @@ final class RefreshAccessTokenController
         RefreshAccessTokenCase $uCase,
     ): JsonResponse {
         $token = $uCase->__invoke($request->toDto());
+
         return responder()->success($token)->respond();
     }
 }

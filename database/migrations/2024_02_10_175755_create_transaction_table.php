@@ -31,6 +31,7 @@ return new class extends Migration {
             $table->date('next_charge_date')->nullable();
             $table->string("description");
             $table->timestampsTz();
+            $table->softDeletes();
         });
     }
 

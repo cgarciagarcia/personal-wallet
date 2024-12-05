@@ -6,21 +6,31 @@ namespace Wallet\Transaction\Domain\Models;
 
 abstract class TransactionFields
 {
-    public const ID = "id";
-    public const MONEY = "money";
-    public const TYPE = "type";
-    public const USER_ID = "user_id";
-    public const DATE = "date";
-    public const CATEGORY_ID = "category_id";
-    public const RECURRING = "recurring";
-    public const REPETITION_COUNT = "repetition_count";
-    public const INTERVAL = "interval";
-    public const REPETITION_REMAINING = "repetition_remaining";
-    public const NEXT_CHARGE_DATE = "next_charge_date";
-    public const DESCRIPTION = "description";
+    public const string ID = 'id';
 
+    public const string MONEY = 'money';
 
-    public const FILLABLE = [
+    public const string TYPE = 'type';
+
+    public const string USER_ID = 'user_id';
+
+    public const string DATE = 'date';
+
+    public const string CATEGORY_ID = 'category_id';
+
+    public const string RECURRING = 'recurring';
+
+    public const string REPETITION_COUNT = 'repetition_count';
+
+    public const string INTERVAL = 'interval';
+
+    public const string REPETITION_REMAINING = 'repetition_remaining';
+
+    public const string NEXT_CHARGE_DATE = 'next_charge_date';
+
+    public const string DESCRIPTION = 'description';
+
+    public const array FILLABLE = [
         self::TYPE,
         self::MONEY,
         self::DESCRIPTION,

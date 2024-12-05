@@ -14,6 +14,7 @@ final class RefreshAccessTokenRequest extends FormRequest
     {
         /** @var User $user */
         $user = $this->user();
+
         return new RefreshAccessTokenDto(
             user: $user
         );

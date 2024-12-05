@@ -20,7 +20,7 @@ final readonly class UpdateTransactionDto
         public int|null $category,
         public bool $recurring,
         public string $description,
-        public ?RepetitionIntervalEnum $interval,
+        public RepetitionIntervalEnum|null $interval,
         public User $user,
         public int $repetition = 0,
     ) {

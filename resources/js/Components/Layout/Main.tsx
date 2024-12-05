@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import { Outlet } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
+import { Animation } from "@/Components";
 import { Footer } from "@/Components/Layout/Footer";
 import { Navbar } from "@/Components/Layout/Navbar";
 import { useFooter } from "@/Hooks/useFooter";
@@ -27,7 +28,9 @@ export const Main = ({ children }: MainProps) => {
         )}
       >
         <div className="mx-auto h-full w-full max-w-limit-x ">
-          <AnimatePresence>{children ?? <Outlet />}</AnimatePresence>
+          <AnimatePresence>
+            <Animation>{children ?? <Outlet />}</Animation>
+          </AnimatePresence>
         </div>
       </div>
       {renderFooter && <Footer />}

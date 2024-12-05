@@ -13,7 +13,7 @@ final class UserLogoutCase
     public function __invoke(User $user): void
     {
         /** @var Collection<int, PersonalAccessToken> $tokens */
-        $tokens = $user->tokens()->where('expires_at', ">=", now())->get();
-        $tokens->each(fn(PersonalAccessToken $token) => $token->revoke());
+        $tokens = $user->tokens()->where('expires_at', '>=', now())->get();
+        $tokens->each(fn (PersonalAccessToken $token) => $token->revoke());
     }
 }

@@ -23,8 +23,6 @@ final readonly class RegisterUserCase
     }
 
     /**
-     *
-     *
      * @throws Throwable
      */
     public function __invoke(RegisterUserDto $toDto): User

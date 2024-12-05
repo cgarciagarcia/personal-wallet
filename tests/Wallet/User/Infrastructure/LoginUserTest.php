@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 
 use Database\Factories\UserFactory;
+use function Pest\Laravel\postJson;
 
 describe('Login test', function () {
     it('should return a token', function () {
         $user = UserFactory::new()->makeOne();
         $user->save();
 
-        $response = $this->postJson('/api/v1/login', [
+        $response = postJson('/api/v1/login', [
             'email' => $user->email,
             'password' => 'Password123!',
         ]);
@@ -30,7 +31,7 @@ describe('Login test', function () {
         $user = UserFactory::new()->makeOne();
         $user->save();
 
-        $response = $this->postJson('/api/v1/login', [
+        $response = postJson('/api/v1/login', [
             'email' => $user->email,
             'password' => 'WrongPassword!',
         ]);
@@ -51,20 +52,20 @@ describe('Login test', function () {
         $user = UserFactory::new()->makeOne();
         $user->save();
 
-        $response = $this->postJson('/api/v1/login', [
+        $response = postJson('/api/v1/login', [
             'email' => $user->email,
             'password' => 'Password123!',
         ]);
 
         $response->assertOk();
 
-        $response2 = $this->postJson('/api/v1/login', [
+        $response2 = postJson('/api/v1/login', [
             'email' => $user->email,
             'password' => 'Password123!',
         ]);
         $response2->assertOk();
 
-
-        $this->assertEquals(2, $user->tokens()->count());
+        expect($user->tokens()->count())
+            ->toBe(2);
     });
 });

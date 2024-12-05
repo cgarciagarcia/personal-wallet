@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 
 import { Main } from "@/Components/Layout/Main";
-import { AnimationRoute, GuestRoute, PrivateRoute, routes } from "@/Router";
+import { GuestRoute, PrivateRoute, routes } from "@/Router";
 
 export const Router = () => {
   const location = useLocation();
@@ -15,11 +15,7 @@ export const Router = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           {routes.private.map((route) => (
-            <Route
-              path={route.path}
-              element={<AnimationRoute>{route.element}</AnimationRoute>}
-              key={route.path}
-            />
+            <Route path={route.path} element={route.element} key={route.path} />
           ))}
         </Route>
       </Route>

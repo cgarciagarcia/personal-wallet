@@ -4,6 +4,8 @@ import { endOfWeek, format, startOfWeek, subMonths, subYears } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 import { Text } from "@/Components/Layout/Text";
+import { useMount } from "@/Hooks";
+import { type TransactionsAlias } from "@/Pages";
 
 const today = new Date();
 
@@ -59,40 +61,39 @@ const RangeDates = [
 ] as const satisfies FilterDate[];
 
 export interface DataFilterProps {
-  queryBuilder: QueryBuilder;
+  queryBuilder: QueryBuilder<TransactionsAlias>;
 }
 
 export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
-  const [selectedDate, setSelectedDate] = useState<string>(
-    RangeDates[0].filter,
-  );
+  const [selectedDate, setSelectedDate] = useState<string>(RangeDates[0].label);
 
   const onChangeDate = (date: FilterDate) => {
-    if (typeof date.value === "string") {
-      queryBuilder.clearFilters().filters(date.filter, date.value);
-    } else {
-      queryBuilder
-        .clearFilters()
-        .filters(date.filter, [date.value[0], date.value[1]]);
-    }
-    setSelectedDate(date.filter);
+    queryBuilder.when(typeof date.value === "string", () => {
+      queryBuilder.filter(date.filter, date.value, true);
+    });
+    queryBuilder.when(typeof date.value !== "string", () =>
+      queryBuilder.filter(date.filter, [date.value[0], date.value[1]], true),
+    );
+
+    setSelectedDate(date.label);
   };
 
+  useMount(() => {
+    queryBuilder.filter(RangeDates[0].filter, RangeDates[0].value, true);
+  });
+
   return (
-    <section className="min-w-full overflow-scroll">
-      <div className="flex w-auto flex-row items-center gap-4 md:overflow-x-hidden">
+    <section className="min-w-full overflow-x-auto">
+      <div className="flex w-auto flex-row items-center gap-4">
         {RangeDates.map((date) => {
           return (
-            <div
+            <button
               className={twMerge(
-                "flex flex-row items-center justify-center rounded-full border border-primary-200 bg-primary/70 p-2 text-white hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black",
+                "flex flex-row items-center justify-center rounded-md border border-primary-200 bg-primary/70 p-2 text-white hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black",
                 selectedDate === date.label && "bg-primary-300 text-white",
               )}
-              tabIndex={0}
-              role="button"
               aria-label={date.label}
               key={date.label}
-              onKeyDown={() => null}
               onClick={() => onChangeDate(date)}
             >
               <Text
@@ -103,7 +104,7 @@ export const DateFilter = ({ queryBuilder }: DataFilterProps) => {
               >
                 {date.label}
               </Text>
-            </div>
+            </button>
           );
         })}
       </div>

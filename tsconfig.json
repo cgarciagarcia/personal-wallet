@@ -1,39 +1,39 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "baseUrl": "./resources/js",
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "incremental": true,
-        "isolatedModules": true,
-        "jsx": "react-jsx",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext"
-        ],
-        "module": "esnext",
-        "moduleResolution": "node",
-        "noEmit": true,
-        "noUnusedParameters": true,
-        "noUnusedLocals": true,
-        "noUncheckedIndexedAccess": true,
-        "paths": {
-            "@/*": [
-                "*"
-            ]
-        },
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "target": "ESNext",
-        "types": [
-            "vite/client"
-        ]
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./resources/js",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "paths": {
+      "@/*": [
+        "*"
+      ]
     },
-    "include": [
-        "./resources/js/**/*",
-        ".eslintrc.cjs",
-        "./prettier.config.cjs"
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ESNext",
+    "types": [
+      "vite/client"
     ]
+  },
+  "include": [
+    "./resources/js/**/*",
+    ".eslintrc.cjs",
+    "./prettier.config.cjs"
+  ]
 }

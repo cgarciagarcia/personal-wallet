@@ -19,7 +19,7 @@ export interface NewTransaction {
   type: string;
   date: string;
   recurring: boolean;
-  repetition_count?: number;
+  repetition_count?: number | string;
   money: number;
   interval?: TransactionsIntervalType;
 }

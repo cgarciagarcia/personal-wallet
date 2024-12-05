@@ -9,7 +9,7 @@ import { Message, type FormErrorType } from "@/Components/Forms/Message";
 import { Text } from "@/Components/Layout";
 import { forwardRef } from "@/Helpers/forwardRef";
 
-export interface InputProps extends ComponentPropsWithoutRef<"input"> {
+interface InputProps extends ComponentPropsWithoutRef<"input"> {
   compact?: boolean;
   containerClassName?: string;
   error?: FormErrorType;

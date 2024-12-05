@@ -37,6 +37,6 @@ class Category extends Model
      * @psalm-var list{'name'}
      */
     protected $fillable = [
-        "name",
+        'name',
     ];
 }

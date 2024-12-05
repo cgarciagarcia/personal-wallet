@@ -18,6 +18,7 @@ final class UserLogoutController
         /** @var User $user */
         $user = $request->user();
         $uCase->__invoke($user);
+
         return responder()->success()->respond();
     }
 }

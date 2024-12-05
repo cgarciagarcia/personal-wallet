@@ -21,14 +21,12 @@ final readonly class CreateTransactionCase
     }
 
     /**
-     *
-     *
-     *
      * @throws Throwable
      */
     public function __invoke(CreateTransactionDto $dto): Transaction
     {
         $dispatcher = $this->dispatcher;
+
         return DB::transaction(function () use ($dto, $dispatcher) {
             $transaction = new Transaction();
             $transaction->date = $dto->date;
@@ -44,6 +42,7 @@ final readonly class CreateTransactionCase
             $transaction->save();
 
             $dispatcher->dispatch(new CreatedTransactionEvent($transaction));
+
             return $transaction;
         });
     }

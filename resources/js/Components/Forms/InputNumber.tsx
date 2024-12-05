@@ -10,7 +10,7 @@ import { IconEnveloper } from "@/Components/IconEnveloper";
 import { Text } from "@/Components/Layout";
 import { forwardRef } from "@/Helpers/forwardRef";
 
-export interface InputProps extends ComponentPropsWithoutRef<"input"> {
+interface InputProps extends ComponentPropsWithoutRef<"input"> {
   compact?: boolean;
   containerClassName?: string;
   error?: FormErrorType;
@@ -24,7 +24,7 @@ export interface InputProps extends ComponentPropsWithoutRef<"input"> {
   decimals?: boolean;
 }
 
-export const NumberInput = forwardRef(
+export const InputNumber = forwardRef(
   (
     {
       className,
@@ -40,7 +40,6 @@ export const NumberInput = forwardRef(
       rightMarginWidth = 40,
       style,
       required,
-      type = "number",
       decimals = true,
       ...rest
     }: InputProps,
@@ -79,11 +78,11 @@ export const NumberInput = forwardRef(
               "font-normal ",
               "placeholder:text-sm placeholder:font-normal placeholder:text-gray-400 md:placeholder:text-base",
               "rounded border-solid border-gray-800",
-              (!!left || type === "password") && "pl-10",
+              !!left && "pl-10",
               !!rest.disabled &&
                 "bg-black-100 border-gray-500  hover:cursor-not-allowed",
               !!error && "focus:border-red focus:ring-red-200",
-              type === "password" || right ? `mr-[${rightMarginWidth}px]` : "",
+              right ? `mr-[${rightMarginWidth}px]` : "",
               className,
             )}
             aria-invalid={!!error}
