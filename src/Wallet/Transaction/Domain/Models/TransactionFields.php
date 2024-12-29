@@ -29,18 +29,4 @@ abstract class TransactionFields
     public const string NEXT_CHARGE_DATE = 'next_charge_date';
 
     public const string DESCRIPTION = 'description';
-
-    public const array FILLABLE = [
-        self::TYPE,
-        self::MONEY,
-        self::DESCRIPTION,
-        self::CATEGORY_ID,
-        self::DATE,
-        self::RECURRING,
-        self::REPETITION_COUNT,
-        self::USER_ID,
-        self::INTERVAL,
-        self::REPETITION_REMAINING,
-        self::NEXT_CHARGE_DATE,
-    ];
 }

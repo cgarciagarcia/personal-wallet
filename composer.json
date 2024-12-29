@@ -78,7 +78,7 @@
     "phpstan": "vendor/bin/phpstan analyse",
     "rector": "vendor/bin/rector process --dry-run --ansi",
     "rector:fix": "vendor/bin/rector process --ansi",
-    "style:fix": "vendor/bin/ecs --fix && vendor/bin/psalm --alter --no-cache --issues=all --config=psalm.xml && vendor/bin/rector process --ansi",
+    "style:fix": "vendor/bin/ecs --fix && vendor/bin/rector process --ansi",
     "install-app": [
       "@php artisan key:generate --ansi",
       "@php artisan migrate:install",

@@ -16,22 +16,16 @@ use Wallet\User\Domain\Models\User;
 
 final class CreateTransactionRequest extends FormRequest
 {
-    /**
-     * @api
-     *
-     * @return (\Illuminate\Validation\Rules\Enum|\Illuminate\Validation\Rules\ExcludeIf|string)[][]
-     *
-     * @psalm-return array{money: list{'required', 'numeric'}, type: list{'required', \Illuminate\Validation\Rules\Enum}, date: list{'required', 'date'}, category_id: list{'nullable', 'integer'}, description: list{'required', 'string'}, recurring: list{'boolean', 'required'}, repetition_count: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', 'integer', 'gte:1'}, interval: list{\Illuminate\Validation\Rules\ExcludeIf, 'required', \Illuminate\Validation\Rules\Enum}}
-     */
     public function rules(): array
     {
-        return array_merge([
+        return [
+            ...TransactionRule::rules($this),
             TransactionFields::MONEY => ['required', 'numeric'],
             TransactionFields::TYPE => ['required', Rule::enum(FlowTypeEnum::class)],
             TransactionFields::DATE => ['required', 'date'],
-            TransactionFields::CATEGORY_ID => ['nullable', 'integer'],
-            TransactionFields::DESCRIPTION => ['required', 'string'],
-        ], TransactionRule::rules($this));
+            TransactionFields::CATEGORY_ID => ['nullable', 'integer', ],
+            TransactionFields::DESCRIPTION => ['required', 'string', ],
+        ];
     }
 
     /**

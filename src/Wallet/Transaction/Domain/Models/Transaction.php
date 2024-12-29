@@ -63,7 +63,9 @@ class Transaction extends Model
      */
     protected $table = 'transactions';
 
-    protected $fillable = TransactionFields::FILLABLE;
+    protected $guarded = [
+        'id',
+    ];
 
     protected $casts = [
         TransactionFields::DATE => 'date',

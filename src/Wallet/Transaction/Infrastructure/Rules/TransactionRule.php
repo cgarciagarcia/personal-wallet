@@ -8,6 +8,7 @@ namespace Wallet\Transaction\Infrastructure\Rules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Wallet\Transaction\Domain\Models\TransactionFields;
+use Wallet\Transaction\Domain\Models\ValueObjects\FlowTypeEnum;
 use Wallet\Transaction\Domain\Models\ValueObjects\RepetitionIntervalEnum;
 
 final class TransactionRule
@@ -23,6 +24,11 @@ final class TransactionRule
         $repetition = $request->get(TransactionFields::REPETITION_COUNT);
 
         return [
+            TransactionFields::MONEY => ['required', 'numeric'],
+            TransactionFields::TYPE => ['required', Rule::enum(FlowTypeEnum::class)],
+            TransactionFields::DATE => ['required', 'date'],
+            TransactionFields::CATEGORY_ID => ['nullable', 'integer'],
+            TransactionFields::DESCRIPTION => ['required', 'string'],
             TransactionFields::RECURRING => ['boolean', 'required'],
             TransactionFields::REPETITION_COUNT => [
                 Rule::excludeIf($recurring === false || $repetition !== null),
